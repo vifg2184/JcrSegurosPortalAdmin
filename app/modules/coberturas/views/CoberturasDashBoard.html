@@ -1,0 +1,210 @@
+<spinner name="spinnerUserList" ng-cloak="">
+    <div class="overlay"></div>
+    <div class="spinner">
+        <div class="test"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+    </div>
+    <div class="please-wait">Please Wait...</div>
+</spinner>
+
+
+<div class="skin-blue sidebar-mini">
+
+    <div class="wrapper" ng-controller="CoberturaController">
+        <!--header-->
+        <div ui-view="header"></div>
+
+        <!--menu-->
+        <div ui-view="menu"></div>
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+
+            <div growl></div>
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Coberturas
+                    <small>Control panel</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
+                    <li class="active">Coberturas Dashboard</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Main row -->
+                <div class="row">
+                    <section class="content" style="min-height:450px;">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <div class="box  box-info">
+                                    <div class="box-header ">
+                                        <div class="small-box">
+                                            <div class="customIcon">
+                                                <a ui-sref="crearUsuarios" data-toggle="tooltip" title="Agregar Aseguradora">
+                                                    <button class="btn btn-primary"><i class="ion ion-plus"></i></button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <h3 class="box-title">Sistema de Coberturas</h3>
+
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body">
+
+                                        <div>
+                                            <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                                        </div>
+
+                                        <table id="userTable" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th ng-repeat="header in coberturaTableHeaders">
+                                                    <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir" sortedby="filterCriteria.JcrParameters.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
+                                                </th>
+                                                <th>Ramo</th>
+                                                <th>Monto Cobertura</th>
+                                                <th>Mondo Deducible</th>
+                                                <th>Monto Prima</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="obj in coberturas">
+                                                <td>{{obj.cobertura_nombre}}</td>
+                                                <td>{{obj.ramo.ramo_nombre}}</td>
+                                                <td>{{obj.monto_cobertura}}</td>
+                                                <td>{{obj.monto_deducible}}</td>
+                                                <td>{{obj.monto_prima}}</td>
+                                                <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
+                                                <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
+                                                    <a ui-sref="crearUsuarios({id_user:user.siniestro_id,edit:true})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                </td>
+                                                <!--ng-click="editMode(user.user_id)"-->
+                                            </tr>
+                                            </tbody>
+                                            </tfoot>
+                                        </table>
+                                        <div ng-show="totalRecords == 0">
+                                            <h3>No Customers Found</h3>
+                                        </div>
+                                        <div ng-show="totalPages > 1" class="align-center">
+                                            <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="previous" next-text="next" last-text="last"
+                                                            direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
+                                        </div>
+                                    </div><!-- /.box-body -->
+
+                                </div><!-- /.box -->
+
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </section><!-- /.content -->
+
+                </div>
+                <br/>
+                <br/>
+            </section>
+
+            <!--Modal con tabs-->
+            <script type="text/ng-template" id="myModalContent.html">
+                <div class="modal-header text-center fondo">
+                    <h3 class="modal-title colorTitulo">User Information</h3>
+                    <!--imagen del estudiante-->
+                    <img src="{{userFound.user_photo}}" class="imageStuden img-circle" alt="">
+                </div>
+                <div class="text-center">
+                    <h4>{{userFound.first_name+" "+userFound.first_last_name}}</h4>
+                </div>
+                <div class="text-center">
+                    <h5>{{userFound.user_type.user_type_name}}</h5>
+                </div>
+                <div class="modal-body row">
+                    <div ng-switch="userFound.user_type_id">
+                        <!--Tabs Student-->
+                        <div ng-switch-when="2">
+
+                            <uib-tabset active="active" class="btn btn-md">
+                                <uib-tab index="0" heading="School">
+                                    <ul class="pull-left up-list">
+                                        <li class="text-left list">
+                                            <a href="" ng-click="showBusiness(userFound.busines.business_id)" ng-show="rol_user_id == 1 || rol_user_id == 6">{{userFound.busines.business_name}}</a>
+                                            <strong ng-show="rol_user_id != 1 && rol_user_id != 6">{{userFound.busines.business_name}}</strong>
+                                        </li>
+                                    </ul>
+                                </uib-tab>
+                                <uib-tab index="1" heading="Stops">
+                                    <ul class="pull-left up-list">
+                                        <li class="text-left list" ng-repeat="stopsObj in userFound.stopsUserRelationship">
+                                            <a href="" ng-click="showStop(stopsObj.stops.id_stop)">{{stopsObj.stops.stop_name}}</a>
+                                        </li>
+                                    </ul>
+                                </uib-tab>
+                                <uib-tab index="2" heading="Routes">
+                                    <ul class="pull-left up-list">
+                                        <li class="text-left list" ng-repeat="routeObj in userFound.stopsUserRelationship">
+                                            <a href="" ng-click="showRoute(routeObj.stops.routes.id_route)">
+                                                {{routeObj.stops.routes.route_number + ' - '+ routeObj.stops.routes.route_name}} - {{routeObj.stops.routes.route_type == 1 ? 'Pick Up' : 'Drop Off'}}
+                                            </a>
+
+                                        </li>
+                                    </ul>
+                                </uib-tab>
+                                <uib-tab index="3" heading="Phones">
+                                    <ul class="pull-left up-list">
+                                        <li class="text-left list" ng-repeat="phones in userFound.phone_numbers"><span><b>{{phones.phone_name}}</b></span> : {{phones.phone_number | tel}}</li>
+                                    </ul>
+                                </uib-tab>
+                                <uib-tab index="4" heading="User Relationship">
+                                    <div ng-repeat="stakeholder in userFound.Stakeholders" ng-hide="stakeholder[0].status_id == 3" class="col-md-3-parents">
+                                        <img src="{{stakeholder[0].user_photo}}" alt="User Image" class="imagenParent img-circle">
+                                        <a href="" class="users-list-name" ng-click="showUser(stakeholder[0].user_id)">{{stakeholder[0].first_name +' '+ stakeholder[0].first_last_name}}</a>
+                                        <span class="users-list-date">{{stakeholder[0].document_id}}</span>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+
+                        </div>
+                        <!--Tabs stakeholder-->
+                        <div ng-switch-when="3">
+                            <uib-tabset active="active" class="btn btn-md">
+                                <uib-tab index="0" heading="Phones">
+                                    <ul class="pull-left up-list">
+                                        <li class="text-left list" ng-repeat="phones in userFound.phone_numbers"><span><b>{{phones.phone_name}}</b></span> : {{phones.phone_number}}</li>
+                                    </ul>
+                                </uib-tab>
+                                <uib-tab index="1" heading="User Relationship">
+                                    <div ng-repeat="userRelation in userFound.UserRelationship" ng-hide="userRelation.status_id == 3" class="col-md-3-parents">
+                                        <img src="{{userRelation.user_photo}}" alt="User Image" class="imagenParent img-circle">
+                                        <a href="" class="users-list-name" ng-click="showUser(userRelation.user_id)">{{userRelation.first_name +' '+ userRelation.first_last_name}}</a>
+                                        <span class="users-list-date">{{userRelation.document_id}}</span>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                        <!--Tabs other user-->
+                        <div ng-switch-default>
+                            <uib-tabset active="active" class="btn btn-md">
+                                <uib-tab index="0" heading="Phones">
+                                    <ul class="pull-left up-list">
+                                        <li class="text-left list" ng-repeat="phones in userFound.phone_numbers"><span><b>{{phones.phone_name}}</b></span> : {{phones.phone_number}}</li>
+                                    </ul>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+                </div>
+            </script>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <div ui-view="footer"></div>
+    </div>
+</div>
+</div>

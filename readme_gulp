@@ -1,0 +1,24 @@
+
+https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
+
+1. Install gulp globally:
+
+If you have previously installed a version of gulp globally, please run npm rm --global gulp to make sure your old version doesn't collide with gulp-cli.
+
+$ npm install --global gulp-cli
+2. Initialize your project directory:
+
+$ npm init
+3. Install gulp in your project devDependencies:
+
+$ npm install --save-dev gulp
+4. Create a gulpfile.js at the root of your project:
+
+var gulp = require('gulp');
+
+gulp.task('default', function() {
+  // place code for your default task here
+});
+5. Run gulp:
+
+$ gulp

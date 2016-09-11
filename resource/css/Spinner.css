@@ -1,0 +1,147 @@
+
+.spinner {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: calc(50% - 70px);
+    left: calc(50% - 50px);
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #3c8dbc;
+    border: solid 3px #fff;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    -webkit-animation: bounce 2.0s infinite ease-in-out;
+    animation: bounce 2.0s infinite ease-in-out;
+}
+
+
+.test{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes bounce {
+    0%, 100% {
+        -webkit-transform: scale(0.0)
+    }
+    50% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}
+
+form.well {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    background-color: rgba(0,0,0,.5);
+    z-index: 1000; /* Something high */
+    height: 200px;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px; /* Negative half width */
+    margin-top: -100px; /* Negative half height */
+    box-shadow: 0 0 0 2038px rgba(0,0,0,.5); /* The semi-transparent bg. Something weird about Safari and numbers bigger than this */
+    -webkit-transition: 1s; /* Little extra spice */
+
+}
+
+.please-wait {
+    text-align: center;
+    position: absolute;
+    top: calc(50% + 45px);
+    left: calc(50% - 45px);
+    color: #fff;
+    z-index: 10;
+}
+
+.success {
+    padding: 15px;
+    text-align: center;
+    border-radius: 50%;
+    border: solid 2px #050;
+}
+
+.glyphicon-remove {
+    cursor: pointer;
+}
+
+.example-modal .modal {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    display: block;
+    z-index: 1;
+}
+.example-modal .modal {
+    background: transparent !important;
+}
+
+
+.div-alert{
+    transition: all linear 0.5s;
+    height: 100px;
+    width: 350px;
+    position: relative;
+    top: 520px;
+    left: 100px;
+}
+
+#map_canvas{
+    width: 100%;
+    height: 500px;
+}
+
+table.tableSection {
+    display: table;
+    width: 100%;
+}
+table.tableSection thead, table.tableSection tbody {
+    float: left;
+    width: 100%;
+}
+table.tableSection tbody {
+    overflow: auto;
+    height: 150px;
+}
+table.tableSection tr {
+    width: 100%;
+    display: table;
+    text-align: left;
+}
+table.tableSection th, table.tableSection td {
+    width: 30%;
+    padding: 5px;
+}
