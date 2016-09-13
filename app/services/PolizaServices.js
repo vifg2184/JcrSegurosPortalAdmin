@@ -45,6 +45,44 @@ angular.module('App')
         };
 
 
+        lookup.getPolizaById = function (request) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_POLIZA_BY_ID,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+        };
+
+
+        lookup.createPoliza = function (request) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_CREATE_POLIZA,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+        };
 
 
 
@@ -72,7 +110,7 @@ angular.module('App')
         }
 
         this.cleanModeEdit = function(){
-            this.setModeEdit({isModeEdit:false,idUser:0});
+            this.setModeEdit({isModeEdit:false,idPoliza:0});
         }
 
 
@@ -84,8 +122,21 @@ angular.module('App')
         };
 
 
+        this.getShowGrowlMessage = function () {
+            return showGrowl;
+        }
+
+        this.setShowGrowlMessage = function (obj) {
+            showGrowl = obj;
+        }
+
+        
         this.allPolizaPaginate = function(request){
             return PolizasLookup.allPolizas(request);
+        }
+
+        this.newPoliza = function(request){
+            return PolizasLookup.createPoliza(request);
         }
 
     }]);

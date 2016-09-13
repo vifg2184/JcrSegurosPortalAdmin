@@ -1,0 +1,514 @@
+<spinner name="spinnerNew" ng-cloak="">
+    <div class="overlay"></div>
+    <div class="spinner">
+        <div class="test"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+    </div>
+    <div class="please-wait">Please Wait...</div>
+</spinner>
+
+<div class="skin-blue sidebar-mini">
+
+    <div class="wrapper" ng-controller="NewPolizaCtrl">
+
+        <!--Header-->
+        <div ui-view="header"></div>
+
+        <!--Menu-->
+        <div ui-view="menu"></div>
+
+        <!--Content-->
+        <div class="content-wrapper">
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>Crear Poliza</h1>
+                <ol class="breadcrumb">
+                    <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
+                    <li><a ui-sref="routes">Poliza</a></li>
+                    <li class="active"><a>Crear Poliza</a></li>
+                </ol>
+
+            </section>
+
+            <section class="content">
+                <div growl></div>
+                <!--Information Route-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Poliza Infomacion</h3>
+                                </div><!-- /.box-header -->
+
+                                <!-- form start -->
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label>Numero de Poliza</label>
+                                                <input type="text" class="form-control"placeholder="Numero de Poliza" ng-model="poliza.numero_poliza">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label>Numero de Recibo</label>
+                                                <input type="text" class="form-control"placeholder="Numero de Recibo" ng-model="poliza.numero_recibo">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Referencia</label>
+                                                <input type="text" class="form-control" placeholder="Referencia" ng-model="poliza.referencia">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Prima</label>
+                                                <input type="text" class="form-control" placeholder="Prima" ng-model="poliza.prima_total">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Tipo de Poliza</label>
+                                                <select class="form-control" ng-model="poliza.tipo_poliza_id">
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="1">Individual</option>
+                                                    <option value="2">Colectiva</option>
+                                                    <option value="3">Solidaria</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Ramo</label>
+                                                <select class="form-control" ng-model="poliza.ramo_id">
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="1">Personas</option>
+                                                    <option value="2">Patrimoniales</option>
+                                                    <option value="3">Auto</option>
+                                                    <option value="4">RC</option>
+                                                    <option value="5">Fianza</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Vigencia</label>
+                                                <p class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="open1()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    <input type="text" class="form-control"
+                                                           uib-datepicker-popup="{{format}}"
+                                                           is-open="popup1.opened"
+                                                           datepicker-options="dateOptions"
+                                                           ng-required="true" close-text="Close"
+                                                           alt-input-formats="altInputFormats"
+                                                           ng-model="poliza.vigencia"/>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Agente</label>
+                                                <div class="stops" angucomplete-alt id="ex2"
+                                                     placeholder="Buscar Agente"
+                                                     pause="200"
+                                                     selected-object="selectedUser"
+                                                     remote-api-handler="searchUsersInTheSystem"
+                                                     title-field="nombre,apellido"
+                                                     minlength="3"
+                                                     description-field="documento_id"
+                                                     input-class="form-control form-control-small"
+                                                     match-class="highlight">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.box-body -->
+                                </div>
+
+                            </div><!-- /.box -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Aseguradora-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border">
+                                    <h3 class="box-title">Agregar Aseguradora</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="box box-info">
+                                            <div class="box-body">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 200px;">
+                                                           Buscar Aseguradoras en Sistema
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                                    type="button" ng-click="openModalAseguradora()"
+                                                                    data-toggle="tooltip"
+                                                                    title="Buscar Aseguradoras">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </td>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Tables aseguradora-->
+                                    <div class="col-md-12" ng-show="showTableAseguradora">
+                                        <div class="box box-info">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Aseguradoras</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <table id="businessFinalTable"
+                                                       class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Nombre Aseguradora</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="obj in aseguradoraListFinal">
+                                                        <td>{{obj.aseguradora_nombre}}</td>
+                                                        <td><a ng-click="deleteAseguradoraSelect(obj.aseguradora_id)" data-toggle="tooltip" title="Borrar Aseguradora">
+                                                            <small><i class="fa fa-fw fa-trash"></i></small>
+                                                            </i></a></td>
+                                                    </tr>
+                                                    </tbody>
+                                                    </tfoot>
+                                                </table>
+                                            </div><!-- /.box-body -->
+                                        </div><!-- /.box -->
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+
+                        </div><!-- /.box -->
+
+                    </div>
+
+                </div>
+
+                <!--Tomador-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border">
+                                    <h3 class="box-title">Agregar Interesados de Poliza</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="col-md-4">
+                                        <div class="box box-info">
+                                            <div class="box-body">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 200px;">
+                                                            Buscar un Tomador
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                                    type="button" ng-click="openModalUsuario(1)"
+                                                                    data-toggle="tooltip"
+                                                                    title="Buscar Tomador">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </td>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="box box-info">
+                                            <div class="box-body">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 200px;">
+                                                            Buscar un Titular
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                                    type="button" ng-click="openModalUsuario(2)"
+                                                                    data-toggle="tooltip"
+                                                                    title="Buscar Titular">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </td>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="box box-info">
+                                            <div class="box-body">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 200px;">
+                                                            Buscar Beneficiarios
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                                    type="button" ng-click="openModalBeneficiarios(3)"
+                                                                    data-toggle="tooltip"
+                                                                    title="Buscar Beneficiario">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </td>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Tables Tomador-->
+                                    <div class="col-md-12" ng-show="showTableTomador">
+                                        <div class="box box-info">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Tomador</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <table id=""
+                                                       class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Apellido</th>
+                                                        <th>Documento de Identidad</th>
+                                                        <th>Tipo de Usuario</th>
+                                                        <th>Tipo de Interesado</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="obj in tomadorListFinal">
+                                                        <td>{{obj.nombre}}</td>
+                                                        <td>{{obj.apellido}}</td>
+                                                        <td>{{obj.documento_id}}</td>
+                                                        <td>{{obj.tipo_usuario}}</td>
+                                                        <td>{{obj.type_usuario_poliza | type_user_poliza}}</td>
+                                                        <td><a ng-click="deleteUsersTomadorSelect(obj.usuario_id)" data-toggle="tooltip" title="Borrar Aseguradora">
+                                                            <small><i class="fa fa-fw fa-trash"></i></small>
+                                                            </i></a></td>
+                                                    </tr>
+                                                    </tbody>
+                                                    </tfoot>
+                                                </table>
+                                            </div><!-- /.box-body -->
+                                        </div><!-- /.box -->
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="content" style="min-height: 0px;">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-primary btn-md"
+                                    ng-click="savePoliza()">Guardar
+                            </button>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!--Modal con todos las aseguradoras del sistema--->
+            <script type="text/ng-template" id="listAseguradorasAddModal.html">
+                <div class="modal-header text-center fondo">
+                    <h3 class="modal-title colorTitulo">Aseguradoras Informacion</h3>
+                </div>
+
+                <div class="text-center"></div>
+
+                <div class="modal-body row" style="padding: 30px;">
+
+                    <div>
+                        <input class="form-control reduceSize" placeholder="Search here..."
+                               on-enter-blur on-blur-change="filterResult()"
+                               ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                    </div>
+
+                    <table id="asegTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th ng-repeat="header in aseguradoraTableHeaders">
+                                <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir"
+                                         sortedby="filterCriteria.JcrParameters.sortedBy"
+                                         sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="obj in aseguradoras">
+                            <td>{{obj.aseguradora_nombre}}</td>
+                            <td align="center">
+                                <input id="aseg_check_{{obj.aseguradora_id}}"
+                                       type="radio"
+                                       name="business"
+                                       value="{{obj.aseguradora_id}}"
+                                       ng-click="listAseguradora(obj)"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        </tfoot>
+                    </table>
+                    <div ng-show="totalRecords == 0">
+                        <h3>No Customers Found</h3>
+                    </div>
+                    <div ng-show="totalPages > 1" class="align-center">
+                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="previous" next-text="next" last-text="last"
+                                        direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-ok-modal btn-primary" type="button" ng-click="processAseguradora()">OK</button>
+                </div>
+            </script>
+
+            <!--Modal con todos los usuarios del sistema--->
+            <script type="text/ng-template" id="listUsersAddModal.html">
+                <div class="modal-header text-center fondo">
+                    <h3 class="modal-title colorTitulo">Usuarios Informacion</h3>
+                </div>
+
+                <div class="text-center"></div>
+
+                <div class="modal-body row" style="padding: 30px;">
+                    <div>
+                        <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.Users.filter" type="text" />
+                    </div>
+
+                    <table id="userTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th ng-repeat="header in userTableHeaders">
+                                <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.Users.sortDir" sortedby="filterCriteria.JcrParameters.Users.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.nombre }}</td>
+                            <td>{{user.apellido}}</td>
+                            <td>{{user.documento_id}}</td>
+                            <td>{{user.tipo_usuario | lowerCase | capitalize}}</td>
+                            <td>
+                                <input id="user_check_{{user.usuario_id}}"
+                                       type="radio"
+                                       name="user"
+                                       value="{{user.usuario_id}}"
+                                       ng-click="listUsers(user)"/>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                        </tfoot>
+                    </table>
+                    <div ng-show="totalRecords == 0">
+                        <h3>No Customers Found</h3>
+                    </div>
+                    <div ng-show="totalPages > 1" class="align-center">
+                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.Users.page" items-per-page="filterCriteria.JcrParameters.Users.limit" previous-text="previous" next-text="next" last-text="last"
+                                        direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-ok-modal btn-primary" type="button" ng-click="processUsuario()">OK</button>
+                </div>
+            </script>
+
+            <!--Modal con todos los usuarios del sistema--->
+            <script type="text/ng-template" id="listBeneficiariosAddModal.html">
+                <div class="modal-header text-center fondo">
+                    <h3 class="modal-title colorTitulo">Usuarios Informacion</h3>
+                </div>
+
+                <div class="text-center"></div>
+
+                <div class="modal-body row" style="padding: 30px;">
+                    <div>
+                        <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.Users.filter" type="text" />
+                    </div>
+
+                    <table id="benifTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th ng-repeat="header in userTableHeaders">
+                                <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.Users.sortDir" sortedby="filterCriteria.JcrParameters.Users.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.nombre }}</td>
+                            <td>{{user.apellido}}</td>
+                            <td>{{user.documento_id}}</td>
+                            <td>{{user.tipo_usuario | lowerCase | capitalize}}</td>
+                            <td>
+                                <input id="benif_check_{{user.usuario_id}}"
+                                       type="checkbox"
+                                       ng-checked="{{user.usuario_check}}"
+                                       value="{{user.usuario_id}}"
+                                       ng-click="listUsers(user)"/>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                        </tfoot>
+                    </table>
+                    <div ng-show="totalRecords == 0">
+                        <h3>No Customers Found</h3>
+                    </div>
+                    <div ng-show="totalPages > 1" class="align-center">
+                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.Users.page" items-per-page="filterCriteria.JcrParameters.Users.limit" previous-text="previous" next-text="next" last-text="last"
+                                        direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-ok-modal btn-primary" type="button" ng-click="processUsuario()">OK</button>
+                </div>
+            </script>
+
+        </div>
+
+        <!--Footer-->
+        <div ui-view="footer"></div>
+
+    </div>
+</div>

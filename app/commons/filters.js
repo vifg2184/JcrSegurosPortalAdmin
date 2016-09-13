@@ -150,4 +150,27 @@ angular.module('App')
             var hours = text+":00:00";
             return hours;
         }
+
     })
+
+   .filter('type_user_poliza',function(){
+
+       return function(type){
+
+           var result="";
+           switch(parseInt(type)){
+               case 1:
+                   result = "Tomador";
+                   break;
+               case 2:
+                   result = "Titular";
+                   break;
+               case 3:
+                   result = "Beneficiario";
+                   break;
+
+           }
+
+           return result;
+       }
+   });

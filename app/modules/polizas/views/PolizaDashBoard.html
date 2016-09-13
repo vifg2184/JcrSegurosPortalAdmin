@@ -45,7 +45,7 @@
                                     <div class="box-header ">
                                         <div class="small-box">
                                             <div class="customIcon">
-                                                <a ui-sref="crearUsuarios" data-toggle="tooltip" title="Agregar Poliza">
+                                                <a ui-sref="crearPoliza" data-toggle="tooltip" title="Agregar Poliza">
                                                     <button class="btn btn-primary"><i class="ion ion-plus"></i></button>
                                                 </a>
                                             </div>
@@ -77,15 +77,14 @@
                                             <tr ng-repeat="poliza in polizas">
                                                 <td>{{poliza.numero_poliza}}</td>
                                                 <td>{{poliza.ramo.ramo_nombre | lowerCase | capitalize}}</td>
-                                                <td>{{poliza.munero_recibo}}</td>
+                                                <td>{{poliza.numero_recibo}}</td>
                                                 <td>{{poliza.tipo_poliza.tipo_poliza_nombre | lowerCase | capitalize}}</td>
                                                 <td>{{poliza.aseguradora.aseguradora_nombre | lowerCase | capitalize}}</td>
                                                 <td>{{poliza.prima_total}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
                                                 <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearUsuarios({id_user:user.usuario_id,edit:true})" data-toggle="tooltip" title="Editar Poliza"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                    <a ui-sref="crearPoliza({poliza_id:poliza.poliza_id,edit:true})" data-toggle="tooltip" title="Editar Poliza"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
                                                 </td>
-                                                <!--ng-click="editMode(user.user_id)"-->
                                             </tr>
                                             </tbody>
                                             </tfoot>

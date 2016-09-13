@@ -78,7 +78,7 @@ angular.module('App')
 
             $http({
                 method: 'POST',
-                url: CONST_PROXY_URL.PROXY_URL_ALL_USER_WITH_FILTER,
+                url: CONST_PROXY_URL.PROXY_URL_USER_FILTER_SEARCH,
                 data: JSON.stringify(filters),
                 headers: {'Content-Type': 'application/json;charset=UTF-8'}
             }).success(function (response) {

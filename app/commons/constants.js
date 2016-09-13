@@ -12,9 +12,12 @@ angular.module("App")
         PROXY_URL_ALL_USERS_TYPE: environment + "Usuario/typeUser",
         PROXY_URL_CREATE_NEW_USER: environment + "Usuario/crearUsuario",
         PROXY_URL_USER_BY_ID: environment + "Usuario/userInfoById",
+        PROXY_URL_USER_FILTER_SEARCH:environment + "Usuario/userFilter",
 
         /*Proxy Poliza*/
         PROXY_URL_POLIZA_WITH_PAGINATE:environment + "Poliza/allPolizaWithPagination",
+        PROXY_URL_POLIZA_BY_ID:environment + "Poliza/searchPolizaById",
+        PROXY_URL_CREATE_POLIZA:environment + "Poliza/crearPoliza",
 
         /*Proxy Siniestro*/
         PROXY_URL_SINIESTRO_WITH_PAGINATE: environment + "Siniestro/allSiniestrosWithPagination",
@@ -45,8 +48,10 @@ angular.module("App")
     .constant('GLOBAL_CONSTANT',{
         SUCCESS_RESPONSE_SERVICE:0,
         ID_HOME_MENU:0,
-        USER_ROL_ADMIN:4
-
+        USER_ROL_ADMIN:4,
+        TOMADOR:1,
+        TITULAR:2,
+        BENEFICIARIO:3
     })
 
     .constant('MENU_JCR_SEGUROS_ACTIVE',{

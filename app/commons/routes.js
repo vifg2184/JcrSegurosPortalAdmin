@@ -70,6 +70,19 @@ angular.module("App")
                     'footer@verPolizas':{templateUrl: 'app/home/views/footer.html'}
                 }
             })
+
+            .state('crearPoliza',{
+                url: '/crearPoliza',
+                controller:'NewPolizaCtrl',
+                params:{edit:false,poliza_id: null},
+                views: {
+                    '': {templateUrl: 'app/modules/polizas/views/newPoliza.html'},
+                    'header@crearPoliza': {templateUrl: 'app/home/views/header.html'},
+                    'menu@crearPoliza': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@crearPoliza':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
             //siniestro navegacion
             .state('verSiniestro',{
                 url: '/verSiniestro',
@@ -125,6 +138,7 @@ angular.module("App")
                     'footer@verCobertura':{templateUrl: 'app/home/views/footer.html'}
                 }
             })
+
 
 
         $urlRouterProvider.otherwise("/login");

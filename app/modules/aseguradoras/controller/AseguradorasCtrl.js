@@ -211,39 +211,5 @@ angular.module('App')
 
             $scope.getAllAseguradora();
 
-        }])
-
-
-    // controlador comportamiento del model
-    .controller('ModalInstUserCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance', 'userData',
-        function ($scope, $state, $sessionStorage, $uibModalInstance, userData) {
-
-            $scope.userFound = userData;
-            $scope.rol_user_id = $sessionStorage.rol_user;
-
-            $scope.cancel = function () {
-                $uibModalInstance.close();
-            };
-
-            $scope.showBusiness = function (businessId) {
-                $uibModalInstance.close();
-                $state.go('newBusiness', {id_business: businessId, edit: true});
-
-            }
-
-            $scope.showRoute = function (rooute_id) {
-                $uibModalInstance.close();
-                $state.go('routesNewRegister', {id_route: rooute_id, edit: true});
-            }
-
-            $scope.showUser = function (user_id) {
-                $uibModalInstance.close();
-                $state.go('newUser', {id_user: user_id, edit: true});
-            }
-
-            $scope.showStop = function (stop_id) {
-                $uibModalInstance.close();
-                $state.go('stopInfo', {id_stop: stop_id});
-            }
-
         }]);
+

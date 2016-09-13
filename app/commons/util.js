@@ -350,6 +350,37 @@ function compararDosHoras(starTimep,endTimep){
 }
 
 
+function existsTomador(listUsers){
+
+    var validate = false;
+
+    listUsers.forEach(function(entry){
+
+        if(entry.type_usuario_poliza == 1){
+            validate = true;
+        }
+    });
+
+    return validate;
+}
+
+function existsTitular(listUsers){
+
+    var validate = false;
+
+    listUsers.forEach(function(entry){
+
+        if(entry.type_usuario_poliza == 2){
+            validate = true;
+        }
+    });
+
+    return validate;
+}
+
+
+
+
 function randomColorFactor () {
     return Math.round(Math.random() * 255);
 }
