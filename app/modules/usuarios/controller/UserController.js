@@ -176,15 +176,17 @@ angular.module('App')
              */
             $scope.deleteUser = function (id_user) {
 
-                $confirm({text: 'Are you sure you want to delete?'})
+                var request = {JcrParameters:{User:{user_id:id_user}}};
+
+                $confirm({text: 'Desea borrar el usuario?'})
                     .then(function () {
-                        UserService.deleteUser(id_user)
+                        UserService.deleteUser(request)
                             .then(function (resp) {
-                                if (resp.ReaxiumResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
-                                    $scope.selectPage(1);
-                                    growl.success(resp.ReaxiumResponse.message);
+                                if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                                    $scope.selectPage();
+                                    growl.success(resp.JcrResponse.message);
                                 } else {
-                                    growl.error(resp.ReaxiumResponse.message);
+                                    growl.error(resp.JcrResponse.message);
                                 }
                             })
                             .catch(function (err) {
@@ -195,68 +197,11 @@ angular.module('App')
             }
 
 
-            function openModal(data) {
-
-                var modalInstance = $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'myModalContent.html',
-                    controller: 'ModalInstUserCtrl',
-                    size: 'md',
-                    resolve: {
-                        userData: function () {
-                            return data;
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-
             $scope.toggleAnimation = function () {
                 $scope.animationsEnabled = !$scope.animationsEnabled;
             };
 
-
             $scope.selectPage(1);
             return $scope;
-
-        }])
-
-
-    // controlador comportamiento del model
-    .controller('ModalInstUserCtrl', ['$scope', '$state','$sessionStorage','$uibModalInstance', 'userData',
-        function ($scope, $state,$sessionStorage,$uibModalInstance, userData) {
-
-            $scope.userFound = userData;
-            $scope.rol_user_id = $sessionStorage.rol_user;
-
-            $scope.cancel = function () {
-                $uibModalInstance.close();
-            };
-
-            $scope.showBusiness = function (businessId) {
-                $uibModalInstance.close();
-                $state.go('newBusiness', {id_business: businessId, edit: true});
-
-            }
-
-            $scope.showRoute = function (rooute_id) {
-                $uibModalInstance.close();
-                $state.go('routesNewRegister', {id_route: rooute_id, edit: true});
-            }
-
-            $scope.showUser = function (user_id) {
-                $uibModalInstance.close();
-                $state.go('newUser', {id_user: user_id, edit: true});
-            }
-
-            $scope.showStop = function (stop_id) {
-                $uibModalInstance.close();
-                $state.go('stopInfo', {id_stop: stop_id});
-            }
 
         }]);

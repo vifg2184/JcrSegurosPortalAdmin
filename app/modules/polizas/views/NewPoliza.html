@@ -68,21 +68,24 @@
                                                 <label>Tipo de Poliza</label>
                                                 <select class="form-control" ng-model="poliza.tipo_poliza_id">
                                                     <option value="">Seleccione...</option>
-                                                    <option value="1">Individual</option>
-                                                    <option value="2">Colectiva</option>
-                                                    <option value="3">Solidaria</option>
+                                                    <option ng-selected="poliza.tipo_poliza_id == obj.tipo_poliza_id"
+                                                            ng-repeat="obj in tipo_poliza_select"
+                                                            value="{{obj.tipo_poliza_id}}">
+                                                        {{obj.tipo_poliza_nombre | lowerCase | capitalize}}
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
                                                 <br>
                                                 <label>Ramo</label>
+
                                                 <select class="form-control" ng-model="poliza.ramo_id">
                                                     <option value="">Seleccione...</option>
-                                                    <option value="1">Personas</option>
-                                                    <option value="2">Patrimoniales</option>
-                                                    <option value="3">Auto</option>
-                                                    <option value="4">RC</option>
-                                                    <option value="5">Fianza</option>
+                                                    <option ng-selected="poliza.ramo_id == obj.ramo_id"
+                                                            ng-repeat="obj in ramo_select"
+                                                            value="{{obj.ramo_id}}">
+                                                        {{obj.ramo_nombre | lowerCase | capitalize}}
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
@@ -115,7 +118,8 @@
                                                      minlength="3"
                                                      description-field="documento_id"
                                                      input-class="form-control form-control-small"
-                                                     match-class="highlight">
+                                                     match-class="highlight"
+                                                     initial-value="selectEditAgente">
                                                 </div>
                                             </div>
                                         </div>
@@ -311,7 +315,7 @@
                                                         <td>{{obj.documento_id}}</td>
                                                         <td>{{obj.tipo_usuario}}</td>
                                                         <td>{{obj.type_usuario_poliza | type_user_poliza}}</td>
-                                                        <td><a ng-click="deleteUsersTomadorSelect(obj.usuario_id)" data-toggle="tooltip" title="Borrar Aseguradora">
+                                                        <td><a ng-click="deleteUsersTomadorSelect(obj.usuario_id,obj.type_usuario_poliza)" data-toggle="tooltip" title="Borrar Aseguradora">
                                                             <small><i class="fa fa-fw fa-trash"></i></small>
                                                             </i></a></td>
                                                     </tr>

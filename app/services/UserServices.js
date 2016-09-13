@@ -149,7 +149,7 @@ angular.module('App')
          * @param id_user
          * @returns {d.promise|*|promise}
          */
-        lookup.deleteUser = function(id_user){
+        lookup.deleteUser = function(request){
 
             var defered = $q.defer();
             var promise = defered.promise;
@@ -157,8 +157,8 @@ angular.module('App')
 
             $http({
                 method: 'POST',
-                url: CONST_PROXY_URL.PROXY_URL_DELETE_USER,
-                data: JSON.stringify({ReaxiumParameters:{Users:{user_id:id_user}}}),
+                url: CONST_PROXY_URL.PROXY_URL_USER_DELETE,
+                data: JSON.stringify(request),
                 headers: {'Content-Type': 'application/json;charset=UTF-8'}
             }).success(function (response) {
                 defered.resolve(response);

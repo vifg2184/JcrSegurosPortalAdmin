@@ -85,6 +85,44 @@ angular.module('App')
         };
 
 
+        lookup.getPolizaById = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_GET_POLIZA_BY_ID,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
+
+
+        lookup.deletePoliza = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_DELETE_POLIZA,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
 
         return lookup;
 
@@ -139,4 +177,11 @@ angular.module('App')
             return PolizasLookup.createPoliza(request);
         }
 
+        this.searhPolizaById = function(request){
+            return PolizasLookup.getPolizaById(request);
+        }
+
+        this.deletePolizaById =  function(request){
+            return PolizasLookup.deletePoliza(request);
+        }
     }]);

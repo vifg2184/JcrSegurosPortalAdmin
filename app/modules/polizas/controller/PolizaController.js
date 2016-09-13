@@ -102,7 +102,7 @@ angular.module('App')
                     $scope.totalRecords = data.totalRecords;
                     spinnerService.hide("spinnerUserList");
 
-                    var messageGrowl = UserService.getShowGrowlMessage();
+                    var messageGrowl = PolizaService.getShowGrowlMessage();
 
                     if (messageGrowl.isShow){
                         growl.info(messageGrowl.message);
@@ -164,17 +164,19 @@ angular.module('App')
              * Delete User
              * @param id_user
              */
-            $scope.deleteUser = function (id_user) {
+            $scope.deletePoliza = function (poliza_id,poliza_number) {
 
-                $confirm({text: 'Are you sure you want to delete?'})
+                var request={JcrParameters:{Poliza:{poliza_id:poliza_id}}};
+
+                $confirm({text: 'Estas segura de querer borrar la poliza numero ' + poliza_number + '?'})
                     .then(function () {
-                        UserService.deleteUser(id_user)
+                        PolizaService.deletePolizaById(request)
                             .then(function (resp) {
-                                if (resp.ReaxiumResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
-                                    $scope.selectPage(1);
-                                    growl.success(resp.ReaxiumResponse.message);
+                                if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                                    $scope.selectPage();
+                                    growl.success(resp.JcrResponse.message);
                                 } else {
-                                    growl.error(resp.ReaxiumResponse.message);
+                                    growl.error(resp.JcrResponse.message);
                                 }
                             })
                             .catch(function (err) {

@@ -13,11 +13,14 @@ angular.module("App")
         PROXY_URL_CREATE_NEW_USER: environment + "Usuario/crearUsuario",
         PROXY_URL_USER_BY_ID: environment + "Usuario/userInfoById",
         PROXY_URL_USER_FILTER_SEARCH:environment + "Usuario/userFilter",
+        PROXY_URL_USER_DELETE:environment + "Usuario/borrarUsuario",
 
         /*Proxy Poliza*/
         PROXY_URL_POLIZA_WITH_PAGINATE:environment + "Poliza/allPolizaWithPagination",
         PROXY_URL_POLIZA_BY_ID:environment + "Poliza/searchPolizaById",
         PROXY_URL_CREATE_POLIZA:environment + "Poliza/crearPoliza",
+        PROXY_URL_GET_POLIZA_BY_ID:environment + "Poliza/searchPolizaById",
+        PROXY_URL_DELETE_POLIZA:environment + "Poliza/borrarPoliza",
 
         /*Proxy Siniestro*/
         PROXY_URL_SINIESTRO_WITH_PAGINATE: environment + "Siniestro/allSiniestrosWithPagination",
@@ -69,5 +72,6 @@ angular.module("App")
         MESSAGE_CONFIRM_ACTION:"Estas seguro que quieres borrar?",
         MESSAGE_ERROR_FATAL:"Error Internal Plataform",
         MESSAGE_SERVICE_ERROR:"Servicio No Disponible Intente de nuevo más tarde.",
-        MESSAGE_SAVE_USER_SUCCESS:"Usuario creado con exito"
+        MESSAGE_SAVE_USER_SUCCESS:"Usuario creado con exito.",
+        MESSAGE_SAVE_POLIZA_SUCCCESS:"Poliza creada con exito."
     });

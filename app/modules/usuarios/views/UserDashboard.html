@@ -65,7 +65,6 @@
                                                 <th ng-repeat="header in userCtrl.userTableHeaders">
                                                     <sort-by onsort="onSort" sortdir="userCtrl.filterCriteria.JcrParameters.Users.sortDir" sortedby="userCtrl.filterCriteria.JcrParameters.Users.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                                                 </th>
-                                                <th>Information</th>
                                                 <th>Actions</th>
                                             </tr>
                                             </thead>
@@ -75,7 +74,6 @@
                                                 <td>{{user.apellido}}</td>
                                                 <td>{{user.documento_id}}</td>
                                                 <td>{{user.tipo_usuario.tipo_usuario_nombre | lowerCase | capitalize}}</td>
-                                                <td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>
                                                 <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
                                                     <a ui-sref="crearUsuarios({id_user:user.usuario_id,edit:true})" data-toggle="tooltip" title="Edit User"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
                                                 </td>
