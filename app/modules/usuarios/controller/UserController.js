@@ -178,7 +178,7 @@ angular.module('App')
 
                 var request = {JcrParameters:{User:{user_id:id_user}}};
 
-                $confirm({text: 'Desea borrar el usuario?'})
+                $confirm({text: 'Desea borrar el usuario ?'})
                     .then(function () {
                         UserService.deleteUser(request)
                             .then(function (resp) {
