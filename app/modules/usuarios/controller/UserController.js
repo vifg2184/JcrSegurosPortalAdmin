@@ -156,7 +156,7 @@ angular.module('App')
 
 
             /**
-             * get the user's phone information and show it in a modal and show it in a modal
+             * get the user's phone information and show it in a modal and show it in a modall
              * @param userId
              */
             $scope.showInformation = function (userId) {
