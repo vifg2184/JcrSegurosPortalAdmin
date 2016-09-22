@@ -22,7 +22,7 @@ angular.module('App')
          *
          * @returns {IPromise<TResult>|*}
          */
-        lookup.allAseguradora = function (filterCriteria) {
+        lookup.allAseguradoraServices = function (filterCriteria) {
 
             var defered = $q.defer();
             var promise = defered.promise;
@@ -43,6 +43,65 @@ angular.module('App')
 
             return promise;
         };
+
+
+        lookup.getAseguradoraByIdServices = function(filterCriteria){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(filterCriteria),
+                url: CONST_PROXY_URL.PROXY_URL_ASEGURADORAS_BY_ID,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+        }
+
+
+        lookup.createAseguradoraServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_ASEGURADORAS_CREATE,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
+
+
+        lookup.deleteAseguradoraServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_ASEGURADORAS_DELETE,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
 
         return lookup;
 
@@ -86,7 +145,19 @@ angular.module('App')
         };
 
         this.allAseguradoraPaginate = function(request){
-            return AseguradoraLookup.allAseguradora(request);
+            return AseguradoraLookup.allAseguradoraServices(request);
         }
 
+
+        this.aseguradoraById = function(request){
+            return AseguradoraLookup.getAseguradoraByIdServices(request);
+        }
+
+        this.createAseguradoras = function(request){
+            return AseguradoraLookup.createAseguradoraServices(request);
+        }
+
+        this.deleteAseguradora = function(request){
+            return AseguradoraLookup.deleteAseguradoraServices(request);
+        }
     }]);

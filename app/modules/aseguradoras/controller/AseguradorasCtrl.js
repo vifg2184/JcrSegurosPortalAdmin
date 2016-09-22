@@ -18,6 +18,7 @@ angular.module('App')
         'GLOBAL_MESSAGE',
         'GLOBAL_CONSTANT',
         'MENU_JCR_SEGUROS_ACTIVE',
+        '$controller',
         function ($scope,
                   AseguradoraService,
                   $state,
@@ -31,7 +32,14 @@ angular.module('App')
                   $uibModal,
                   GLOBAL_MESSAGE,
                   GLOBAL_CONSTANT,
-                  MENU_JCR_SEGUROS_ACTIVE) {
+                  MENU_JCR_SEGUROS_ACTIVE,
+                  $controller) {
+
+            //herencia metodos comunes
+            $controller('BaseCtrl', {$scope: $scope,
+                $state: $state,
+                $rootScope: $rootScope,
+                $sessionStorage: $sessionStorage});
 
 
             $scope.showMessage = "";
@@ -42,7 +50,6 @@ angular.module('App')
             $scope.totalPages = 0;
 
 
-            var loadServices = true;
             /**
              * cabecera de la tabla de usuarios
              * @type {*[]}
@@ -68,24 +75,7 @@ angular.module('App')
             /**
              * Method Init
              */
-            function init() {
-                console.info("Iniciando controlador Siniestros");
-
-                if (isUndefined($sessionStorage.rol_user) || isEmptyString($sessionStorage.rol_user)) {
-                    console.error("Usuario no a iniciado session");
-                    loadServices = false;
-                    $state.go("login");
-                }
-                else {
-                    //data user by session
-                    $scope.nameUser = $sessionStorage.nameUser;
-                    //menu sidebar
-                    $scope.menus = addActiveClassMenu(JSON.parse($sessionStorage.appMenus), MENU_JCR_SEGUROS_ACTIVE.CODE_ASEGURADORA);
-
-                }
-            }
-
-            init();
+            $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_ASEGURADORA);
 
             /**
              * Call service all user
@@ -120,7 +110,7 @@ angular.module('App')
 
             //called when navigate to another page in the pagination
             $scope.selectPage = function () {
-                if (loadServices) {
+                if ($scope.loadServices) {
                     $scope.getAllAseguradora();
                 }
             };
@@ -162,17 +152,25 @@ angular.module('App')
              * Delete User
              * @param id_user
              */
-            $scope.deleteUser = function (id_user) {
+            $scope.deleteAseguradora = function (aseguradora_id) {
 
-                $confirm({text: 'Are you sure you want to delete?'})
+                var request={
+                    JcrParameters:{
+                        Aseguradora:{
+                            aseguradora_id:aseguradora_id
+                        }
+                    }
+                }
+
+                $confirm({text: 'Estas seguro de borrar la aseguradora?'})
                     .then(function () {
-                        UserService.deleteUser(id_user)
+                        AseguradoraService.deleteAseguradora(request)
                             .then(function (resp) {
-                                if (resp.ReaxiumResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                                if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
                                     $scope.selectPage(1);
-                                    growl.success(resp.ReaxiumResponse.message);
+                                    growl.success(resp.JcrResponse.message);
                                 } else {
-                                    growl.error(resp.ReaxiumResponse.message);
+                                    growl.error(resp.JcrResponse.message);
                                 }
                             })
                             .catch(function (err) {
@@ -181,33 +179,6 @@ angular.module('App')
                             });
                     });
             }
-
-
-            function openModal(data) {
-
-                var modalInstance = $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'myModalContent.html',
-                    controller: 'ModalInstUserCtrl',
-                    size: 'md',
-                    resolve: {
-                        userData: function () {
-                            return data;
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-
-            $scope.toggleAnimation = function () {
-                $scope.animationsEnabled = !$scope.animationsEnabled;
-            };
-
 
             $scope.getAllAseguradora();
 

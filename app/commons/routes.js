@@ -139,6 +139,20 @@ angular.module("App")
                 }
             })
 
+            //cobertura navegacion
+
+            .state('crearAseguradora',{
+                url: '/crearAseguradora',
+                controller:'AseguradoraNewCtrl',
+                params:{edit:false,aseguradora_id: null},
+                views: {
+                    '': {templateUrl: 'app/modules/aseguradoras/views/NewAseguradora.html'},
+                    'header@crearAseguradora': {templateUrl: 'app/home/views/header.html'},
+                    'menu@crearAseguradora': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@crearAseguradora':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
 
 
         $urlRouterProvider.otherwise("/login");

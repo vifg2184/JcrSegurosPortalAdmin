@@ -18,6 +18,7 @@ angular.module('App')
         'GLOBAL_MESSAGE',
         'GLOBAL_CONSTANT',
         'MENU_JCR_SEGUROS_ACTIVE',
+        '$controller',
         function ($scope,
                   UserService,
                   $state,
@@ -31,8 +32,15 @@ angular.module('App')
                   $uibModal,
                   GLOBAL_MESSAGE,
                   GLOBAL_CONSTANT,
-                  MENU_JCR_SEGUROS_ACTIVE) {
+                  MENU_JCR_SEGUROS_ACTIVE,
+                  $controller) {
 
+
+            //herencia metodos comunes
+            $controller('BaseCtrl', {$scope: $scope,
+                $state: $state,
+                $rootScope: $rootScope,
+                $sessionStorage: $sessionStorage});
 
             console.log("Cargo el Controlador de Usuarios");
             $scope.showMessage = "";
@@ -43,7 +51,7 @@ angular.module('App')
             $scope.totalPages = 0;
             $scope.usersCount = 0;
 
-            var loadServices = true;
+
             /**
              * cabecera de la tabla de usuarios
              * @type {*[]}
@@ -76,27 +84,8 @@ angular.module('App')
                 }
             };
 
-            /**
-             * Method Init
-             */
-            function init() {
-                console.info("Iniciando controlador UserController");
 
-                if (isUndefined($sessionStorage.rol_user) || isEmptyString($sessionStorage.rol_user)) {
-                    console.error("Usuario no a iniciado session");
-                    loadServices = false;
-                    $state.go("login");
-                }
-                else {
-                    //data user by session
-                    $scope.nameUser = $sessionStorage.nameUser;
-                    //menu sidebar
-                    $scope.menus = addActiveClassMenu(JSON.parse($sessionStorage.appMenus),MENU_JCR_SEGUROS_ACTIVE.CODE_USER_MENU);
-
-                }
-            }
-
-            init();
+            $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_USER_MENU);
 
             /**
              * Call service all user
@@ -131,7 +120,7 @@ angular.module('App')
 
             //called when navigate to another page in the pagination
             $scope.selectPage = function () {
-                if (loadServices) {
+                if ($scope.loadServices) {
                     $scope.getAllUsers();
                 }
             };

@@ -22,7 +22,7 @@ angular.module('App')
          *
          * @returns {IPromise<TResult>|*}
          */
-        lookup.allVehiculo = function (filterCriteria) {
+        lookup.allVehiculoServices = function (filterCriteria) {
 
             var defered = $q.defer();
             var promise = defered.promise;
@@ -43,6 +43,46 @@ angular.module('App')
 
             return promise;
         };
+
+
+        lookup.getVehiculoByIdServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_VEHICULO_BY_ID,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
+
+
+        lookup.createVehiculoServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_VEHICULO_CREATE,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
 
         return lookup;
 
@@ -86,7 +126,11 @@ angular.module('App')
         };
 
         this.allVehiculosPaginate = function(request){
-            return VehiculoLookup.allVehiculo(request);
+            return VehiculoLookup.allVehiculoServices(request);
+        }
+
+        this.getVehiculoById = function(request){
+            return VehiculoLookup.getVehiculoByIdServices(request);
         }
 
     }]);

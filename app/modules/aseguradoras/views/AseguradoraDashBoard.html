@@ -45,7 +45,7 @@
                                     <div class="box-header ">
                                         <div class="small-box">
                                             <div class="customIcon">
-                                                <a ui-sref="crearUsuarios" data-toggle="tooltip" title="Agregar Aseguradora">
+                                                <a ui-sref="crearAseguradora" data-toggle="tooltip" title="Agregar Aseguradora">
                                                     <button class="btn btn-primary"><i class="ion ion-plus"></i></button>
                                                 </a>
                                             </div>
@@ -72,10 +72,11 @@
                                             <tr ng-repeat="obj in aseguradoras">
                                                 <td>{{obj.aseguradora_nombre}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
-                                                <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearUsuarios({id_user:user.siniestro_id,edit:true})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                <td>
+                                                    <a data-toggle="tooltip" title="Borrar Aseguradora" ng-click="deleteAseguradora(obj.aseguradora_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
+                                                    <a ui-sref="crearAseguradora({aseguradora_id:obj.aseguradora_id,edit:true})" data-toggle="tooltip" title="Editar Aseguradora"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
                                                 </td>
-                                                <!--ng-click="editMode(user.user_id)"-->
+
                                             </tr>
                                             </tbody>
                                             </tfoot>

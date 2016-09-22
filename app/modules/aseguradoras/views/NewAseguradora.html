@@ -1,0 +1,88 @@
+<spinner name="spinnerNew" ng-cloak="">
+    <div class="overlay"></div>
+    <div class="spinner">
+        <div class="test"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+    </div>
+    <div class="please-wait">Please Wait...</div>
+</spinner>
+
+<div class="skin-blue sidebar-mini">
+
+    <div class="wrapper" ng-controller="AseguradoraNewCtrl">
+
+        <!--Header-->
+        <div ui-view="header"></div>
+
+        <!--Menu-->
+        <div ui-view="menu"></div>
+
+        <!--Content-->
+        <div class="content-wrapper">
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>Crear Aseguradora</h1>
+                <ol class="breadcrumb">
+                    <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
+                    <li><a ui-sref="routes">Aseguradora</a></li>
+                    <li class="active"><a>Crear Aseguradora</a></li>
+                </ol>
+
+            </section>
+
+            <section class="content">
+                <div growl></div>
+                <!--Information Route-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 450px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Aseguradora Infomacion</h3>
+                                </div><!-- /.box-header -->
+
+                                <!-- form start -->
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label>Nombre Aseguradora</label>
+                                                <input type="text" class="form-control"placeholder="Numero de Aseguradora" ng-model="aseguradora.aseguradora_nombre">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label>Numero de Documento</label>
+                                                <input type="text" class="form-control"placeholder="Numero de Documento" ng-model="aseguradora.aseguradora_documento_id">
+                                            </div>
+
+                                        </div>
+                                    </div><!-- /.box-body -->
+                                </div>
+
+                            </div><!-- /.box -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="content" style="min-height: 0px;">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-primary btn-md"
+                                    ng-click="saveAseguradora()">Guardar
+                            </button>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+
+        <!--Footer-->
+        <div ui-view="footer"></div>
+
+    </div>
+</div>

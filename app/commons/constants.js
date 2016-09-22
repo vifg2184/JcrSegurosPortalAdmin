@@ -27,9 +27,15 @@ angular.module("App")
 
         /*Proxy Vehiculo*/
         PROXY_URL_VEHICULO_WITH_PAGINATE:environment + "Vehiculo/allVehiculosInfoWithPagination",
+        PROXY_URL_VEHICULO_BY_ID:environment + "Vehiculo/vehiculoInfoById",
+        PROXY_URL_VEHICULO_CREATE: environment + "Vehiculo/crearVehiculo",
+        PROXY_URL_VEHICULO_DELETE:environment + "Vehiculo/borrarVehiculo",
 
         /*Proxy Aseguradoras*/
-        PROXY_URL_ASEGURADORAS_WITH_PAGINATE:environment +"Aseguradora/allAseguradorasWithPagination",
+        PROXY_URL_ASEGURADORAS_WITH_PAGINATE:environment + "Aseguradora/allAseguradorasWithPagination",
+        PROXY_URL_ASEGURADORAS_BY_ID:environment + "Aseguradora/aseguradoraInfoById",
+        PROXY_URL_ASEGURADORAS_CREATE:environment + "Aseguradora/crearAseguradora",
+        PROXY_URL_ASEGURADORAS_DELETE: environment + "Aseguradora/borrarAseguradora",
 
         /*Proxy Cobertura*/
         PROXY_URL_COBERTURA_WITH_PAGINATE:environment +"Cobertura/allCoberturasInfoWithPagination",
@@ -73,5 +79,6 @@ angular.module("App")
         MESSAGE_ERROR_FATAL:"Error Internal Plataform",
         MESSAGE_SERVICE_ERROR:"Servicio No Disponible Intente de nuevo más tarde.",
         MESSAGE_SAVE_USER_SUCCESS:"Usuario creado con exito.",
-        MESSAGE_SAVE_POLIZA_SUCCCESS:"Poliza creada con exito."
+        MESSAGE_SAVE_POLIZA_SUCCCESS:"Poliza creada con exito.",
+        MESSAGE_SAVE_ASEGURADORA_SUCCESS:"Aseguradora creada con exito"
     });

@@ -21,6 +21,7 @@ angular.module("App")
         'GLOBAL_MESSAGE',
         'GLOBAL_CONSTANT',
         'MENU_JCR_SEGUROS_ACTIVE',
+        '$controller',
         function ($scope,
                   UserService,
                   PolizaService,
@@ -36,8 +37,15 @@ angular.module("App")
                   $uibModal,
                   GLOBAL_MESSAGE,
                   GLOBAL_CONSTANT,
-                  MENU_JCR_SEGUROS_ACTIVE) {
+                  MENU_JCR_SEGUROS_ACTIVE,
+                  $controller) {
 
+
+            //herencia metodos comunes
+            $controller('BaseCtrl', {$scope: $scope,
+                $state: $state,
+                $rootScope: $rootScope,
+                $sessionStorage: $sessionStorage});
 
             //Search on the menu
             $scope.menuOptions = {searchWord: ''};
@@ -98,24 +106,9 @@ angular.module("App")
             /**
              * Validate session
              */
-            function validateSession() {
 
-                if (isUndefined($sessionStorage.rol_user) || isEmptyString($sessionStorage.rol_user)) {
-                    console.error("Usuario no a iniciado session");
-                    $state.go("login");
-                }
-                else {
 
-                    $scope.nameUser = $sessionStorage.nameUser;
-                    $scope.rol_user = $sessionStorage.rol_user;
-                    console.log("Rol: " + $scope.rol_user);
-                    //menu sidebar
-                    $scope.menus = addActiveClassMenu(JSON.parse($sessionStorage.appMenus), MENU_JCR_SEGUROS_ACTIVE.CODE_POLIZAS_MENU);
-
-                }
-            }
-
-            validateSession();
+            $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_POLIZAS_MENU);
 
 
             $scope.init = function () {

@@ -20,6 +20,7 @@ angular.module('App')
         'GLOBAL_CONSTANT',
         'GLOBAL_MESSAGE',
         'MENU_JCR_SEGUROS_ACTIVE',
+        '$controller',
         function ($scope,
                   UserService,
                   $log,
@@ -34,7 +35,15 @@ angular.module('App')
                   $confirm,
                   GLOBAL_CONSTANT,
                   GLOBAL_MESSAGE,
-                  MENU_JCR_SEGUROS_ACTIVE) {
+                  MENU_JCR_SEGUROS_ACTIVE,
+                  $controller) {
+
+
+            //herencia metodos comunes
+            $controller('BaseCtrl', {$scope: $scope,
+                $state: $state,
+                $rootScope: $rootScope,
+                $sessionStorage: $sessionStorage});
 
 
             $scope.showTable = false;
@@ -43,8 +52,6 @@ angular.module('App')
             $scope.showMessage = "";
             $scope.headerName = "";
             $scope.showPassword = false;
-
-            var loadServices = true;
 
 
             $scope.users = {
@@ -74,26 +81,8 @@ angular.module('App')
             /**
              * Validate session
              */
-            function validateSession() {
 
-                if (isUndefined($sessionStorage.rol_user) || isEmptyString($sessionStorage.rol_user)) {
-                    console.error("Usuario no a iniciado session");
-                    loadServices = false;
-                    $state.go("login");
-                }
-                else {
-
-                    $scope.nameUser = $sessionStorage.nameUser;
-                    $scope.rol_user = $sessionStorage.rol_user;
-                    console.log("Rol: " + $scope.rol_user);
-                    //menu sidebar
-                    $scope.menus = addActiveClassMenu(JSON.parse($sessionStorage.appMenus), MENU_JCR_SEGUROS_ACTIVE.CODE_USER_MENU);
-
-                }
-
-            }
-
-            validateSession();
+            $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_USER_MENU);
 
             /**
              * Method initial controller
@@ -194,7 +183,7 @@ angular.module('App')
             /**
              * Method initial controller
              */
-            if (loadServices) {
+            if ($scope.loadServices) {
                 $scope.init();
             }
 
