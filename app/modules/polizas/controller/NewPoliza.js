@@ -42,10 +42,12 @@ angular.module("App")
 
 
             //herencia metodos comunes
-            $controller('BaseCtrl', {$scope: $scope,
+            $controller('BaseCtrl', {
+                $scope: $scope,
                 $state: $state,
                 $rootScope: $rootScope,
-                $sessionStorage: $sessionStorage});
+                $sessionStorage: $sessionStorage
+            });
 
             //Search on the menu
             $scope.menuOptions = {searchWord: ''};
@@ -57,38 +59,148 @@ angular.module("App")
             $scope.selectedUser = null;
             $scope.selectEditAgente = null;
 
-            $scope.poliza={
-                poliza_id:"",
-                numero_poliza:"",
-                ramo_id:"",
-                aseguradora_id:"",
-                numero_recibo:"",
-                vigencia:"",
-                tipo_poliza_id:"",
-                referencia:"",
-                prima_total:"",
-                usuario_id_agente:""
+            $scope.poliza = {
+                poliza_id: "",
+                numero_poliza: "",
+                ramo_id: "",
+                ramo: {},
+                aseguradora_id: "",
+                numero_recibo: "",
+                vigencia: "",
+                tipo_poliza_id: "",
+                referencia: "",
+                prima_total: "",
+                agente: ""
             }
 
             $scope.formats = ['dd-MM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
             $scope.format = $scope.formats[2];
             $scope.altInputFormats = ['M!/d!/yyyy'];
 
-            $scope.tipo_poliza_select=[
-                {tipo_poliza_id:1,tipo_poliza_nombre:"Individual"},
-                {tipo_poliza_id:2,tipo_poliza_nombre:"Colectiva"},
-                {tipo_poliza_id:3,tipo_poliza_nombre:"Solidaria"}
+            $scope.tipo_poliza_select = [
+                {tipo_poliza_id: 1, tipo_poliza_nombre: "Individual"},
+                {tipo_poliza_id: 2, tipo_poliza_nombre: "Colectiva"},
+                {tipo_poliza_id: 3, tipo_poliza_nombre: "Solidaria"}
             ]
+            var coberturaStandar = [
+                {
+                    comertura_id: 1,
+                    cobertura_name: "Suma Asegurada"
+                }, {
+                    comertura_id: 2,
+                    cobertura_name: "deducible"
+                }];
+            var coberturaSimple = [
+                {
+                    comertura_id: 1,
+                    cobertura_name: "Suma Asegurada"
+                }];
+            var coberturaAutoStandar = [
+                {
+                    comertura_id: 1,
+                    cobertura_name: "Suma Asegurada"
+                }, {
+                    comertura_id: 2,
+                    cobertura_name: "deducible"
+                }, {
+                    comertura_id: 3,
+                    cobertura_name: "tasa"
+                }];
 
-            $scope.ramo_select=[
-                {ramo_id:1,ramo_nombre:"Personas"},
-                {ramo_id:2,ramo_nombre:"Patrimoniales"},
-                {ramo_id:3,ramo_nombre:"Auto"},
-                {ramo_id:4,ramo_nombre:"RC"},
-                {ramo_id:5,ramo_nombre:"Fianza"}
+            var subRamoStandarSalud = [{
+                sub_ramo_id: 1,
+                sub_ramo_name: "HC Basico",
+                coberturas: coberturaStandar
+            }, {
+                sub_ramo_id: 2,
+                sub_ramo_name: "HC Exceso",
+                coberturas: coberturaStandar
+            }, {
+                sub_ramo_id: 3,
+                sub_ramo_name: "Maternidad",
+                coberturas: coberturaStandar
+            }, {
+                sub_ramo_id: 4,
+                sub_ramo_name: "Maternidad Exceso",
+                coberturas: coberturaStandar
+            }];
 
-            ]
+            var subRamoStandarAutomovil = [{
+                sub_ramo_id: 5,
+                sub_ramo_name: "Perdida Total",
+                coberturas: coberturaAutoStandar
+            }, {
+                sub_ramo_id: 6,
+                sub_ramo_name: "Cobertura Amplia",
+                coberturas: coberturaAutoStandar
+            }, {
+                sub_ramo_id: 7,
+                sub_ramo_name: "RCV",
+                coberturas: coberturaAutoStandar
+            }, {
+                sub_ramo_id: 8,
+                sub_ramo_name: "Producto Especial",
+                coberturas: coberturaAutoStandar
+            }];
 
+            $scope.ramo_select = [
+                {
+                    ramo_id: 1,
+                    ramo_nombre: "Hospitalizacion Colectivos",
+                    selection:"multiple",
+                    sub_ramo: subRamoStandarSalud
+                }, {
+                    ramo_id: 2,
+                    ramo_nombre: "Hospitalizacion Individual",
+                    selection:"multiple",
+                    sub_ramo: subRamoStandarSalud
+                },{
+                    ramo_id: 3,
+                    ramo_nombre: "Automovil Flota",
+                    selection:"single",
+                    sub_ramo: subRamoStandarAutomovil
+                },{
+                    ramo_id: 4,
+                    ramo_nombre: "Automovil Individual",
+                    selection:"single",
+                    sub_ramo: subRamoStandarAutomovil
+                }, {
+                    ramo_id: 5,
+                    ramo_nombre: "Accidentes Personales",
+                    selection:"single",
+                    sub_ramo: null,
+                    cobertura:coberturaSimple
+                },
+                {ramo_id: 4, ramo_nombre: "Armas y Equipaje"},
+                {ramo_id: 5, ramo_nombre: "Accidentes Personales"},
+                {ramo_id: 6, ramo_nombre: "Accidentes Colectivos"},
+                {ramo_id: 7, ramo_nombre: "Combinado Empresarial"},
+                {ramo_id: 8, ramo_nombre: "Combinado Rescidencial"},
+                {ramo_id: 9, ramo_nombre: "Construccion"},
+                {ramo_id: 10, ramo_nombre: "Dinero y Valores"},
+                {ramo_id: 10, ramo_nombre: "Objhetos Valiosos"},
+                {ramo_id: 11, ramo_nombre: "Equipo Contratista"},
+                {ramo_id: 12, ramo_nombre: "Equipo Electronico"},
+                {ramo_id: 13, ramo_nombre: "Fidelidad"},
+                {ramo_id: 14, ramo_nombre: "Fidelidad 3D"},
+                {ramo_id: 15, ramo_nombre: "Incendio y Terremoto"},
+                {ramo_id: 16, ramo_nombre: "Lucro Cesante"},
+                {ramo_id: 17, ramo_nombre: "Montaje"},
+                {ramo_id: 18, ramo_nombre: "Industria y Comercio"},
+                {ramo_id: 19, ramo_nombre: "RCG"},
+                {ramo_id: 20, ramo_nombre: "RCE"},
+                {ramo_id: 21, ramo_nombre: "Responsabilidad Civil Patronal"},
+                {ramo_id: 21, ramo_nombre: "Responsabilidad Civil Medico"},
+                {ramo_id: 22, ramo_nombre: "Robo"},
+                {ramo_id: 23, ramo_nombre: "Rotura de Maquinaria"},
+                {ramo_id: 24, ramo_nombre: "Seguro Escolar"},
+                {ramo_id: 25, ramo_nombre: "Seguro Especial"},
+                {ramo_id: 26, ramo_nombre: "Servicios Funerales Colectivos"},
+                {ramo_id: 27, ramo_nombre: "Transporte Maritimo"},
+                {ramo_id: 28, ramo_nombre: "Transporte Terrestre"},
+                {ramo_id: 29, ramo_nombre: "Vida Colectivo"},
+                {ramo_id: 30, ramo_nombre: "Vida Individual"},
+                {ramo_id: 30, ramo_nombre: "Ramos Tecnicos de Ingenieria"}];
 
             /**
              * Options calendar
@@ -116,7 +228,7 @@ angular.module("App")
                 console.info("Iniciando controlador PolizaNewCtrl...");
                 console.info("Mode edit: " + $stateParams.edit);
                 console.info("Id de la poliza: " + $stateParams.poliza_id);
-
+                $scope.show_agent_helper = 'hidden';
                 PolizaService.setModeEdit({
                     isModeEdit: Boolean($stateParams.edit),
                     idPoliza: parseInt($stateParams.poliza_id)
@@ -125,13 +237,13 @@ angular.module("App")
 
                 spinnerService.show("spinnerNew");
 
-                if(PolizaService.getModeEdit().isModeEdit){
+                if (PolizaService.getModeEdit().isModeEdit) {
 
-                    var requestService={JcrParameters:{Poliza:{poliza_id:PolizaService.getModeEdit().idPoliza}}};
+                    var requestService = {JcrParameters: {Poliza: {poliza_id: PolizaService.getModeEdit().idPoliza}}};
 
-                    PolizaService.searhPolizaById(requestService).then(function(resp){
+                    PolizaService.searhPolizaById(requestService).then(function (resp) {
 
-                        if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+                        if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
 
                             var poliza = resp.JcrResponse.object[0];
 
@@ -167,40 +279,40 @@ angular.module("App")
                                 nombre: poliza.tomador.nombre,
                                 apellido: poliza.tomador.apellido,
                                 documento_id: poliza.tomador.documento_id,
-                                tipo_usuario : poliza.tomador.tipo_usuario_name,
+                                tipo_usuario: poliza.tomador.tipo_usuario_name,
                                 type_usuario_poliza: GLOBAL_CONSTANT.TOMADOR,
-                                usuario_check:false
+                                usuario_check: false
                             };
 
                             //agregar tomador
                             $scope.tomadorListFinal.push(tomador);
 
-                            var titular={
+                            var titular = {
                                 usuario_id: poliza.titular.usuario_id,
                                 nombre: poliza.titular.nombre,
                                 apellido: poliza.titular.apellido,
                                 documento_id: poliza.titular.documento_id,
-                                tipo_usuario : poliza.titular.tipo_usuario_name,
+                                tipo_usuario: poliza.titular.tipo_usuario_name,
                                 type_usuario_poliza: GLOBAL_CONSTANT.TITULAR,
-                                usuario_check:false
+                                usuario_check: false
                             }
 
                             //agregar titular
                             $scope.tomadorListFinal.push(titular);
 
                             //agregar beneficiario
-                            if(poliza.beneficiarios.length > 0){
+                            if (poliza.beneficiarios.length > 0) {
 
-                                poliza.beneficiarios.forEach(function(entry){
+                                poliza.beneficiarios.forEach(function (entry) {
 
                                     var beneficiario = {
                                         usuario_id: entry.usuario_id,
                                         nombre: entry.nombre,
                                         apellido: entry.apellido,
                                         documento_id: entry.documento_id,
-                                        tipo_usuario : entry.tipo_usuario_name,
+                                        tipo_usuario: entry.tipo_usuario_name,
                                         type_usuario_poliza: GLOBAL_CONSTANT.BENEFICIARIO,
-                                        usuario_check:false
+                                        usuario_check: false
                                     }
 
                                     $scope.tomadorListFinal.push(beneficiario);
@@ -209,11 +321,11 @@ angular.module("App")
 
 
                             //agregar aseguradora
-                            var aseguradora={
-                                aseguradora_id:poliza.aseguradora.aseguradora_id,
-                                aseguradora_nombre:poliza.aseguradora.aseguradora_nombre,
-                                aseguradora_documento_id:poliza.aseguradora.aseguradora_documento_id,
-                                status_id:poliza.aseguradora.status_id
+                            var aseguradora = {
+                                aseguradora_id: poliza.aseguradora.aseguradora_id,
+                                aseguradora_nombre: poliza.aseguradora.aseguradora_nombre,
+                                aseguradora_documento_id: poliza.aseguradora.aseguradora_documento_id,
+                                status_id: poliza.aseguradora.status_id
                             }
 
                             $scope.aseguradoraListFinal.push(aseguradora);
@@ -224,8 +336,8 @@ angular.module("App")
                                 usuario_id: poliza.agente.usuario_id,
                                 nombre: poliza.agente.nombre,
                                 apellido: poliza.agente.apellido,
-                                documento_id:poliza.agente.documento_id,
-                                tipo_usuario_id:poliza.agente.tipo_usuario_id
+                                documento_id: poliza.agente.documento_id,
+                                tipo_usuario_id: poliza.agente.tipo_usuario_id
 
                             };
 
@@ -234,19 +346,22 @@ angular.module("App")
                             $scope.showTableTomador = true;
 
                             spinnerService.hide("spinnerNew");
-                        }else{
+                        } else {
                             console.log(resp.JcrResponse.message);
                             throw "Error Servicio";
                         }
 
-                    }).catch(function(err){
-                        console.error("Error: "+err);
+                    }).catch(function (err) {
+                        console.error("Error: " + err);
                         spinnerService.hide("spinnerNew");
-                        PolizaService.setShowGrowlMessage({isShow: true,message: GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR});
+                        PolizaService.setShowGrowlMessage({
+                            isShow: true,
+                            message: GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR
+                        });
                         $state.go("verPolizas");
                     });
                 }
-                else{
+                else {
                     //create poliza
                     spinnerService.hide("spinnerNew");
                     console.log("Modo crear poliza");
@@ -258,10 +373,35 @@ angular.module("App")
 
             $scope.init();
 
+            /**
+             * Evento del cambio de Agente
+             */
+            $scope.onAgentChangeEvent = function () {
+                if ($scope.poliza.agente == '') {
+                    $scope.show_agent_helper = '';
+                } else {
+                    $scope.show_agent_helper = 'hidden';
+                }
+            }
+
+
+
+            $scope.onRamoChangeEvent = function(){
+                console.log($scope.poliza.ramo);
+                if($scope.poliza.ramo.selection == 'multiple'){
+                    $('#subRamoSelect').attr('multiple','');
+                }else{
+                    $('#subRamoSelect').removeAttr('multiple');
+                }
+            }
+
+            $scope.onSubRamoChangeEvent = function(){
+                console.log($scope.poliza.sub_ramo);
+            }
 
             $scope.searchUsersInTheSystem = function (str) {
 
-                var requestFilter = {JcrParameters:{User:{filter:str}}};
+                var requestFilter = {JcrParameters: {User: {filter: str}}};
 
                 return UserService.getUsersFilter(requestFilter)
                     .then(function (result) {
@@ -296,48 +436,48 @@ angular.module("App")
             };
 
 
-            $scope.selectedUser = function(select){
+            $scope.selectedUser = function (select) {
                 $scope.poliza.usuario_id_agente = (select != undefined) ? select.originalObject.usuario_id : null;
             }
 
-            $scope.savePoliza = function(){
+            $scope.savePoliza = function () {
 
                 spinnerService.show("spinnerNew");
 
-                var request={
-                    JcrParameters:{
-                        Poliza:{
-                            numero_poliza : $scope.poliza.numero_poliza,
-                            ramo_id : $scope.poliza.ramo_id,
-                            aseguradora_id:  $scope.aseguradoraListFinal[0].aseguradora_id,
+                var request = {
+                    JcrParameters: {
+                        Poliza: {
+                            numero_poliza: $scope.poliza.numero_poliza,
+                            ramo_id: $scope.poliza.ramo_id,
+                            aseguradora_id: $scope.aseguradoraListFinal[0].aseguradora_id,
                             numero_recibo: $scope.poliza.numero_recibo,
                             vigencia: formatDate($scope.poliza.vigencia),
-                            tipo_poliza_id:$scope.poliza.tipo_poliza_id,
-                            referencia:$scope.poliza.referencia,
-                            prima_total:$scope.poliza.prima_total,
+                            tipo_poliza_id: $scope.poliza.tipo_poliza_id,
+                            referencia: $scope.poliza.referencia,
+                            prima_total: $scope.poliza.prima_total,
                             usuario_id_agente: $scope.poliza.usuario_id_agente,
-                            status_id:1,
-                            beneficiarios:[]
+                            status_id: 1,
+                            beneficiarios: []
                         }
                     }
                 }
 
                 //agregar tomador
 
-                $scope.tomadorListFinal.forEach(function(entry){
+                $scope.tomadorListFinal.forEach(function (entry) {
 
-                    if(GLOBAL_CONSTANT.TOMADOR == entry.type_usuario_poliza){
+                    if (GLOBAL_CONSTANT.TOMADOR == entry.type_usuario_poliza) {
                         request.JcrParameters.Poliza.usuario_id_tomador = entry.usuario_id;
                     }
-                    else if(GLOBAL_CONSTANT.TITULAR == entry.type_usuario_poliza){
+                    else if (GLOBAL_CONSTANT.TITULAR == entry.type_usuario_poliza) {
                         request.JcrParameters.Poliza.usuario_id_titular = entry.usuario_id;
-                    }else{
-                        request.JcrParameters.Poliza.beneficiarios.push({usuario_id:entry.usuario_id});
+                    } else {
+                        request.JcrParameters.Poliza.beneficiarios.push({usuario_id: entry.usuario_id});
                     }
 
                 });
 
-                if(PolizaService.getModeEdit().isModeEdit){
+                if (PolizaService.getModeEdit().isModeEdit) {
                     request.JcrParameters.Poliza.poliza_id = $scope.poliza.poliza_id;
                 }
 
@@ -345,38 +485,44 @@ angular.module("App")
 
                 //validar request antes de mandar peticion
 
-                PolizaService.newPoliza(request).then(function(resp){
+                PolizaService.newPoliza(request).then(function (resp) {
 
-                    if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+                    if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
 
                         //modo edicion
-                        if(PolizaService.getModeEdit().isModeEdit){
+                        if (PolizaService.getModeEdit().isModeEdit) {
 
-                            PolizaService.setShowGrowlMessage({isShow: true,message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS});
+                            PolizaService.setShowGrowlMessage({
+                                isShow: true,
+                                message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS
+                            });
                             $state.go("verPolizas");
                         }
-                        else{
+                        else {
                             $confirm({text: 'Desea crear una nueva poliza en sistema', ok: 'Si', cancel: 'No'})
                                 .then(function () {
                                     cleanFields();
                                 })
                                 .catch(function () {
-                                    PolizaService.setShowGrowlMessage({isShow: true,message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS});
+                                    PolizaService.setShowGrowlMessage({
+                                        isShow: true,
+                                        message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS
+                                    });
                                     $state.go("verPolizas");
                                 });
                         }
 
                     }
-                    else{
-                        console.log("Error: "+resp.JcrResponse.message);
+                    else {
+                        console.log("Error: " + resp.JcrResponse.message);
                         growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
                     }
 
                     spinnerService.hide("spinnerNew");
 
-                }).catch(function(err){
+                }).catch(function (err) {
                     spinnerService.hide("spinnerNew");
-                    console.log("Error: "+err);
+                    console.log("Error: " + err);
                 });
 
 
@@ -389,8 +535,15 @@ angular.module("App")
             $scope.open1 = function () {
                 $scope.popup1.opened = true;
             };
+            $scope.open2 = function () {
+                $scope.popup2.opened = true;
+            };
 
             $scope.popup1 = {
+                opened: false
+            };
+
+            $scope.popup2 = {
                 opened: false
             };
 
@@ -403,7 +556,7 @@ angular.module("App")
                 openModalAddUsers(type_user);
             }
 
-            $scope.openModalBeneficiarios = function(type_user){
+            $scope.openModalBeneficiarios = function (type_user) {
                 openModalBeneficiarios(type_user);
             }
             /**
@@ -433,7 +586,7 @@ angular.module("App")
              * Borrar Delete
              * @param aseguradora_id
              */
-            $scope.deleteUsersTomadorSelect = function (usuario_id,type_usuario_poliza) {
+            $scope.deleteUsersTomadorSelect = function (usuario_id, type_usuario_poliza) {
 
                 var index = -1;
                 for (var i = 0, len = $scope.tomadorListFinal.length; i < len; i++) {
@@ -451,7 +604,6 @@ angular.module("App")
                     $scope.showTableTomador = false;
                 }
             }
-
 
 
             function openModalAddAseguradora() {
@@ -496,7 +648,7 @@ angular.module("App")
                     controller: 'UsuarioListModalCtrl',
                     size: 'lg',
                     resolve: {
-                        type_user_poliza:type_user
+                        type_user_poliza: type_user
                     }
                 });
 
@@ -508,7 +660,7 @@ angular.module("App")
 
                         selectedItem.forEach(function (entry) {
 
-                            if (!searchObjList(entry.usuario_id,type_user)) {
+                            if (!searchObjList(entry.usuario_id, type_user)) {
                                 $scope.tomadorListFinal.push(entry);
                             }
 
@@ -521,7 +673,7 @@ angular.module("App")
             }
 
 
-            function openModalBeneficiarios(type_user){
+            function openModalBeneficiarios(type_user) {
 
                 var modalInstance = $uibModal.open({
                     animation: $scope.animationsEnabled,
@@ -529,7 +681,7 @@ angular.module("App")
                     controller: 'BeneficListModalCtrl',
                     size: 'lg',
                     resolve: {
-                        type_user_poliza:type_user
+                        type_user_poliza: type_user
                     }
                 });
 
@@ -540,7 +692,7 @@ angular.module("App")
 
                         selectedItem.forEach(function (entry) {
 
-                            if (!searchObjList(entry.usuario_id,type_user)) {
+                            if (!searchObjList(entry.usuario_id, type_user)) {
                                 $scope.tomadorListFinal.push(entry);
                             }
 
@@ -557,37 +709,37 @@ angular.module("App")
              * @param id_user
              * @returns {boolean}
              */
-            function searchObjList(usuario_id,type_usuario_poliza) {
+            function searchObjList(usuario_id, type_usuario_poliza) {
 
                 var validate = false;
 
                 if ($scope.tomadorListFinal.length > 0) {
 
-                    if(GLOBAL_CONSTANT.TITULAR == type_usuario_poliza){
+                    if (GLOBAL_CONSTANT.TITULAR == type_usuario_poliza) {
 
-                        if(!existsTitular($scope.tomadorListFinal)){
+                        if (!existsTitular($scope.tomadorListFinal)) {
                             $scope.tomadorListFinal.forEach(function (entry) {
                                 if (entry.usuario_id == usuario_id && entry.type_usuario_poliza == type_usuario_poliza) {
                                     validate = true;
                                 }
                             });
-                        }else{
+                        } else {
                             validate = true;
                         }
                     }
-                    else if(GLOBAL_CONSTANT.TOMADOR == type_usuario_poliza){
+                    else if (GLOBAL_CONSTANT.TOMADOR == type_usuario_poliza) {
 
-                        if(!existsTomador($scope.tomadorListFinal)){
+                        if (!existsTomador($scope.tomadorListFinal)) {
                             $scope.tomadorListFinal.forEach(function (entry) {
                                 if (entry.usuario_id == usuario_id && entry.type_usuario_poliza == type_usuario_poliza) {
                                     validate = true;
                                 }
                             });
-                        }else{
+                        } else {
                             validate = true;
                         }
 
-                    }else{
+                    } else {
 
                         $scope.tomadorListFinal.forEach(function (entry) {
                             if (entry.usuario_id == usuario_id) {
@@ -600,11 +752,12 @@ angular.module("App")
 
                 return validate;
             }
+
             $scope.toggleAnimation = function () {
                 $scope.animationsEnabled = !$scope.animationsEnabled;
             };
 
-            function cleanFields(){
+            function cleanFields() {
 
                 $scope.aseguradoraListFinal = [];
                 $scope.tomadorListFinal = [];
@@ -613,16 +766,16 @@ angular.module("App")
                 $scope.selectedUser = null;
                 $scope.selectEditAgente = null;
 
-                $scope.poliza.poliza_id="";
-                $scope.poliza.numero_poliza="";
-                $scope.poliza.ramo_id="";
-                $scope.poliza.aseguradora_id="";
-                $scope.poliza.numero_recibo="";
-                $scope.poliza.vigencia="";
-                $scope.poliza.tipo_poliza_id="";
-                $scope.poliza.referencia="";
-                $scope.poliza.prima_total="";
-                $scope.poliza.usuario_id_agente="";
+                $scope.poliza.poliza_id = "";
+                $scope.poliza.numero_poliza = "";
+                $scope.poliza.ramo_id = "";
+                $scope.poliza.aseguradora_id = "";
+                $scope.poliza.numero_recibo = "";
+                $scope.poliza.vigencia = "";
+                $scope.poliza.tipo_poliza_id = "";
+                $scope.poliza.referencia = "";
+                $scope.poliza.prima_total = "";
+                $scope.poliza.usuario_id_agente = "";
 
                 clearInput('ex2');
             }
@@ -729,8 +882,8 @@ angular.module("App")
 
         }])
 
-    .controller('UsuarioListModalCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance', 'UserService','type_user_poliza',
-        function ($scope, $state, $sessionStorage, $uibModalInstance, UserService,type_user_poliza) {
+    .controller('UsuarioListModalCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance', 'UserService', 'type_user_poliza',
+        function ($scope, $state, $sessionStorage, $uibModalInstance, UserService, type_user_poliza) {
 
             $scope.totalPages = 0;
             $scope.userListSelect = [];
@@ -809,7 +962,6 @@ angular.module("App")
                 $scope.getAllUsers();
 
             };
-
 
 
             $scope.listUsers = function (obj) {
@@ -828,13 +980,13 @@ angular.module("App")
             $scope.selectPage();
 
 
-            function addTypeUserPoliza(users){
+            function addTypeUserPoliza(users) {
 
                 var result = [];
 
-                users.forEach(function(entry){
+                users.forEach(function (entry) {
 
-                    var obj={}
+                    var obj = {}
 
                     obj.usuario_id = entry.usuario_id;
                     obj.nombre = entry.nombre;
@@ -853,8 +1005,8 @@ angular.module("App")
 
         }])
 
-    .controller('BeneficListModalCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance', 'UserService','type_user_poliza',
-        function ($scope, $state, $sessionStorage, $uibModalInstance, UserService,type_user_poliza) {
+    .controller('BeneficListModalCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance', 'UserService', 'type_user_poliza',
+        function ($scope, $state, $sessionStorage, $uibModalInstance, UserService, type_user_poliza) {
 
             $scope.totalPages = 0;
             $scope.userListSelect = [];
@@ -933,7 +1085,6 @@ angular.module("App")
                 $scope.getAllUsers();
 
             };
-
 
 
             $scope.listUsers = function (obj) {
@@ -995,13 +1146,13 @@ angular.module("App")
             $scope.selectPage();
 
 
-            function addTypeUserPoliza(users){
+            function addTypeUserPoliza(users) {
 
                 var result = [];
 
-                users.forEach(function(entry){
+                users.forEach(function (entry) {
 
-                    var obj={}
+                    var obj = {}
 
                     obj.usuario_id = entry.usuario_id;
                     obj.nombre = entry.nombre;
