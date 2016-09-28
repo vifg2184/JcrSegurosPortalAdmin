@@ -24,6 +24,10 @@ angular.module("App")
 
         /*Proxy Siniestro*/
         PROXY_URL_SINIESTRO_WITH_PAGINATE: environment + "Siniestro/allSiniestrosWithPagination",
+        PROXY_URL_SINIESTRO_CREATE: environment + "Siniestro/crearSiniestro",
+        PROXY_URL_SINIESTRO_BY_ID:environment + "Siniestro/searchSiniestroById",
+        PROXY_URL_SINIESTRO_DELETE:environment + "Siniestro/borrarSiniestro",
+
 
         /*Proxy Vehiculo*/
         PROXY_URL_VEHICULO_WITH_PAGINATE:environment + "Vehiculo/allVehiculosInfoWithPagination",
@@ -57,7 +61,9 @@ angular.module("App")
     .constant('GLOBAL_CONSTANT',{
         SUCCESS_RESPONSE_SERVICE:0,
         ID_HOME_MENU:0,
-        USER_ROL_ADMIN:4,
+        USER_ROL_ADMIN:1,
+        USER_ROL_SUSCRIPCION:2,
+        USER_ROL_SINIESTRO:3,
         TOMADOR:1,
         TITULAR:2,
         BENEFICIARIO:3

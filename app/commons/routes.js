@@ -154,6 +154,17 @@ angular.module("App")
             })
 
 
+            .state('crearSiniestro',{
+                url: '/crearSiniestro',
+                controller:'NewSiniestroCtrl',
+                params:{edit:false,siniestro_id: null},
+                views: {
+                    '': {templateUrl: 'app/modules/siniestros/views/NewSiniestro.html'},
+                    'header@crearSiniestro': {templateUrl: 'app/home/views/header.html'},
+                    'menu@crearSiniestro': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@crearSiniestro':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
 
         $urlRouterProvider.otherwise("/login");
 
