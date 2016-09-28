@@ -139,6 +139,7 @@ angular.module("App")
                 coberturas: coberturaAutoStandar
             }, {
                 sub_ramo_id: 8,
+
                 sub_ramo_name: "Producto Especial",
                 coberturas: coberturaAutoStandar
             }];

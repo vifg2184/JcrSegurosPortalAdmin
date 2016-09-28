@@ -170,7 +170,6 @@
                                             <div class="col-sm-6">
                                                 <br>
                                                 <label>Hasta</label>
-
                                                 <p class="input-group">
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default"
@@ -199,6 +198,12 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>
+                                                <label>Prima</label>
+                                                <input type="text" class="form-control" placeholder="Prima"
+                                                       ng-model="poliza.prima">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br/>
                                                 <label>Ramo</label>
                                                 <select class="form-control" ng-model="poliza.ramo"
                                                         ng-change="onRamoChangeEvent()"
@@ -206,7 +211,6 @@
                                                     <option value="">Seleccione Ramo...</option>
                                                 </select>
                                             </div>
-
                                             <div class="col-sm-6">
                                                 <br/>
                                                 <label>Coberturas</label>

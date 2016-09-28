@@ -2,7 +2,7 @@
  * Created by VladimirIlich G&G on 4/4/2016.
  */
 var interval = null;
-var environment = 'http://localhost:8080/SeguroJCR/jcrSegurosCloud/';
+var environment = 'http://localhost/jcrSeguros/';
 
 angular.module('App', ['ui.router',
         'angularSpinners',
