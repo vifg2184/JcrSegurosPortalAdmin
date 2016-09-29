@@ -3,7 +3,7 @@
  */
 angular.module('App')
 
-    .directive('myAlert',['$modal','$log',function ($modal, $log) {
+    .directive('myAlert', ['$modal', '$log', function ($modal, $log) {
 
         return {
             restrict: 'E',
@@ -64,7 +64,7 @@ angular.module('App')
     }])
 
 
-    .directive('sortBy',function () {
+    .directive('sortBy', function () {
         return {
             templateUrl: 'sort-by.html',
             restrict: 'E',
@@ -91,7 +91,7 @@ angular.module('App')
         };
     })
 
-    .directive('onBlurChange',['$parse',function ($parse) {
+    .directive('onBlurChange', ['$parse', function ($parse) {
         return function (scope, element, attr) {
             var fn = $parse(attr['onBlurChange']);
             var hasChanged = false;
@@ -196,13 +196,26 @@ angular.module('App')
         }
     })
 
-    .directive('ngFocus',['$parse', function ($parse) {
-        return function(scope, element, attr) {
+    .directive('ngFocus', ['$parse', function ($parse) {
+        return function (scope, element, attr) {
             var fn = $parse(attr['ngFocus']);
-            element.bind('focus', function(event) {
-                scope.$apply(function() {
-                    fn(scope, {$event:event});
+            element.bind('focus', function (event) {
+                scope.$apply(function () {
+                    fn(scope, {$event: event});
                 });
             });
         }
+    }])
+    .directive('dynamicModel', ['$compile', '$parse', function ($compile, $parse) {
+        return {
+            restrict: 'A',
+            terminal: true,
+            priority: 100000,
+            link: function (scope, elem) {
+                var name = $parse(elem.attr('dynamic-model'))(scope);
+                elem.removeAttr('dynamic-model');
+                elem.attr('ng-model', name);
+                $compile(elem)(scope);
+            }
+        };
     }]);

@@ -63,14 +63,18 @@ angular.module("App")
                 poliza_id: "",
                 numero_poliza: "",
                 ramo_id: "",
-                ramo: {},
+                ramo: null,
                 aseguradora_id: "",
                 numero_recibo: "",
-                vigencia: "",
-                tipo_poliza_id: "",
+                vigencia_desde: "",
+                vigencia_hasta: "",
                 referencia: "",
                 prima_total: "",
                 agente: ""
+            }
+
+            $scope.poliza_helper = {
+                ramo: []
             }
 
             $scope.formats = ['dd-MM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
@@ -84,27 +88,27 @@ angular.module("App")
             ]
             var coberturaStandar = [
                 {
-                    comertura_id: 1,
+                    cobertura_id: 1,
                     cobertura_name: "Suma Asegurada"
                 }, {
-                    comertura_id: 2,
-                    cobertura_name: "deducible"
+                    cobertura_id: 2,
+                    cobertura_name: "Deducible"
                 }];
             var coberturaSimple = [
                 {
-                    comertura_id: 1,
+                    cobertura_id: 1,
                     cobertura_name: "Suma Asegurada"
                 }];
             var coberturaAutoStandar = [
                 {
-                    comertura_id: 1,
+                    cobertura_id: 1,
                     cobertura_name: "Suma Asegurada"
                 }, {
-                    comertura_id: 2,
-                    cobertura_name: "deducible"
+                    cobertura_id: 2,
+                    cobertura_name: "Deducible"
                 }, {
-                    comertura_id: 3,
-                    cobertura_name: "tasa"
+                    cobertura_id: 3,
+                    cobertura_name: "Tasa"
                 }];
 
             var subRamoStandarSalud = [{
@@ -123,6 +127,12 @@ angular.module("App")
                 sub_ramo_id: 4,
                 sub_ramo_name: "Maternidad Exceso",
                 coberturas: coberturaStandar
+            }];
+
+            var subRamoDefecto = [{
+                sub_ramo_id: 9,
+                sub_ramo_name: "Coberturas",
+                coberturas: coberturaSimple
             }];
 
             var subRamoStandarAutomovil = [{
@@ -148,60 +158,226 @@ angular.module("App")
                 {
                     ramo_id: 1,
                     ramo_nombre: "Hospitalizacion Colectivos",
-                    selection:"multiple",
+                    selection: "multiple",
                     sub_ramo: subRamoStandarSalud
                 }, {
                     ramo_id: 2,
                     ramo_nombre: "Hospitalizacion Individual",
-                    selection:"multiple",
+                    selection: "multiple",
                     sub_ramo: subRamoStandarSalud
-                },{
+                }, {
                     ramo_id: 3,
                     ramo_nombre: "Automovil Flota",
-                    selection:"single",
+                    selection: "single",
                     sub_ramo: subRamoStandarAutomovil
-                },{
+                }, {
                     ramo_id: 4,
                     ramo_nombre: "Automovil Individual",
-                    selection:"single",
+                    selection: "single",
                     sub_ramo: subRamoStandarAutomovil
                 }, {
                     ramo_id: 5,
                     ramo_nombre: "Accidentes Personales",
-                    selection:"single",
-                    sub_ramo: null,
-                    cobertura:coberturaSimple
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
                 },
-                {ramo_id: 4, ramo_nombre: "Armas y Equipaje"},
-                {ramo_id: 5, ramo_nombre: "Accidentes Personales"},
-                {ramo_id: 6, ramo_nombre: "Accidentes Colectivos"},
-                {ramo_id: 7, ramo_nombre: "Combinado Empresarial"},
-                {ramo_id: 8, ramo_nombre: "Combinado Rescidencial"},
-                {ramo_id: 9, ramo_nombre: "Construccion"},
-                {ramo_id: 10, ramo_nombre: "Dinero y Valores"},
-                {ramo_id: 10, ramo_nombre: "Objhetos Valiosos"},
-                {ramo_id: 11, ramo_nombre: "Equipo Contratista"},
-                {ramo_id: 12, ramo_nombre: "Equipo Electronico"},
-                {ramo_id: 13, ramo_nombre: "Fidelidad"},
-                {ramo_id: 14, ramo_nombre: "Fidelidad 3D"},
-                {ramo_id: 15, ramo_nombre: "Incendio y Terremoto"},
-                {ramo_id: 16, ramo_nombre: "Lucro Cesante"},
-                {ramo_id: 17, ramo_nombre: "Montaje"},
-                {ramo_id: 18, ramo_nombre: "Industria y Comercio"},
-                {ramo_id: 19, ramo_nombre: "RCG"},
-                {ramo_id: 20, ramo_nombre: "RCE"},
-                {ramo_id: 21, ramo_nombre: "Responsabilidad Civil Patronal"},
-                {ramo_id: 21, ramo_nombre: "Responsabilidad Civil Medico"},
-                {ramo_id: 22, ramo_nombre: "Robo"},
-                {ramo_id: 23, ramo_nombre: "Rotura de Maquinaria"},
-                {ramo_id: 24, ramo_nombre: "Seguro Escolar"},
-                {ramo_id: 25, ramo_nombre: "Seguro Especial"},
-                {ramo_id: 26, ramo_nombre: "Servicios Funerales Colectivos"},
-                {ramo_id: 27, ramo_nombre: "Transporte Maritimo"},
-                {ramo_id: 28, ramo_nombre: "Transporte Terrestre"},
-                {ramo_id: 29, ramo_nombre: "Vida Colectivo"},
-                {ramo_id: 30, ramo_nombre: "Vida Individual"},
-                {ramo_id: 30, ramo_nombre: "Ramos Tecnicos de Ingenieria"}];
+                {
+                    ramo_id: 7,
+                    ramo_nombre: "Armas y Equipaje",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 9,
+                    ramo_nombre: "Combinado Empresarial",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 10,
+                    ramo_nombre: "Combinado Rescidencial",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 11,
+                    ramo_nombre: "Construccion",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 12,
+                    ramo_nombre: "Dinero y Valores",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 13,
+                    ramo_nombre: "Objhetos Valiosos",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 14,
+                    ramo_nombre: "Equipo Contratista",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 15,
+                    ramo_nombre: "Equipo Electronico",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 16,
+                    ramo_nombre: "Fidelidad",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 17,
+                    ramo_nombre: "Fidelidad 3D",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 18,
+                    ramo_nombre: "Incendio y Terremoto",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 19,
+                    ramo_nombre: "Lucro Cesante",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 20,
+                    ramo_nombre: "Montaje",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 21,
+                    ramo_nombre: "Industria y Comercio",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 22,
+                    ramo_nombre: "RCG",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 23,
+                    ramo_nombre: "RCE",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 24,
+                    ramo_nombre: "Responsabilidad Civil Patronal",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 25,
+                    ramo_nombre: "Responsabilidad Civil Medico",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 26,
+                    ramo_nombre: "Robo",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 27,
+                    ramo_nombre: "Rotura de Maquinaria",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 28,
+                    ramo_nombre: "Seguro Escolar",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 29,
+                    ramo_nombre: "Seguro Especial",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 30,
+                    ramo_nombre: "Servicios Funerales Colectivos",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 31,
+                    ramo_nombre: "Transporte Maritimo",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 31,
+                    ramo_nombre: "Transporte Terrestre",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 32,
+                    ramo_nombre: "Vida Colectivo",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 33,
+                    ramo_nombre: "Vida Individual",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                },
+                {
+                    ramo_id: 34,
+                    ramo_nombre: "Ramos Tecnicos de Ingenieria",
+                    selection: "single",
+                    sub_ramo: subRamoDefecto,
+                    cobertura: coberturaSimple
+                }];
 
             /**
              * Options calendar
@@ -385,19 +561,100 @@ angular.module("App")
                 }
             }
 
-
-
-            $scope.onRamoChangeEvent = function(){
-                console.log($scope.poliza.ramo);
-                if($scope.poliza.ramo.selection == 'multiple'){
-                    $('#subRamoSelect').attr('multiple','');
-                }else{
-                    $('#subRamoSelect').removeAttr('multiple');
+            /**
+             *
+             * @param ramo
+             */
+            $scope.agregarRamoALaPoliza = function (ramo) {
+                $scope.poliza_helper.ramo = ramo;
+                $scope.subRamoSelected = [];
+                $scope.poliza.ramo = {
+                    "ramo_id": ramo.ramo_id,
+                    "ramo_nombre": ramo.ramo_name,
+                    "selection": ramo.selection,
+                    "sub_ramo": []
+                };
+            }
+            /**
+             *
+             * @param subRamo
+             */
+            $scope.agregarSubRamoALaPoliza = function (subRamo, isChecked) {
+                console.log(subRamo);
+                if(subRamo != null && subRamo != 0 && subRamo != ""){
+                    if (isChecked) {
+                        var subRamoObject = {
+                            sub_ramo_id: subRamo.sub_ramo_id,
+                            sub_ramo_name: subRamo.sub_ramo_name,
+                            coberturas: []
+                        };
+                        for (var i = 0; i < subRamo.coberturas.length; i++) {
+                            var cobertura = {
+                                cobertura_id: subRamo.coberturas[i].cobertura_id,
+                                cobertura_name: subRamo.coberturas[i].cobertura_name,
+                                monto: 0
+                            };
+                            subRamoObject.coberturas.push(cobertura);
+                        }
+                        $scope.poliza.ramo.sub_ramo.push(subRamoObject);
+                    } else {
+                        for (var i = $scope.poliza.ramo.sub_ramo.length - 1; i >= 0; i--) {
+                            if ($scope.poliza.ramo.sub_ramo[i].sub_ramo_id === subRamo.sub_ramo_id) {
+                                $scope.poliza.ramo.sub_ramo.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
 
-            $scope.onSubRamoChangeEvent = function(){
-                console.log($scope.poliza.sub_ramo);
+            $scope.subRamoSelected = null;
+            $scope.agregarSubRamoALaPolizaSimple = function (subRamo, isChecked) {
+                if(subRamo != null && subRamo != 0 && subRamo != ""){
+                    var subRamo = JSON.parse(subRamo);
+                    console.log(subRamo);
+                    $scope.subRamoSelected = subRamo;
+                    if (isChecked) {
+                        var subRamoObject = {
+                            sub_ramo_id: subRamo.sub_ramo_id,
+                            sub_ramo_name: subRamo.sub_ramo_name,
+                            coberturas: []
+                        };
+                        for (var i = 0; i < subRamo.coberturas.length; i++) {
+                            var cobertura = {
+                                cobertura_id: subRamo.coberturas[i].cobertura_id,
+                                cobertura_name: subRamo.coberturas[i].cobertura_name,
+                                monto: 0
+                            };
+                            subRamoObject.coberturas.push(cobertura);
+                        }
+                        $scope.poliza.ramo.sub_ramo.push(subRamoObject);
+                    } else {
+                        for (var i = $scope.poliza.ramo.sub_ramo.length - 1; i >= 0; i--) {
+                            if ($scope.poliza.ramo.sub_ramo[i].sub_ramo_id === subRamo.sub_ramo_id) {
+                                $scope.poliza.ramo.sub_ramo.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+                }else{
+                    console.log("Limpiando el sub ramo");
+                    $scope.subRamoSelected = "";
+                }
+                console.log($scope.poliza.ramo.sub_ramo);
+            }
+
+
+            $scope.agregarMontoACobertura = function (subRamo, cobertura, monto) {
+                for (var i = 0; i < $scope.poliza.ramo.sub_ramo.length; i++) {
+                    if ($scope.poliza.ramo.sub_ramo[i].sub_ramo_id == subRamo.sub_ramo_id) {
+                        for (var j = 0; j < $scope.poliza.ramo.sub_ramo[i].coberturas.length; j++) {
+                            if ($scope.poliza.ramo.sub_ramo[i].coberturas[j].cobertura_id == cobertura.cobertura_id) {
+                                $scope.poliza.ramo.sub_ramo[i].coberturas[j].monto = monto;
+                            }
+                        }
+                    }
+                }
             }
 
             $scope.searchUsersInTheSystem = function (str) {
