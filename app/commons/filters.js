@@ -147,30 +147,58 @@ angular.module('App')
 
     .filter('concat_min_seg', function () {
         return function (text) {
-            var hours = text+":00:00";
+            var hours = text + ":00:00";
             return hours;
         }
 
     })
 
-   .filter('type_user_poliza',function(){
+    .filter('type_user_poliza', function () {
 
-       return function(type){
+        return function (type) {
 
-           var result="";
-           switch(parseInt(type)){
-               case 1:
-                   result = "Tomador";
-                   break;
-               case 2:
-                   result = "Titular";
-                   break;
-               case 3:
-                   result = "Beneficiario";
-                   break;
+            var result = "";
+            switch (parseInt(type)) {
+                case 1:
+                    result = "Tomador";
+                    break;
+                case 2:
+                    result = "Titular";
+                    break;
+                case 3:
+                    result = "Beneficiario";
+                    break;
 
-           }
+            }
 
-           return result;
-       }
-   });
+            return result;
+        }
+    })
+
+
+    .filter('format_porcent', ['$filter', function ($filter) {
+
+        return function (input, decimals) {
+            return $filter('number')(input, decimals) + '%';
+        };
+    }])
+
+
+    .filter('tipo_siniestro',function(){
+
+        return function(type){
+
+            var result = "";
+
+            switch (parseInt(type)){
+                case 1:
+                    result = "Personas";
+                    break;
+                case 2:
+                    result = "Auto";
+                    break;
+            }
+
+            return result;
+        }
+    })

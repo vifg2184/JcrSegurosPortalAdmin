@@ -72,6 +72,18 @@ angular.module('App')
                                 $sessionStorage.nameUser = data.JcrResponse.object[0].nombre + ' ' + data.JcrResponse.object[0].apellido;
                                 $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_ADMIN;
                                 getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_ADMIN);
+
+                            }else if(data.JcrResponse.object[0].tipo_usuario_id == GLOBAL_CONSTANT.USER_ROL_SINIESTRO){
+
+                                $sessionStorage.nameUser = data.JcrResponse.object[0].nombre + ' ' + data.JcrResponse.object[0].apellido;
+                                $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_SINIESTRO;
+                                getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_SINIESTRO);
+
+                            }else if(data.JcrResponse.object[0].tipo_usuario_id == GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION){
+
+                                $sessionStorage.nameUser = data.JcrResponse.object[0].nombre + ' ' + data.JcrResponse.object[0].apellido;
+                                $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION;
+                                getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION);
                             }
                             else {
                                 spinnerService.hide('html5spinner');

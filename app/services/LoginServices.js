@@ -37,14 +37,14 @@ angular.module('App')
     }
 
 
-    lookup.getMenu = function(user_type_id,business_master_id){
+    lookup.getMenu = function(user_type_id){
 
         var defered = $q.defer();
         var promise = defered.promise;
 
         $http({
             method: 'POST',
-            data: JSON.stringify({JcrParameters:{SystemMenu:{type_user:4}}}),
+            data: JSON.stringify({JcrParameters:{SystemMenu:{type_user:user_type_id}}}),
             url: CONST_PROXY_URL.PROXY_URL_MENU_SHOW,
         }).success(function (response) {
             defered.resolve(response);
@@ -65,8 +65,8 @@ angular.module('App')
       return LoginLookup.sendLogin(username,password);
   }
 
-  this.menuApplication = function(user_type_id,business_master_id){
-      return LoginLookup.getMenu(user_type_id,business_master_id);
+  this.menuApplication = function(user_type_id){
+      return LoginLookup.getMenu(user_type_id);
   }
 
 }]);

@@ -45,7 +45,7 @@
                                     <div class="box-header ">
                                         <div class="small-box">
                                             <div class="customIcon">
-                                                <a ui-sref="crearUsuarios" data-toggle="tooltip" title="Agregar Siniestro">
+                                                <a ui-sref="crearSiniestro" data-toggle="tooltip" title="Agregar Siniestro">
                                                     <button class="btn btn-primary"><i class="ion ion-plus"></i></button>
                                                 </a>
                                             </div>
@@ -66,9 +66,8 @@
                                                     <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir" sortedby="filterCriteria.JcrParameters.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                                                 </th>
                                                 <th>Numero de Poliza</th>
+                                                <th>Monto Ordenes</th>
                                                 <th>Ramo</th>
-                                                <th>Monto de Siniestro</th>
-                                                <th>Fecha Siniestro</th>
                                                 <th>Actions</th>
                                             </tr>
                                             </thead>
@@ -76,12 +75,11 @@
                                             <tr ng-repeat="obj in siniestro">
                                                 <td>{{obj.numero_siniestro}}</td>
                                                 <td>{{obj.poliza.numero_poliza}}</td>
-                                                <td>{{obj.ramo.ramo_nombre | lowerCase | capitalize}}</td>
                                                 <td>{{obj.monto_siniestro}}</td>
-                                                <td>{{obj.fecha_siniestro}}</td>
+                                                <td>{{obj.tipo_siniestro_id | tipo_siniestro}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
                                                 <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearUsuarios({id_user:user.siniestro_id,edit:true})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                    <a ui-sref="crearSiniestro({siniestro_id:obj.siniestro_id,edit:true})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
                                                 </td>
                                                 <!--ng-click="editMode(user.user_id)"-->
                                             </tr>
