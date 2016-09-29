@@ -47,6 +47,30 @@ angular.module("App")
             $scope.format = $scope.formats[2];
             $scope.altInputFormats = ['M!/d!/yyyy'];
 
+            $scope.showInfoAutoSiniestro = false;
+            $scope.showReclamoSalud = false;
+            $scope.poliza = {};
+            $scope.montoOrden = "";
+            $scope.porcentaje_siniestralidad = "";
+
+            $scope.siniestro = {
+                siniestro_id:"",
+                poliza_id:"",
+                fecha_ocurrencia: "",
+                fecha_declaracion: "",
+                fecha_inspeccion: "",
+                fecha_llegada: "",
+                fecha_entrada_taller:"",
+                fecha_cierre:"",
+                monto_siniestro:"",
+                numero_siniestro:"",
+                tipo_siniestro_id:"",
+                observaciones_odenes:"",
+                taller_propuesto:""
+            }
+
+
+
             /**
              * Options calendar
              * @type {string[]}
@@ -60,13 +84,22 @@ angular.module("App")
             };
 
             $scope.respuestos = {active:1}
-            $scope.polizaListFinal=[];
-            $scope.showTablePoliza=false;
+            $scope.polizaListFinal = [];
+            $scope.showTablePoliza = false;
 
+
+            /**
+             * construyendo menu y obteniendo datos de session
+             */
             $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_SINIESTRO_MENU);
 
+
+            /**
+             * Metodo inicial del controlador
+             */
             $scope.init = function(){
 
+                //TODO aqui tengo q trabajar la edicion
                 console.info("Iniciando controlador NewSiniestroCtrl...");
                 console.info("Mode edit: " + $stateParams.edit);
                 console.info("Id del usuario: " + $stateParams.id_user);
@@ -75,15 +108,20 @@ angular.module("App")
             $scope.init();
 
 
-            $scope.choices = [{id:1,fecha:"",pieza:"",observacion:""}];
+            $scope.choices = [{id:1,fecha_llegada:"",descripcion:"",observacion:""}];
 
+            /**
+             * funcion que agrega en la lsta de repuesto
+             */
             $scope.addNewChoice = function(){
                 var newItemNo = $scope.choices.length+1;
-                $scope.choices.push({id:newItemNo});
+                $scope.choices.push({id:newItemNo,descripcion:"",observacion:""});
                 console.log($scope.choices);
             }
 
-
+            /**
+             * funcion que remueve lista de repuesto involucrados
+             */
             $scope.removeChoice = function() {
                 var lastItem = $scope.choices.length-1;
                 if(lastItem != 0){
@@ -91,28 +129,52 @@ angular.module("App")
                 }
             };
 
-            $scope.open1 = function () {$scope.popup1.opened = true;};
-            $scope.popup1 = {opened: false};
+            /**
+             * funcion calculando siniestralidad
+             */
+            $scope.calcularSiniestralidad = function(){
 
-            $scope.open2 = function () {$scope.popup2.opened = true;};
-            $scope.popup2 = {opened: false};
+                if($scope.montoOrden != null){
+                    $scope.porcentaje_siniestralidad = ($scope.siniestro.monto_siniestro * 100) /  $scope.poliza.prima;
+                }
+                else{
+                    $scope.siniestro.monto_siniestro = "";
+                    $scope.porcentaje_siniestralidad = 0;
+                }
+
+            }
 
 
-            $scope.open3 = function () {$scope.popup3.opened = true;};
-            $scope.popup3 = {opened: false};
+            $scope.openFechaOcurrencia = function () {$scope.popupFechaOcurrencia.opened = true;};
+            $scope.popupFechaOcurrencia = {opened: false};
 
-            $scope.open4 = function () {$scope.popup4.opened = true;};
-            $scope.popup4 = {opened: false};
+            $scope.openFechaDeclaracion = function () {$scope.popupFechaDeclaracion.opened = true;};
+            $scope.popupFechaDeclaracion = {opened: false};
 
-            $scope.open5 = function () {$scope.popup5.opened = true;};
-            $scope.popup5 = {opened: false};
 
-            $scope.open5 = function () {$scope.popup5.opened = true;};
-            $scope.popup5 = {opened: false};
+            $scope.openFechaInspeccion = function () {$scope.popupFechaInspeccion.opened = true;};
+            $scope.popupFechaInspeccion = {opened: false};
 
+            $scope.openFechaOrden = function () {$scope.popupFechaOrden.opened = true;};
+            $scope.popupFechaOrden = {opened: false};
+
+            $scope.openFechaEntTaller = function () {$scope.popupFechaEntTaller.opened = true;};
+            $scope.popupFechaEntTaller = {opened: false};
+
+            $scope.openFechaCierre = function () {$scope.popupFechaCierre.opened = true;};
+            $scope.popupFechaCierre = {opened: false};
+
+
+            /**
+             * abriendo modal para buscar poliza
+             */
             $scope.openModalPoliza = function(){openModalSearchPoliza();}
 
 
+            /**
+             * borrando poliza seleccionada
+             * @param poliza_id
+             */
             $scope.deletePolizaSelect = function(poliza_id){
 
                 var index = -1;
@@ -128,7 +190,80 @@ angular.module("App")
 
                 if ($scope.polizaListFinal.length == 0) {
                     $scope.showTablePoliza = false;
+                    $scope.showReclamoSalud = false;
+                    $scope.showInfoAutoSiniestro = false;
                 }
+
+            }
+
+            /**
+             * Metodo para guardar el siniestro
+             */
+            $scope.saveSiniestro = function(){
+
+                var requestNewSiniestro = null;
+
+                if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_PERSONAS){
+
+                    requestNewSiniestro = {
+                        JcrParameters:{
+                            SiniestroSystem:{
+                                siniestro:{
+                                    poliza_id: $scope.siniestro.poliza_id,
+                                    numero_siniestro:$scope.siniestro.numero_siniestro,
+                                    monto_siniestro:$scope.siniestro.monto_siniestro,
+                                    tipo_siniestro_id:GLOBAL_CONSTANT.RAMO_PERSONAS
+                                }
+                            }
+                        }
+                    }
+
+                    //TODO agregar aqui el id cuando este editando
+
+                }else if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO){
+
+                    requestNewSiniestro ={
+                        JcrParameters:{
+                            SiniestroSystem:{
+                                siniestro:{
+                                    poliza_id: $scope.siniestro.poliza_id,
+                                    numero_siniestro: $scope.siniestro.numero_siniestro,
+                                    monto_siniestro: $scope.siniestro.monto_siniestro,
+                                    tipo_siniestro_id: GLOBAL_CONSTANT.RAMO_PERSONAS
+                                },
+                                auto:{
+                                    fecha_ocurrencia: formatDate($scope.siniestro.fecha_ocurrencia),
+                                    fecha_declaracion: formatDate($scope.siniestro.fecha_declaracion),
+                                    fecha_inspeccion: formatDate($scope.siniestro.fecha_inspeccion),
+                                    observaciones_odenes: $scope.siniestro.observaciones_odenes,
+                                    taller_propuesto: $scope.siniestro.taller_propuesto,
+                                    fecha_entrada_taller: formatDate($scope.siniestro.fecha_entrada_taller),
+                                    fecha_cierre: formatDate($scope.siniestro.fecha_cierre)
+                                },
+                                respuestos:[]
+                            }
+                        }
+                    }
+
+                    if($scope.choices.length > 0){
+                        $scope.choices.forEach(function(entry){
+                            var repuesto={};
+
+                            repuesto.fecha_llegada = formatDate(entry.fecha_llegada);
+                            repuesto.descripcion = entry.descripcion;
+                            repuesto.observaciones = entry.observaciones;
+
+                            requestNewSiniestro.JcrParameters.SiniestroSystem.respuestos.push(repuesto);
+                        });
+
+                    }
+
+                    //TODO agregar aqui el id cuando este editando
+
+                }
+
+
+                console.log(requestNewSiniestro);
 
             }
 
@@ -153,7 +288,23 @@ angular.module("App")
 
                                 $scope.polizaListFinal.push(entry);
                             });
+
                             $scope.showTablePoliza = true;
+                            $scope.poliza.prima = $scope.polizaListFinal[0].prima_total;
+                            $scope.siniestro.poliza_id = $scope.polizaListFinal[0].poliza_id;
+
+                            $scope.poliza.ramo = $scope.polizaListFinal[0].ramo;
+
+                            if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_PERSONAS){
+                                $scope.showReclamoSalud = true;
+                            }
+                            else if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO){
+
+                                $scope.showInfoAutoSiniestro = true;
+                            }
+
+                            console.log($scope.polizaListFinal);
+
                         }
                         else {
                             growl.warning("Solo puedes agregar una sola poliza");
@@ -169,7 +320,9 @@ angular.module("App")
 
         }])
 
-    // controlador comportamiento del model
+    /**
+     * Controlador para implementar el funcionamiendo del modal
+     */
     .controller('PolizaSearchModalCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance', 'PolizaService',
         function ($scope, $state, $sessionStorage, $uibModalInstance, PolizaService) {
 

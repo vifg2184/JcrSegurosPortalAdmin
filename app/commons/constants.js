@@ -66,7 +66,9 @@ angular.module("App")
         USER_ROL_SINIESTRO:3,
         TOMADOR:1,
         TITULAR:2,
-        BENEFICIARIO:3
+        BENEFICIARIO:3,
+        RAMO_PERSONAS:1,
+        RAMO_AUTO:3
     })
 
     .constant('MENU_JCR_SEGUROS_ACTIVE',{
