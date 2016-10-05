@@ -67,8 +67,12 @@ angular.module("App")
         TOMADOR:1,
         TITULAR:2,
         BENEFICIARIO:3,
-        RAMO_PERSONAS:1,
-        RAMO_AUTO:3
+        RAMO_HOSPITALIZACION_COLECTIVO:1,
+        RAMO_HOSPITALIZACION_INDIVIDUAL:2,
+        RAMO_AUTO_FLOTA:3,
+        RAMO_AUTO_INDIVIDUAL:4,
+        TIPO_SINIESTRO_AUTO:2,
+        TIPO_SINIESTRO_PERSONA:1
     })
 
     .constant('MENU_JCR_SEGUROS_ACTIVE',{
@@ -88,5 +92,6 @@ angular.module("App")
         MESSAGE_SERVICE_ERROR:"Servicio No Disponible Intente de nuevo más tarde.",
         MESSAGE_SAVE_USER_SUCCESS:"Usuario creado con exito.",
         MESSAGE_SAVE_POLIZA_SUCCCESS:"Poliza creada con exito.",
-        MESSAGE_SAVE_ASEGURADORA_SUCCESS:"Aseguradora creada con exito"
+        MESSAGE_SAVE_ASEGURADORA_SUCCESS:"Aseguradora creada con exito",
+        MESSAGE_SAVE_SINIESTRO_SAVE_SUCCESS:"Siniestro creado con exito"
     });

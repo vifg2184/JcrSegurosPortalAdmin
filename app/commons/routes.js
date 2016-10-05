@@ -157,7 +157,7 @@ angular.module("App")
             .state('crearSiniestro',{
                 url: '/crearSiniestro',
                 controller:'NewSiniestroCtrl',
-                params:{edit:false,siniestro_id: null},
+                params:{edit:false,siniestro_id: null,tipo_siniestro_id:null},
                 views: {
                     '': {templateUrl: 'app/modules/siniestros/views/NewSiniestro.html'},
                     'header@crearSiniestro': {templateUrl: 'app/home/views/header.html'},
