@@ -70,7 +70,8 @@ angular.module("App")
                 vigencia_hasta: "",
                 referencia: "",
                 prima_total: "",
-                agente: ""
+                agente: "",
+                agente_helper: "",
             }
 
             $scope.poliza_helper = {
@@ -554,7 +555,7 @@ angular.module("App")
              * Evento del cambio de Agente
              */
             $scope.onAgentChangeEvent = function () {
-                if ($scope.poliza.agente == '') {
+                if ($scope.poliza.agente_helper == 'otro') {
                     $scope.show_agent_helper = '';
                 } else {
                     $scope.show_agent_helper = 'hidden';

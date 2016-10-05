@@ -48,9 +48,9 @@
                                         <label>Agente</label>
 
                                         <div>
-                                            <select class="form-control select-standard-size" ng-model="poliza.agente"
+                                            <select class="form-control select-standard-size" ng-model="poliza.agente_helper"
                                                     ng-change="onAgentChangeEvent()">
-                                                <option value="0">Seleccione...</option>
+                                                <option value="">Seleccione...</option>
                                                 <option value="MMR">
                                                     {{'MMR'}}
                                                 </option>
@@ -66,7 +66,7 @@
                                                 <option value="ACQ">
                                                     {{'ACQ'}}
                                                 </option>
-                                                <option value="">
+                                                <option value="otro">
                                                     {{'Otro'}}
                                                 </option>
                                             </select>
@@ -127,6 +127,99 @@
 
                 </div>
 
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Infomacion de la Poliza</h3>
+                                </div><!-- /.box-header -->
+                                <!-- form start -->
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <label>Numero de Poliza</label>
+                                                <input type="text" class="form-control" placeholder="Numero de Poliza"
+                                                       ng-model="poliza.numero_poliza">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label>Numero de Recibo</label>
+                                                <input type="text" class="form-control" placeholder="Numero de Recibo"
+                                                       ng-model="poliza.numero_recibo">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Vigencia Desde</label>
+
+                                                <p class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="open1()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    <input id="desde" type="text" class="form-control"
+                                                           uib-datepicker-popup="{{format}}"
+                                                           is-open="popup1.opened"
+                                                           datepicker-options="dateOptions"
+                                                           ng-required="true" close-text="Close"
+                                                           alt-input-formats="altInputFormats"
+                                                           ng-model="poliza.vigenciaDesde"/>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br>
+                                                <label>Hasta</label>
+
+                                                <p class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="open2()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    <input id="hasta" type="text" class="form-control"
+                                                           uib-datepicker-popup="{{format}}"
+                                                           is-open="popup2.opened"
+                                                           datepicker-options="dateOptions"
+                                                           ng-required="true" close-text="Close"
+                                                           alt-input-formats="altInputFormats"
+                                                           ng-model="poliza.vigenciaHasta"/>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br/>
+                                                <label>Prima</label>
+                                                <input type="text" class="form-control" placeholder="Prima"
+                                                       ng-model="poliza.prima">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br/>
+                                                <label>Referencia</label>
+                                                <input type="text" class="form-control" placeholder="Referencia"
+                                                       ng-model="poliza.referencia">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <br/>
+                                                <label>Ramo</label>
+                                                <select class="form-control" ng-model="ramos"
+                                                        ng-change="agregarRamoALaPoliza(ramos)"
+                                                        ng-options="ramos as ramos.ramo_nombre for ramos in ramo_select">
+                                                    <option value="">Seleccione Ramo...</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div><!-- /.box-body -->
+                                </div>
+
+                            </div><!-- /.box -->
+
+                        </div>
+
+                    </div>
+                </div>
                 <!--Coberturas-->
                 <div class="row" ng-if="poliza.ramo != null">
                     <div class="col-lg-12">
@@ -219,98 +312,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="content" style="min-height: 0px;">
-                            <div class="box box-primary">
-                                <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Infomacion de la Poliza</h3>
-                                </div><!-- /.box-header -->
-                                <!-- form start -->
-                                <div class="form-horizontal">
-                                    <div class="box-body">
-                                        <div class="form-group">
-                                            <div class="col-sm-6">
-                                                <label>Numero de Poliza</label>
-                                                <input type="text" class="form-control" placeholder="Numero de Poliza"
-                                                       ng-model="poliza.numero_poliza">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label>Numero de Recibo</label>
-                                                <input type="text" class="form-control" placeholder="Numero de Recibo"
-                                                       ng-model="poliza.numero_recibo">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <br>
-                                                <label>Vigencia Desde</label>
-
-                                                <p class="input-group">
-                                                        <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default"
-                                                                    ng-click="open1()"><i
-                                                                    class="glyphicon glyphicon-calendar"></i></button>
-                                                        </span>
-                                                    <input id="desde" type="text" class="form-control"
-                                                           uib-datepicker-popup="{{format}}"
-                                                           is-open="popup1.opened"
-                                                           datepicker-options="dateOptions"
-                                                           ng-required="true" close-text="Close"
-                                                           alt-input-formats="altInputFormats"
-                                                           ng-model="poliza.vigenciaDesde"/>
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <br>
-                                                <label>Hasta</label>
-
-                                                <p class="input-group">
-                                                        <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default"
-                                                                    ng-click="open2()"><i
-                                                                    class="glyphicon glyphicon-calendar"></i></button>
-                                                        </span>
-                                                    <input id="hasta" type="text" class="form-control"
-                                                           uib-datepicker-popup="{{format}}"
-                                                           is-open="popup2.opened"
-                                                           datepicker-options="dateOptions"
-                                                           ng-required="true" close-text="Close"
-                                                           alt-input-formats="altInputFormats"
-                                                           ng-model="poliza.vigenciaHasta"/>
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <br/>
-                                                <label>Prima</label>
-                                                <input type="text" class="form-control" placeholder="Prima"
-                                                       ng-model="poliza.prima">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <br/>
-                                                <label>Referencia</label>
-                                                <input type="text" class="form-control" placeholder="Referencia"
-                                                       ng-model="poliza.referencia">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <br/>
-                                                <label>Ramo</label>
-                                                <select class="form-control" ng-model="ramos"
-                                                        ng-change="agregarRamoALaPoliza(ramos)"
-                                                        ng-options="ramos as ramos.ramo_nombre for ramos in ramo_select">
-                                                    <option value="">Seleccione Ramo...</option>
-                                                </select>
-                                            </div>
-                                            <br>
-                                        </div>
-                                    </div><!-- /.box-body -->
-                                </div>
-
-                            </div><!-- /.box -->
-
-                        </div>
-
                     </div>
                 </div>
                 <!--Informacion de Asegurado-->
