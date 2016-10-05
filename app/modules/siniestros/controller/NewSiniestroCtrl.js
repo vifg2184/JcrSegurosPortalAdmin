@@ -55,6 +55,7 @@ angular.module("App")
 
             $scope.siniestro = {
                 siniestro_id:"",
+                siniestro_automovil_id:"",
                 poliza_id:"",
                 fecha_ocurrencia: "",
                 fecha_declaracion: "",
@@ -70,7 +71,7 @@ angular.module("App")
             }
 
 
-
+            $scope.repuestosEdit = [];
             /**
              * Options calendar
              * @type {string[]}
@@ -103,6 +104,25 @@ angular.module("App")
                 console.info("Iniciando controlador NewSiniestroCtrl...");
                 console.info("Mode edit: " + $stateParams.edit);
                 console.info("Id del usuario: " + $stateParams.id_user);
+
+
+                SiniestroService.setModeEdit({
+                    isModeEdit: Boolean($stateParams.edit),
+                    idSiniestro: parseInt($stateParams.siniestro_id)
+                });
+
+                SiniestroService.setShowGrowlMessage({isShow: false, message: ""});
+
+                if(SiniestroService.getModeEdit().isModeEdit){
+                    //TODO edicion de siniestro
+
+
+
+
+                }else{
+                    //TODO creacion de siniestro
+                }
+
             }
 
             $scope.init();
@@ -220,6 +240,10 @@ angular.module("App")
 
                     //TODO agregar aqui el id cuando este editando
 
+                    if(SiniestroService.getModeEdit().isModeEdit){
+                        requestNewSiniestro.JcrParameters.SiniestroSystem.siniestro.siniestro_id = SiniestroService.getModeEdit().idSiniestro;
+                    }
+
                 }else if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO){
 
                     requestNewSiniestro ={
@@ -247,7 +271,8 @@ angular.module("App")
 
                     if($scope.choices.length > 0){
                         $scope.choices.forEach(function(entry){
-                            var repuesto={};
+
+                            var repuesto = {};
 
                             repuesto.fecha_llegada = formatDate(entry.fecha_llegada);
                             repuesto.descripcion = entry.descripcion;
@@ -259,6 +284,14 @@ angular.module("App")
                     }
 
                     //TODO agregar aqui el id cuando este editando
+
+                    if(SiniestroService.getModeEdit().isModeEdit){
+                        requestNewSiniestro.JcrParameters.SiniestroSystem.siniestro.siniestro_id = SiniestroService.getModeEdit().idSiniestro;
+                        requestNewSiniestro.JcrParameters.SiniestroSystem.auto.siniestro_automovil_id = $scope.siniestro.siniestro_automovil_id;
+
+
+
+                    }
 
                 }
 
