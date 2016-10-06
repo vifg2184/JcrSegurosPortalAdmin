@@ -48,7 +48,8 @@
                                         <label>Agente</label>
 
                                         <div>
-                                            <select class="form-control select-standard-size" ng-model="poliza.agente_helper"
+                                            <select class="form-control select-standard-size"
+                                                    ng-model="poliza.agente_helper"
                                                     ng-change="onAgentChangeEvent()">
                                                 <option value="">Seleccione...</option>
                                                 <option value="MMR">
@@ -128,7 +129,6 @@
                 </div>
 
 
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content" style="min-height: 0px;">
@@ -166,7 +166,7 @@
                                                            datepicker-options="dateOptions"
                                                            ng-required="true" close-text="Close"
                                                            alt-input-formats="altInputFormats"
-                                                           ng-model="poliza.vigenciaDesde"/>
+                                                           ng-model="poliza.fecha_emision"/>
                                                 </p>
                                             </div>
                                             <div class="col-sm-6">
@@ -185,14 +185,14 @@
                                                            datepicker-options="dateOptions"
                                                            ng-required="true" close-text="Close"
                                                            alt-input-formats="altInputFormats"
-                                                           ng-model="poliza.vigenciaHasta"/>
+                                                           ng-model="poliza.fecha_vencimiento"/>
                                                 </p>
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>
                                                 <label>Prima</label>
                                                 <input type="text" class="form-control" placeholder="Prima"
-                                                       ng-model="poliza.prima">
+                                                       ng-model="poliza.prima_total">
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>
@@ -203,10 +203,11 @@
                                             <div class="col-sm-6">
                                                 <br/>
                                                 <label>Ramo</label>
-                                                <select class="form-control" ng-model="ramos"
-                                                        ng-change="agregarRamoALaPoliza(ramos)"
-                                                        ng-options="ramos as ramos.ramo_nombre for ramos in ramo_select">
+                                                <select id="selectRamos" class="form-control" ng-model="ramos"
+                                                        ng-change="agregarRamoALaPoliza(ramos)">
                                                     <option value="">Seleccione Ramo...</option>
+                                                    <option ng-repeat="ramos in ramo_select" value="{{ramos.ramo_id}}">{{ramos.ramo_nombre ||  capitalize}}
+                                                    </option>
                                                 </select>
                                             </div>
                                             <br>
@@ -221,7 +222,7 @@
                     </div>
                 </div>
                 <!--Coberturas-->
-                <div class="row" ng-if="poliza.ramo != null">
+                <div class="row" ng-show="poliza.ramo != null">
                     <div class="col-lg-12">
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
@@ -230,38 +231,42 @@
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <div class="col-sm-12">
-                                        <div ng-if="poliza_helper.ramo.selection == 'single'">
+                                        <div ng-show="poliza_helper.ramo.seleccion_multiple == '0'">
                                             <br/>
-
                                             <div class="divForResponsiveTable">
                                                 <table class="text-center">
-                                                    <thead >
+                                                    <thead>
                                                     <tr>
                                                         <th>
-                                                            <select class="form-control"
+                                                            <select
+                                                                    id="selectCoberturas"
+                                                                    class="form-control"
                                                                     style="width: 214px;"
-                                                                    ng-model="subRamoSeleccionado"
-                                                                    ng-change="agregarSubRamoALaPolizaSimple(subRamoSeleccionado,true)">
+                                                                    ng-model="coberturaSeleccionada"
+                                                                    ng-change="agregarCoberturasALaPoliza(coberturaSeleccionada,true)">
                                                                 <option value="">Seleccione Cobertura...</option>
-                                                                <option ng-repeat="sub_ramo in poliza_helper.ramo.sub_ramo" value="{{sub_ramo}}">{{sub_ramo.sub_ramo_name || capitalize}}</option>
+                                                                <option ng-repeat="cobertura in poliza_helper.ramo.coberturas" value="{{cobertura.cobertura_id}}">
+                                                                    {{cobertura.cobertura_nombre ||  capitalize}}
+                                                                </option>
                                                             </select>
                                                         </th>
 
                                                         <th class="text-table"
-                                                            ng-repeat="cobertura in subRamoSelected.coberturas">
-                                                            {{cobertura.cobertura_name || capitalize}}
+                                                            ng-repeat="descripciones_cobertura in CoberturaSelected.descripciones_cobertura">
+                                                            {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
                                                         </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <tr>
                                                         <td></td>
-                                                        <td  ng-repeat="cobertura in subRamoSelected.coberturas">
+                                                        <td ng-repeat="descripciones_cobertura in CoberturaSelected.descripciones_cobertura">
                                                             <input type="text"
                                                                    class="th-new text-center"
                                                                    ng-model="monto"
-                                                                   ng-change="agregarMontoACobertura(subRamoSelected,cobertura,monto)"
-                                                                   placeholder="{{cobertura.cobertura_name || capitalize}}"/>
+                                                                   ng-value="{{descripciones_cobertura.monto}}"
+                                                                   ng-change="agregarMontoACobertura(CoberturaSelected,descripciones_cobertura,monto)"
+                                                                   placeholder="{{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}"/>
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -269,38 +274,39 @@
                                                 <br/>
                                             </div>
                                         </div>
-                                        <div ng-if="poliza_helper.ramo.selection == 'multiple'">
+                                        <div ng-show="poliza_helper.ramo.seleccion_multiple == '1'">
                                             <br/>
 
-                                            <div ng-repeat="sub_ramo in poliza_helper.ramo.sub_ramo" class="divForResponsiveTable">
+                                            <div ng-repeat="coberturas in poliza_helper.ramo.coberturas"
+                                                 class="divForResponsiveTable">
                                                 <table>
                                                     <thead>
                                                     <tr>
                                                         <th>
                                                             <input type="checkbox" ng-model="check"
                                                                    class="text th-news"
-                                                                   ng-change="agregarSubRamoALaPoliza(sub_ramo,check)"
+                                                                   ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,check)"
                                                                    ng-true-value="true" ng-false-value="false"/>
-                                                            <span class="text-padding-standard">{{sub_ramo.sub_ramo_name || capitalize}}</span>
+                                                            <span class="text-padding-standard">{{coberturas.cobertura_nombre || capitalize}}</span>
 
                                                         </th>
 
-                                                        <th ng-if="check" class="text-table"
-                                                            ng-repeat="cobertura in sub_ramo.coberturas">
-                                                            {{cobertura.cobertura_name || capitalize}}
+                                                        <th ng-show="check" class="text-table"
+                                                            ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
+                                                            {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
                                                         </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <tr>
                                                         <td></td>
-                                                        <td ng-if="check"
-                                                            ng-repeat="cobertura in sub_ramo.coberturas">
+                                                        <td ng-show="check"
+                                                            ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
                                                             <input type="text"
                                                                    class="th-new"
                                                                    ng-model="monto"
-                                                                   ng-change="agregarMontoACobertura(sub_ramo,cobertura,monto)"
-                                                                   placeholder="{{cobertura.cobertura_name || capitalize}}"/>
+                                                                   ng-change="agregarMontoACobertura(coberturas,descripciones_cobertura,monto)"
+                                                                   placeholder="{{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}"/>
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -329,39 +335,71 @@
                                             <div class="col-sm-6">
                                                 <label>Documento</label>
                                                 <br/>
-                                                <select class="form-control select-tiny-size" ng-model="poliza.asegurado.tipo_documento">
-                                                    <option value="V" selected="selected">
-                                                        {{'V'}}
-                                                    </option>
-                                                    <option value="E">
-                                                        {{'E'}}
-                                                    </option>
-                                                    <option value="J">
-                                                        {{'J'}}
-                                                    </option>
-                                                    <option value="G">
-                                                        {{'G'}}
-                                                    </option>
-                                                </select>
-                                                <input type="text" class="form-control text-standard-size"
-                                                       placeholder="Numero de documento"
-                                                       ng-model="poliza.asegurado.numero_documento"/>
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select id="selectTipoCliente" class="form-control"
+                                                                    ng-model="poliza.asegurado.tipo_cliente_id">
+                                                                <option value="">
+                                                                    Seleccione
+                                                                </option>
+                                                                <option value="2">
+                                                                    {{'V'}}
+                                                                </option>
+                                                                <option value="3">
+                                                                    {{'E'}}
+                                                                </option>
+                                                                <option value="1">
+                                                                    {{'J'}}
+                                                                </option>
+                                                                <option value="4">
+                                                                    {{'G'}}
+                                                                </option>
+                                                            </select>
+
+                                                        </td>
+                                                        <td>
+                                                            <div angucomplete-alt id="autocompleteClient"
+                                                                 placeholder="Numero Documento"
+                                                                 ng-model="poliza.asegurado.documento_id_cliente"
+                                                                 pause="200"
+                                                                 selected-object="selectClient"
+                                                                 input-class="form-control"
+                                                                 title-field="documento_id_cliente"
+                                                                 description-field="nombre_completo"
+                                                                 text-no-results = "No se encontraron clientes"
+                                                                 ng-model="poliza.toomador.documento_id_cliente"
+                                                                 input-changed="onChangeValueFromAseguradoDocument"
+                                                                 minlength="3"
+                                                                 remote-api-handler="findClientsByDocument"
+                                                                 match-class="highlight">
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Nombre</label>
-                                                <input type="text" class="form-control" placeholder="Nombre del Asegurado"
-                                                       ng-model="poliza.asegurado.nombre">
+                                                <input type="text" class="form-control"
+                                                       placeholder="Nombre del Asegurado"
+                                                       ng-model="poliza.asegurado.nombre_cliente">
                                             </div>
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6" ng-show="poliza.asegurado.tipo_cliente_id == 2 || poliza.asegurado.tipo_cliente_id == 3">
                                                 <br>
                                                 <label>Apellido</label>
-                                                <input type="text" class="form-control" placeholder="Apellido del Asegurado"
-                                                       ng-model="poliza.asegurado.apellido">
+                                                <input type="text" class="form-control"
+                                                       placeholder="Apellido del Asegurado"
+                                                       ng-model="poliza.asegurado.apellido_cliente">
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6" ng-if="poliza.asegurado.tipo_cliente_id == 2 || poliza.asegurado.tipo_cliente_id == 3">
                                                 <br>
                                                 <label>Fecha de Nacimiento</label>
+
                                                 <p class="input-group">
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default"
@@ -377,19 +415,24 @@
                                                            ng-model="poliza.asegurado.fecha_nacimiento"/>
                                                 </p>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6" ng-show="poliza.asegurado.tipo_cliente_id == 2 || poliza.asegurado.tipo_cliente_id == 3">
                                                 <label>Genero</label>
                                                 <br/>
-                                                <select class="form-control" ng-model="poliza.asegurado.genero">
-                                                    <option value="0" selected="selected">
+                                                <select class="form-control" ng-model="poliza.asegurado.genero_cliente"
+                                                        id="generoSelect">
+                                                    <option value="" selected="selected">
+                                                        Seleccione
+                                                    </option>
+                                                    <option value="M" selected="selected">
                                                         {{'Masculino'}}
                                                     </option>
-                                                    <option value="1">
+                                                    <option value="F">
                                                         {{'Femenino'}}
                                                     </option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
+                                                <br ng-show="poliza.asegurado.tipo_cliente_id == 4 || poliza.asegurado.tipo_cliente_id == 1 || poliza.asegurado.tipo_cliente_id == ''"/>
                                                 <label>Telefono</label>
                                                 <input type="text" class="form-control" placeholder="Telefono"
                                                        ng-model="poliza.asegurado.telefono">
@@ -398,13 +441,13 @@
                                                 <br/>
                                                 <label>Correo Electronico</label>
                                                 <input type="text" class="form-control" placeholder="Email"
-                                                       ng-model="poliza.asegurado.email">
+                                                       ng-model="poliza.asegurado.correo_cliente">
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>
                                                 <label>Es el Asegurado el Tomador?</label>
                                                 <br/>
-                                                <input type="checkbox" ng-model="checkTomador"
+                                                <input type="checkbox" ng-model="poliza.asegurado.es_tomador"
                                                        class="text th-news"
                                                        ng-true-value="true" ng-false-value="false"/>
                                             </div>
@@ -421,7 +464,7 @@
                 </div>
 
                 <!--Informacion del Tomador-->
-                <div class="row" ng-if="!checkTomador">
+                <div class="row" ng-if="!poliza.asegurado.es_tomador">
                     <div class="col-lg-12">
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
@@ -435,28 +478,63 @@
                                             <div class="col-sm-6">
                                                 <label>Documento</label>
                                                 <br/>
-                                                <select class="form-control select-tiny-size" ng-model="poliza.asegurado.tipo_documento">
-                                                    <option value="V" selected="selected">
-                                                        {{'V'}}
-                                                    </option>
-                                                    <option value="E">
-                                                        {{'E'}}
-                                                    </option>
-                                                    <option value="J">
-                                                        {{'J'}}
-                                                    </option>
-                                                    <option value="G">
-                                                        {{'G'}}
-                                                    </option>
-                                                </select>
-                                                <input type="text" class="form-control text-standard-size"
-                                                       placeholder="Numero de documento"
-                                                       ng-model="poliza.tomador.numero_documento"/>
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select id="selectTipoTomador" class="form-control"
+                                                                    ng-model="poliza.tomador.tipo_cliente_id">
+                                                                <option value="">
+                                                                    Seleccione
+                                                                </option>
+                                                                <option value="2">
+                                                                    {{'V'}}
+                                                                </option>
+                                                                <option value="3">
+                                                                    {{'E'}}
+                                                                </option>
+                                                                <option value="1">
+                                                                    {{'J'}}
+                                                                </option>
+                                                                <option value="4">
+                                                                    {{'G'}}
+                                                                </option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <div angucomplete-alt id="autocompleteTomador"
+                                                                 placeholder="Numero Documento"
+                                                                 pause="200"
+                                                                 text-searching ="Buscando Tomadores..."
+                                                                 text-no-results = "No se encontraron tomadores"
+                                                                 ng-model="poliza.toomador.documento_id_cliente"
+                                                                 input-changed="onChangeValueFromTomadorDocument"
+                                                                 selected-object="selectTomador"
+                                                                 input-class="form-control"
+                                                                 title-field="documento_id_cliente"
+                                                                 description-field="nombre_completo"
+                                                                 minlength="3"
+                                                                 remote-api-handler="findClientsByDocument"
+                                                                 match-class="highlight">
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label>Nombre y Apellido</label>
-                                                <input type="text" class="form-control" placeholder="Nombre y Apellido"
-                                                       ng-model="poliza.tomador.nombre">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Nombre del Tomador"
+                                                       ng-model="poliza.tomador.nombre_cliente">
+                                            </div>
+                                            <div ng-show="poliza.tomador.tipo_cliente_id == 2 || poliza.tomador.tipo_cliente_id == 3" class="col-sm-6">
+                                                <br>
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Apellido del Tomador"
+                                                       ng-model="poliza.tomador.apellido_cliente">
                                             </div>
                                             <br>
                                         </div>
@@ -475,7 +553,7 @@
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
                             <button class="btn btn-block btn-primary btn-md"
-                                    ng-click="savePoliza()">Guardar
+                                    ng-click="saveThePolicy()">Guardar
                             </button>
                         </div>
                         <div class="col-md-4"></div>

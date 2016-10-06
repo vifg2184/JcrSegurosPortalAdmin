@@ -1,5 +1,5 @@
 /**
- * Created by VladimirIlich G&G on 4/4/2016.
+ * Created by Gualdo de la Cruz.
  */
 var interval = null;
 var environment = 'http://localhost/jcrSeguros/';
