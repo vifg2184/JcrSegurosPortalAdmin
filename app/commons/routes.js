@@ -76,7 +76,7 @@ angular.module("App")
                 controller:'NewPolizaCtrl',
                 params:{edit:false,poliza_id: null},
                 views: {
-                    '': {templateUrl: 'app/modules/polizas/views/newPoliza.html'},
+                    '': {templateUrl: 'app/modules/polizas/views/NewPoliza.html'},
                     'header@crearPoliza': {templateUrl: 'app/home/views/header.html'},
                     'menu@crearPoliza': {templateUrl: 'app/home/views/menu.html'},
                     'footer@crearPoliza':{templateUrl: 'app/home/views/footer.html'}
