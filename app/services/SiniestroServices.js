@@ -122,7 +122,8 @@ angular.module('App')
 
         var objModeEdit = {
             isModeEdit: false,
-            idSiniestro: 0
+            idSiniestro: 0,
+            idTipoSiniestro:0
         };
 
 

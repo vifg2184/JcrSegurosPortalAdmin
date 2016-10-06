@@ -104,7 +104,7 @@ angular.module('App')
 
                     if (messageGrowl.isShow){
                         growl.info(messageGrowl.message);
-                        PolizaService.cleanGrowl();
+                        SiniestroService.cleanGrowl();
                     }
 
                 }).catch(function (err) {
@@ -142,22 +142,6 @@ angular.module('App')
             };
 
 
-
-            /**
-             * get the user's phone information and show it in a modal and show it in a modal
-             * @param userId
-             */
-            $scope.showInformation = function (userId) {
-                console.log("showPhoneInformation");
-
-            }
-
-            /**
-             * Edit User Mode
-             * @param id
-             */
-
-
             /**
              * Delete User
              * @param id_user
@@ -183,67 +167,8 @@ angular.module('App')
             }
 
 
-            function openModal(data) {
-
-                var modalInstance = $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'myModalContent.html',
-                    controller: 'ModalInstUserCtrl',
-                    size: 'md',
-                    resolve: {
-                        userData: function () {
-                            return data;
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-
-            $scope.toggleAnimation = function () {
-                $scope.animationsEnabled = !$scope.animationsEnabled;
-            };
 
 
             $scope.getAllSiniestro();
-
-        }])
-
-
-    // controlador comportamiento del model
-    .controller('ModalInstUserCtrl', ['$scope', '$state','$sessionStorage','$uibModalInstance', 'userData',
-        function ($scope, $state,$sessionStorage,$uibModalInstance, userData) {
-
-            $scope.userFound = userData;
-            $scope.rol_user_id = $sessionStorage.rol_user;
-
-            $scope.cancel = function () {
-                $uibModalInstance.close();
-            };
-
-            $scope.showBusiness = function (businessId) {
-                $uibModalInstance.close();
-                $state.go('newBusiness', {id_business: businessId, edit: true});
-
-            }
-
-            $scope.showRoute = function (rooute_id) {
-                $uibModalInstance.close();
-                $state.go('routesNewRegister', {id_route: rooute_id, edit: true});
-            }
-
-            $scope.showUser = function (user_id) {
-                $uibModalInstance.close();
-                $state.go('newUser', {id_user: user_id, edit: true});
-            }
-
-            $scope.showStop = function (stop_id) {
-                $uibModalInstance.close();
-                $state.go('stopInfo', {id_stop: stop_id});
-            }
 
         }]);

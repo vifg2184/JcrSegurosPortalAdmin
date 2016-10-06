@@ -78,8 +78,8 @@
                                                 <td>{{obj.monto_siniestro}}</td>
                                                 <td>{{obj.tipo_siniestro_id | tipo_siniestro}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
-                                                <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearSiniestro({siniestro_id:obj.siniestro_id,edit:true})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                <td><a data-toggle="tooltip" title="Borrar Siniestro" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
+                                                    <a ui-sref="crearSiniestro({siniestro_id:obj.siniestro_id,edit:true,tipo_siniestro_id:obj.tipo_siniestro_id})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
                                                 </td>
                                                 <!--ng-click="editMode(user.user_id)"-->
                                             </tr>
@@ -106,100 +106,6 @@
                 <br/>
             </section>
 
-            <!--Modal con tabs-->
-            <script type="text/ng-template" id="myModalContent.html">
-                <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">User Information</h3>
-                    <!--imagen del estudiante-->
-                    <img src="{{userFound.user_photo}}" class="imageStuden img-circle" alt="">
-                </div>
-                <div class="text-center">
-                    <h4>{{userFound.first_name+" "+userFound.first_last_name}}</h4>
-                </div>
-                <div class="text-center">
-                    <h5>{{userFound.user_type.user_type_name}}</h5>
-                </div>
-                <div class="modal-body row">
-                    <div ng-switch="userFound.user_type_id">
-                        <!--Tabs Student-->
-                        <div ng-switch-when="2">
-
-                            <uib-tabset active="active" class="btn btn-md">
-                                <uib-tab index="0" heading="School">
-                                    <ul class="pull-left up-list">
-                                        <li class="text-left list">
-                                            <a href="" ng-click="showBusiness(userFound.busines.business_id)" ng-show="rol_user_id == 1 || rol_user_id == 6">{{userFound.busines.business_name}}</a>
-                                            <strong ng-show="rol_user_id != 1 && rol_user_id != 6">{{userFound.busines.business_name}}</strong>
-                                        </li>
-                                    </ul>
-                                </uib-tab>
-                                <uib-tab index="1" heading="Stops">
-                                    <ul class="pull-left up-list">
-                                        <li class="text-left list" ng-repeat="stopsObj in userFound.stopsUserRelationship">
-                                            <a href="" ng-click="showStop(stopsObj.stops.id_stop)">{{stopsObj.stops.stop_name}}</a>
-                                        </li>
-                                    </ul>
-                                </uib-tab>
-                                <uib-tab index="2" heading="Routes">
-                                    <ul class="pull-left up-list">
-                                        <li class="text-left list" ng-repeat="routeObj in userFound.stopsUserRelationship">
-                                            <a href="" ng-click="showRoute(routeObj.stops.routes.id_route)">
-                                                {{routeObj.stops.routes.route_number + ' - '+ routeObj.stops.routes.route_name}} - {{routeObj.stops.routes.route_type == 1 ? 'Pick Up' : 'Drop Off'}}
-                                            </a>
-
-                                        </li>
-                                    </ul>
-                                </uib-tab>
-                                <uib-tab index="3" heading="Phones">
-                                    <ul class="pull-left up-list">
-                                        <li class="text-left list" ng-repeat="phones in userFound.phone_numbers"><span><b>{{phones.phone_name}}</b></span> : {{phones.phone_number | tel}}</li>
-                                    </ul>
-                                </uib-tab>
-                                <uib-tab index="4" heading="User Relationship">
-                                    <div ng-repeat="stakeholder in userFound.Stakeholders" ng-hide="stakeholder[0].status_id == 3" class="col-md-3-parents">
-                                        <img src="{{stakeholder[0].user_photo}}" alt="User Image" class="imagenParent img-circle">
-                                        <a href="" class="users-list-name" ng-click="showUser(stakeholder[0].user_id)">{{stakeholder[0].first_name +' '+ stakeholder[0].first_last_name}}</a>
-                                        <span class="users-list-date">{{stakeholder[0].document_id}}</span>
-                                    </div>
-                                </uib-tab>
-                            </uib-tabset>
-
-                        </div>
-                        <!--Tabs stakeholder-->
-                        <div ng-switch-when="3">
-                            <uib-tabset active="active" class="btn btn-md">
-                                <uib-tab index="0" heading="Phones">
-                                    <ul class="pull-left up-list">
-                                        <li class="text-left list" ng-repeat="phones in userFound.phone_numbers"><span><b>{{phones.phone_name}}</b></span> : {{phones.phone_number}}</li>
-                                    </ul>
-                                </uib-tab>
-                                <uib-tab index="1" heading="User Relationship">
-                                    <div ng-repeat="userRelation in userFound.UserRelationship" ng-hide="userRelation.status_id == 3" class="col-md-3-parents">
-                                        <img src="{{userRelation.user_photo}}" alt="User Image" class="imagenParent img-circle">
-                                        <a href="" class="users-list-name" ng-click="showUser(userRelation.user_id)">{{userRelation.first_name +' '+ userRelation.first_last_name}}</a>
-                                        <span class="users-list-date">{{userRelation.document_id}}</span>
-                                    </div>
-                                </uib-tab>
-                            </uib-tabset>
-                        </div>
-                        <!--Tabs other user-->
-                        <div ng-switch-default>
-                            <uib-tabset active="active" class="btn btn-md">
-                                <uib-tab index="0" heading="Phones">
-                                    <ul class="pull-left up-list">
-                                        <li class="text-left list" ng-repeat="phones in userFound.phone_numbers"><span><b>{{phones.phone_name}}</b></span> : {{phones.phone_number}}</li>
-                                    </ul>
-                                </uib-tab>
-                            </uib-tabset>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
-                </div>
-            </script>
             <div class="control-sidebar-bg"></div>
         </div>
         <div ui-view="footer"></div>

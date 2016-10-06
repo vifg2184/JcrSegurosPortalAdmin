@@ -103,7 +103,9 @@ function formatDate(date) {
     return moment(date).format("DD/MM/YYYY");
 }
 
-
+function formatDateSiniestro(date){
+    return moment(date).format("DD-MM-YYYY");
+}
 
 /**
  * validar el request para creacion de usuario
@@ -379,12 +381,34 @@ function existsTitular(listUsers){
 }
 
 
-
-
 function randomColorFactor () {
     return Math.round(Math.random() * 255);
 }
 
 function randomColor(opacity) {
     return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+}
+
+
+function getDateFormat(date){
+
+    var dateFinal = null;
+
+    if (date != null || date != "") {
+
+        var birthdate = date.split('-');
+
+        var day = (birthdate[2].length == 1) ? "0" + birthdate[2] : birthdate[2];
+        var month = (birthdate[1].length == 1) ? "0" + birthdate[1] : birthdate[1];
+        var year = birthdate[0];
+
+        var aux = month + "/" + day + "/" + year;
+        dateFinal = new Date(aux);
+
+    }
+    else {
+        dateFinal = new Date();
+    }
+
+    return dateFinal;
 }
