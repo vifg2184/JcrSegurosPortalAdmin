@@ -142,8 +142,6 @@ angular.module('App')
 
 
 
-
-
         /**
          * Delete User
          * @param id_user
@@ -169,6 +167,48 @@ angular.module('App')
             return promise;
         }
 
+
+        lookup.getAccessMenuByRolServices = function(){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+
+            $http({
+                method: 'GET',
+                url: CONST_PROXY_URL.PROXY_URL_MENU_ACCESS_USER,
+                headers: {'Content-Type': 'application/json;charset=UTF-8'}
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
+
+
+        lookup.updateAllAccessMenuServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+
+            $http({
+                method: 'POST',
+                url: CONST_PROXY_URL.PROXY_URL_MENU_UPDATE_ACCESS,
+                data: JSON.stringify(request),
+                headers: {'Content-Type': 'application/json;charset=UTF-8'}
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+
+
+        }
 
         return lookup;
 
@@ -234,13 +274,9 @@ angular.module('App')
             return UserLookup.allUsersType();
         };
 
-
-
         this.createNewUser = function (objNewUser) {
             return UserLookup.newUser(objNewUser);
         }
-
-
 
         this.getShowGrowlMessage = function () {
             return showGrowl;
@@ -250,12 +286,16 @@ angular.module('App')
             showGrowl = obj;
         }
 
-
-
         this.deleteUser = function(id_user){
             return UserLookup.deleteUser(id_user);
         }
 
+        this.getAccessMenuByRol = function(){
+            return UserLookup.getAccessMenuByRolServices();
+        }
 
+        this.updateAllAccessMenu = function(request){
+            return UserLookup.updateAllAccessMenuServices(request);
+        }
 
     }]);

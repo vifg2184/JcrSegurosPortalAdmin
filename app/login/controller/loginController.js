@@ -88,6 +88,12 @@ angular.module('App')
                                 $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION;
                                 getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION);
                             }
+                            else if(data.JcrResponse.object[0].tipo_usuario_id == GLOBAL_CONSTANT.USER_ROL_COORDINADOR){
+
+                                $sessionStorage.nameUser = data.JcrResponse.object[0].nombre + ' ' + data.JcrResponse.object[0].apellido;
+                                $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_COORDINADOR;
+                                getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_COORDINADOR);
+                            }
                             else {
                                 spinnerService.hide('html5spinner');
                                 growl.error("User with restricted access");

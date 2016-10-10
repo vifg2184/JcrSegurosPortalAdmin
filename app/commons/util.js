@@ -122,9 +122,6 @@ function validateParamNewUser(obj) {
 
     var expRegEmail = new RegExp("^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$");
     var objUsers = obj.JcrParameters.Users;
-    var arrayPhones = obj.JcrParameters.Phones;
-    //var objAddress = obj.JcrParameters.address;
-
 
     //validar datos del usuario
     if (objUsers.nombre == undefined || isEmptyString(objUsers.nombre)) {
@@ -140,49 +137,10 @@ function validateParamNewUser(obj) {
         response.message = "Debe seleccionar un tipo de usuario.";
 
     }
-    else if(objUsers.documento_id == undefined || isEmptyString(objUsers.documento_id)){
-        response.isValidate = false;
-        response.message = "El campo Documento de Identidad no debe estar vacio.";
-    }
-    else if (objUsers.fecha_nacimiento == undefined || isEmptyString(objUsers.fecha_nacimiento) ||
-        objUsers.fecha_nacimiento.trim().toLowerCase() === "Invalid date".trim().toLowerCase()) {
-
-            response.isValidate = false;
-            response.message = "Fecha de nacimiento invalida";
-
-    }else if(!validateDateBirthDate(objUsers.fecha_nacimiento,true)){
-
-        response.isValidate = false;
-        response.message = "Formato de Fecha Invalido. Verifique que sea este formato mm/dd/yyyy.";
-    }
     else if (objUsers.correo == undefined || isEmptyString(objUsers.correo) || !objUsers.correo.match(expRegEmail)) {
         response.isValidate = false;
         response.message = "Correo invalido";
     }
-
-    //validar que el usuario tenga por lo menos un phone
-    if (response.isValidate) {
-        var cont = 0;
-        if (isEmptyArray(arrayPhones)) {
-            arrayPhones.forEach(function (entry) {
-                if (isEmptyString(entry.telefono_numero)) {
-                    cont++;
-                }
-            });
-
-            if (cont == 3) {
-                response.isValidate = false;
-                response.message = "Debe ingresar al menos un telefono de usuario.";
-            }
-        } else {
-            response.isValidate = false;
-            response.message = "Debe ingresar al menos un telefono de usuario.";
-        }
-    }
-
-
-
-
 
     return response;
 }
@@ -411,4 +369,15 @@ function getDateFormat(date){
     }
 
     return dateFinal;
+}
+
+function confirmPassword(newPassword,confirmPassword){
+
+    var result=true;
+
+    if(newPassword != confirmPassword){
+        result=false;
+    }
+
+    return result;
 }
