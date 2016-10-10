@@ -1,5 +1,5 @@
 /**
- * Created by Eduardo Luttinger on 05/04/2016.
+ * Created by Gualdo de la cruz on 05/04/2016.
  */
 angular.module('App')
 

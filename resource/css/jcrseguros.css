@@ -1,0 +1,46 @@
+.select-standard-size{
+    width: 30%;
+    display: inline;
+}
+.select-tiny-size{
+    width: 12%;
+    display: inline;
+}
+.text-standard-size{
+    width: 50%;
+    display: inline;
+}
+.box-standard-size{
+    width: 25%;
+}
+.td-item-standard-size{
+    width: 80%;
+}
+.text-padding-standard{
+    padding-left: 2%;
+}
+
+.divForResponsiveTable{
+    overflow-x:auto;
+}
+.divForResponsiveTable th{
+    width: 15%;
+}
+
+.th-new{
+    border-radius: 2px;
+    /* margin-left: 3px !important; */
+    width: 180px;
+    height: 30px;
+    padding: 5px;
+    border: solid 1px #eeeeee;
+}
+
+.text-table{
+    margin-left: 3px;
+}
+
+.th-align{
+    margin-left: 30px !important;
+
+}

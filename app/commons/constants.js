@@ -15,11 +15,14 @@ angular.module("App")
         PROXY_URL_USER_FILTER_SEARCH:environment + "Usuario/userFilter",
         PROXY_URL_USER_DELETE:environment + "Usuario/borrarUsuario",
 
+        /*Proxy Clientes*/
+        PROXY_URL_CLIENT_BY_DOCUMENT:environment + "Client/clientByDocument",
+
         /*Proxy Poliza*/
         PROXY_URL_POLIZA_WITH_PAGINATE:environment + "Poliza/allPolizaWithPagination",
-        PROXY_URL_POLIZA_BY_ID:environment + "Poliza/searchPolizaById",
-        PROXY_URL_CREATE_POLIZA:environment + "Poliza/crearPoliza",
-        PROXY_URL_GET_POLIZA_BY_ID:environment + "Poliza/searchPolizaById",
+        PROXY_URL_POLIZA_BY_ID:environment + "Poliza/getPolizaById",
+        PROXY_URL_CREATE_POLIZA:environment + "Poliza/servicioCrearPoliza",
+        PROXY_URL_GET_POLIZA_BY_ID:environment + "Poliza/getPolizaById",
         PROXY_URL_DELETE_POLIZA:environment + "Poliza/borrarPoliza",
 
         /*Proxy Siniestro*/

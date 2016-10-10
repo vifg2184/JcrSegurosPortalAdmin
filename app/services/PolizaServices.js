@@ -46,11 +46,8 @@ angular.module('App')
 
 
         lookup.getPolizaById = function (request) {
-
             var defered = $q.defer();
             var promise = defered.promise;
-
-
             $http({
                 method: 'POST',
                 data: JSON.stringify(request),
@@ -66,11 +63,8 @@ angular.module('App')
 
 
         lookup.createPoliza = function (request) {
-
             var defered = $q.defer();
             var promise = defered.promise;
-
-
             $http({
                 method: 'POST',
                 data: JSON.stringify(request),
@@ -84,25 +78,6 @@ angular.module('App')
             return promise;
         };
 
-
-        lookup.getPolizaById = function(request){
-
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http({
-                method: 'POST',
-                data: JSON.stringify(request),
-                url: CONST_PROXY_URL.PROXY_URL_GET_POLIZA_BY_ID,
-            }).success(function (response) {
-                defered.resolve(response);
-            }).error(function (err) {
-                defered.reject(err);
-            })
-
-            return promise;
-
-        }
 
 
         lookup.deletePoliza = function(request){

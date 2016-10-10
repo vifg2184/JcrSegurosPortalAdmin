@@ -1,8 +1,8 @@
 /**
- * Created by VladimirIlich G&G on 4/4/2016.
+ * Created by Gualdo de la Cruz.
  */
-
-var environment = 'http://localhost:8080/SeguroJCR/jcrSegurosCloud/';
+var interval = null;
+var environment = 'http://localhost/jcrSeguros/';
 
 angular.module('App', ['ui.router',
         'angularSpinners',
