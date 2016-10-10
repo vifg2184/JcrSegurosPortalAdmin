@@ -1,5 +1,5 @@
 /**
- * Created by VladimirIlich on 5/4/2016 .
+ * Created by JcrSeguros on 5/4/2016 .
  */
 
 angular.module('App')

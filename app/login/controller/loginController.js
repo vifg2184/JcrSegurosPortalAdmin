@@ -1,5 +1,5 @@
 /**
- * Created by VladimirIlich on 4/4/2016.
+ * Created by JcrSeguros on 4/4/2016.
  */
 
 angular.module('App')
@@ -36,6 +36,9 @@ angular.module('App')
                 }
             };
 
+            /**
+             * Metodo inicial del controlador
+             */
             var init = function () {
                 console.log('Inicializando controlador Login...');
 
@@ -53,7 +56,7 @@ angular.module('App')
             init();
 
             /**
-             * Authenticate Method
+             * Metodo para autenticar el usuario
              */
             $scope.authenticateUser = function () {
 
@@ -107,8 +110,7 @@ angular.module('App')
             }
 
             /**
-             * Get Options Menu
-             * @param id_user_type
+             * Metodo para obtener un json del menu y asi pintar menu de la app
              */
             function getMenuByTypeUser(id_user_type) {
 
@@ -194,6 +196,9 @@ angular.module('App')
 
         }])
 
+    /**
+     * Directiva para manter check la opcion de recordar clave del usuario
+     */
     .directive('myViewCheck', function () {
 
         return {
