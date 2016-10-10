@@ -42,7 +42,7 @@ angular.module('App')
                 $rootScope: $rootScope,
                 $sessionStorage: $sessionStorage});
 
-            console.log("Cargo el Controlador de Usuarios");
+
             $scope.showMessage = "";
 
             //Search on the menu
