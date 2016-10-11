@@ -642,6 +642,8 @@ angular.module("App")
                         "tipo_cliente_id": "",
                         "es_tomador": false
                     }
+                }else{
+                    $scope.poliza.asegurado.documento_id_cliente = value;
                 }
             }
 
@@ -659,6 +661,8 @@ angular.module("App")
                         "documento_id_cliente": "",
                         "tipo_cliente_id": ""
                     }
+                }else{
+                    $scope.poliza.tomador.documento_id_cliente = value;
                 }
             }
 
