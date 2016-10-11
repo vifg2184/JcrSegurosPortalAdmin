@@ -166,6 +166,17 @@ angular.module("App")
                 }
             })
 
+            .state('accesoUsuario',{
+                url: '/accesoUsuario',
+                controller:'SuperUserCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/super_user/views/SuperUserAccess.html'},
+                    'header@accesoUsuario': {templateUrl: 'app/home/views/header.html'},
+                    'menu@accesoUsuario': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@accesoUsuario':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
         $urlRouterProvider.otherwise("/login");
 
     }]);

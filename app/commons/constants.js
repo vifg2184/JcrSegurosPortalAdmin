@@ -51,7 +51,9 @@ angular.module("App")
         PROXY_URL_LOGIN: environment + "SystemList/accessUserLogin",
 
         /*Proxy System*/
-        PROXY_URL_MENU_SHOW: environment + "SystemList/getMenuJCR"
+        PROXY_URL_MENU_SHOW: environment + "SystemList/getMenuJCR",
+        PROXY_URL_MENU_ACCESS_USER:environment + "SystemList/getAccessActiveMenu",
+        PROXY_URL_MENU_UPDATE_ACCESS:environment + "SystemList/updateAccessMenuByUserRol"
 
 
     })
@@ -67,6 +69,7 @@ angular.module("App")
         USER_ROL_ADMIN:1,
         USER_ROL_SUSCRIPCION:2,
         USER_ROL_SINIESTRO:3,
+        USER_ROL_COORDINADOR:4,
         TOMADOR:1,
         TITULAR:2,
         BENEFICIARIO:3,
@@ -81,11 +84,9 @@ angular.module("App")
     .constant('MENU_JCR_SEGUROS_ACTIVE',{
         CODE_USER_MENU:1,
         CODE_POLIZAS_MENU:2,
-        CODE_VEHICULO_MENU:3,
-        CODE_SINIESTRO_MENU:4,
-        CODE_COBERTURA_MENU:5,
-        CODE_ASEGURADORA:6,
-        CODE_OPC_ADMIN_MENU:7
+        CODE_SINIESTRO_MENU:3,
+        CODE_ASEGURADORA:4,
+        CODE_OPC_ADMIN_MENU:5
 
     })
 

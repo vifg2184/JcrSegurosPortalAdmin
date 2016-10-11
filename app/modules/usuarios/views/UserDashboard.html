@@ -72,7 +72,6 @@
                                             <tr ng-repeat="user in userCtrl.users">
                                                 <td>{{user.nombre }}</td>
                                                 <td>{{user.apellido}}</td>
-                                                <td>{{user.documento_id}}</td>
                                                 <td>{{user.tipo_usuario.tipo_usuario_nombre | lowerCase | capitalize}}</td>
                                                 <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
                                                     <a ui-sref="crearUsuarios({id_user:user.usuario_id,edit:true})" data-toggle="tooltip" title="Edit User"><small><i class="fa fa-fw fa-pencil"></i> </small></a>

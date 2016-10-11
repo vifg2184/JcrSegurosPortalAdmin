@@ -23,12 +23,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    User Dashboard
+                    Accesos de Usuarios
                     <small>Control panel</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Super User Options</li>
+                    <li class="active">Accesos de Super Usuairo</li>
                 </ol>
             </section>
 
@@ -42,7 +42,7 @@
 
                                 <div class="box  box-info">
                                     <div class="box-header ">
-                                        <h3 class="box-title">System Users</h3>
+                                        <h3 class="box-title">Modulos del Sistema</h3>
 
                                     </div><!-- /.box-header -->
                                     <div class="box-body">
@@ -50,42 +50,47 @@
                                         <table id="accessSuperTable" class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
-                                                <th>Type User</th>
-                                                <th>Module Business Admin</th>
-                                                <th>Module User Admin</th>
-                                                <th>Module Device Admin</th>
-                                                <th>Module Route Admin</th>
-                                                <th>Module Stops Admin</th>
-                                                <th>Module Super Options</th>
+                                                <th>Tipo de Usuario</th>
+                                                <th>Mudulo de Usuarios</th>
+                                                <th>Modulo de Polizas</th>
+                                                <th>Modulo de Siniestros</th>
+                                                <th>Modulo de Aseguradora</th>
+                                                <th>Modulo Opciones Administrativas</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>Administrator</td>
+                                                <td>Administrador</td>
                                                 <td id="admin_1" style="text-align: center"><input type="checkbox" name="n_admin_1" ng-model="checkBoxAdmin.object[0].checkBoxActive"/></td>
                                                 <td id="admin_2" style="text-align: center"><input type="checkbox" name="n_admin_2" ng-model="checkBoxAdmin.object[1].checkBoxActive"/></td>
                                                 <td id="admin_3" style="text-align: center"><input type="checkbox" name="n_admin_3" ng-model="checkBoxAdmin.object[2].checkBoxActive"/></td>
                                                 <td id="admin_4" style="text-align: center"><input type="checkbox" name="n_admin_4" ng-model="checkBoxAdmin.object[3].checkBoxActive"/></td>
                                                 <td id="admin_5" style="text-align: center"><input type="checkbox" name="n_admin_5" ng-model="checkBoxAdmin.object[4].checkBoxActive"/></td>
-                                                <td id="admin_6" style="text-align: center"><input type="checkbox" name="n_admin_6" ng-model="checkBoxAdmin.object[5].checkBoxActive"/></td>
                                             </tr>
                                             <tr>
-                                                <td>Call center</td>
-                                                <td id="call_1" style="text-align: center"><input type="checkbox" name="n_call_1" ng-model="checkBoxCallCenter.object[0].checkBoxActive"/></td>
-                                                <td id="call_2" style="text-align: center"><input type="checkbox" name="n_call_2" ng-model="checkBoxCallCenter.object[1].checkBoxActive"/></td>
-                                                <td id="call_3" style="text-align: center"><input type="checkbox" name="n_call_3" ng-model="checkBoxCallCenter.object[2].checkBoxActive"/></td>
-                                                <td id="call_4" style="text-align: center"><input type="checkbox" name="n_call_4" ng-model="checkBoxCallCenter.object[3].checkBoxActive"/></td>
-                                                <td id="call_5" style="text-align: center"><input type="checkbox" name="n_call_5" ng-model="checkBoxCallCenter.object[4].checkBoxActive"/></td>
-                                                <td id="call_6" style="text-align: center"><input type="checkbox" name="n_call_6" ng-model="checkBoxCallCenter.object[5].checkBoxActive"/></td>
+                                                <td>Suscripcion</td>
+                                                <td id="suscripcion_1" style="text-align: center"><input type="checkbox" name="n_suscripcion_1" ng-model="checkBoxSuscripcion.object[0].checkBoxActive"/></td>
+                                                <td id="suscripcion_2" style="text-align: center"><input type="checkbox" name="n_suscripcion_2" ng-model="checkBoxSuscripcion.object[1].checkBoxActive"/></td>
+                                                <td id="suscripcion_3" style="text-align: center"><input type="checkbox" name="n_suscripcion_3" ng-model="checkBoxSuscripcion.object[2].checkBoxActive"/></td>
+                                                <td id="suscripcion_4" style="text-align: center"><input type="checkbox" name="n_suscripcion_4" ng-model="checkBoxSuscripcion.object[3].checkBoxActive"/></td>
+                                                <td id="suscripcion_5" style="text-align: center"><input type="checkbox" name="n_suscripcion_5" ng-model="checkBoxSuscripcion.object[4].checkBoxActive"/></td>
+
                                             </tr>
                                             <tr>
-                                                <td>School</td>
-                                                <td id="school_1" style="text-align: center"><input type="checkbox" name="n_school_1" ng-model="checkBoxSchool.object[0].checkBoxActive"/></td>
-                                                <td id="school_2" style="text-align: center"><input type="checkbox" name="n_school_2" ng-model="checkBoxSchool.object[1].checkBoxActive"/></td>
-                                                <td id="school_3" style="text-align: center"><input type="checkbox" name="n_school_3" ng-model="checkBoxSchool.object[2].checkBoxActive"/></td>
-                                                <td id="school_4" style="text-align: center"><input type="checkbox" name="n_school_4" ng-model="checkBoxSchool.object[3].checkBoxActive"/></td>
-                                                <td id="school_5" style="text-align: center"><input type="checkbox" name="n_school_5" ng-model="checkBoxSchool.object[4].checkBoxActive"/></td>
-                                                <td id="school_6" style="text-align: center"><input type="checkbox" name="n_school_6" ng-model="checkBoxSchool.object[5].checkBoxActive"/></td>
+                                                <td>Siniestros</td>
+                                                <td id="siniestro_1" style="text-align: center"><input type="checkbox" name="n_siniestro_1" ng-model="checkBoxSiniestro.object[0].checkBoxActive"/></td>
+                                                <td id="siniestro_2" style="text-align: center"><input type="checkbox" name="n_siniestro_2" ng-model="checkBoxSiniestro.object[1].checkBoxActive"/></td>
+                                                <td id="siniestro_3" style="text-align: center"><input type="checkbox" name="n_siniestro_3" ng-model="checkBoxSiniestro.object[2].checkBoxActive"/></td>
+                                                <td id="siniestro_4" style="text-align: center"><input type="checkbox" name="n_siniestro_4" ng-model="checkBoxSiniestro.object[3].checkBoxActive"/></td>
+                                                <td id="siniestro_5" style="text-align: center"><input type="checkbox" name="n_siniestro_5" ng-model="checkBoxSiniestro.object[4].checkBoxActive"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Coordinador</td>
+                                                <td id="coordinador_1" style="text-align: center"><input type="checkbox" name="n_coordinador_1" ng-model="checkBoxCoordinador.object[0].checkBoxActive"/></td>
+                                                <td id="coordinador_2" style="text-align: center"><input type="checkbox" name="n_coordinador_2" ng-model="checkBoxCoordinador.object[1].checkBoxActive"/></td>
+                                                <td id="coordinador_3" style="text-align: center"><input type="checkbox" name="n_coordinador_3" ng-model="checkBoxCoordinador.object[2].checkBoxActive"/></td>
+                                                <td id="coordinador_4" style="text-align: center"><input type="checkbox" name="n_coordinador_4" ng-model="checkBoxCoordinador.object[3].checkBoxActive"/></td>
+                                                <td id="coordinador_5" style="text-align: center"><input type="checkbox" name="n_coordinador_5" ng-model="checkBoxCoordinador.object[4].checkBoxActive"/></td>
                                             </tr>
                                             </tbody>
                                             </tfoot>
@@ -98,7 +103,7 @@
                         <div class="row">
                             <div class="content" style="min-height: 0px;">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-4 pull-right">
+                                <div class="col-md-4">
                                     <button class="btn btn-block btn-primary btn-md "
                                             ng-click="saveAccess()">Save
                                     </button>

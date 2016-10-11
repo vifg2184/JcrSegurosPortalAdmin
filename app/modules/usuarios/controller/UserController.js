@@ -42,7 +42,7 @@ angular.module('App')
                 $rootScope: $rootScope,
                 $sessionStorage: $sessionStorage});
 
-            console.log("Cargo el Controlador de Usuarios");
+
             $scope.showMessage = "";
 
             //Search on the menu
@@ -59,16 +59,14 @@ angular.module('App')
             $scope.userTableHeaders = [{
                 title: 'Nombre',
                 value: 'nombre'
-            }, {
+            },
+                {
                 title: 'Apellido',
                 value: 'apellido'
             }, {
-                title: 'Cedula de Identidad',
-                value: 'documento_id'
-            },{
                 title: 'Tipo de Usuario',
                 value: 'Usuarios.tipo_usuario_id'
-            }
+                }
             ];
 
             //default criteria that will be sent to the server

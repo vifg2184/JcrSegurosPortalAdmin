@@ -12,7 +12,9 @@ angular.module('App')
         '$state',
         'GLOBAL_CONSTANT',
         'GLOBAL_MESSAGE',
-        'MENU_REAXIUM_BUS_ACTIVE',
+        'MENU_JCR_SEGUROS_ACTIVE',
+        '$controller',
+        '$rootScope',
         function ($scope,
                   $sessionStorage,
                   UserService,
@@ -22,7 +24,16 @@ angular.module('App')
                   $state,
                   GLOBAL_CONSTANT,
                   GLOBAL_MESSAGE,
-                  MENU_REAXIUM_BUS_ACTIVE) {
+                  MENU_JCR_SEGUROS_ACTIVE,
+                  $controller,
+                  $rootScope) {
+
+
+            //herencia metodos comunes
+            $controller('BaseCtrl', {$scope: $scope,
+                $state: $state,
+                $rootScope: $rootScope,
+                $sessionStorage: $sessionStorage});
 
 
             $scope.checkBoxAdmin = {
@@ -52,90 +63,119 @@ angular.module('App')
                         menu_id: 5,
                         checkBoxActive: false,
                         id_user_type: 1
-                    },
-
-                    {
-                        menu_id: 6,
-                        checkBoxActive: false,
-                        id_user_type: 1
                     }
                 ]
 
             };
 
-            $scope.checkBoxSchool = {
-                id_user_type: 5,
+            $scope.checkBoxSuscripcion = {
+                id_user_type: 2,
                 object: [
                     {
                         menu_id: 1,
                         checkBoxActive: false,
-                        id_user_type: 5
+                        id_user_type: 2
                     },
                     {
                         menu_id: 2,
                         checkBoxActive: false,
-                        id_user_type: 5
+                        id_user_type: 2
                     },
                     {
                         menu_id: 3,
                         checkBoxActive: false,
-                        id_user_type: 5
+                        id_user_type: 2
                     },
                     {
                         menu_id: 4,
                         checkBoxActive: false,
-                        id_user_type: 5
+                        id_user_type: 2
                     },
                     {
                         menu_id: 5,
                         checkBoxActive: false,
-                        id_user_type: 5
-                    },
-
-                    {
-                        menu_id: 6,
-                        checkBoxActive: false,
-                        id_user_type: 5
+                        id_user_type: 2
                     }
                 ]
             };
 
-            $scope.checkBoxCallCenter = {
-                id_user_type: 6,
+            $scope.checkBoxSiniestro = {
+                id_user_type: 3,
                 object: [
                     {
                         menu_id: 1,
                         checkBoxActive: false,
-                        id_user_type: 6
+                        id_user_type: 3
                     },
                     {
                         menu_id: 2,
                         checkBoxActive: false,
-                        id_user_type: 6
+                        id_user_type: 3
                     },
                     {
                         menu_id: 3,
                         checkBoxActive: false,
-                        id_user_type: 6
+                        id_user_type: 3
                     },
                     {
                         menu_id: 4,
                         checkBoxActive: false,
-                        id_user_type: 6
+                        id_user_type: 3
                     },
                     {
                         menu_id: 5,
                         checkBoxActive: false,
-                        id_user_type: 6
-                    },
-
-                    {
-                        menu_id: 6,
-                        checkBoxActive: false,
-                        id_user_type: 6
+                        id_user_type: 3
                     }
                 ]
             };
+
+            $scope.checkBoxCoordinador = {
+                id_user_type: 4,
+                object: [
+                    {
+                        menu_id: 1,
+                        checkBoxActive: false,
+                        id_user_type: 4
+                    },
+                    {
+                        menu_id: 2,
+                        checkBoxActive: false,
+                        id_user_type: 4
+                    },
+                    {
+                        menu_id: 3,
+                        checkBoxActive: false,
+                        id_user_type: 4
+                    },
+                    {
+                        menu_id: 4,
+                        checkBoxActive: false,
+                        id_user_type: 4
+                    },
+                    {
+                        menu_id: 5,
+                        checkBoxActive: false,
+                        id_user_type: 4
+                    }
+                ]
+            };
+
+            function init() {
+
+                console.info("Iniciando controlador SuperUserController");
+
+                $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_OPC_ADMIN_MENU);
+
+                if($scope.loadServices){
+                    callServiceAccessMenu();
+                }
+
+            }
+
+            init();
+
+
 
 
             /***
@@ -146,12 +186,12 @@ angular.module('App')
 
                 UserService.getAccessMenuByRol()
                     .then(function (resp) {
-                        if (resp.ReaxiumResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                        if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
 
-                            resp.ReaxiumResponse.object.forEach(function (entry) {
+                            resp.JcrResponse.object.forEach(function (entry) {
 
 
-                                if (entry.user_type_id == $scope.checkBoxAdmin.id_user_type) {
+                                if (entry.tipo_usuario_id == $scope.checkBoxAdmin.id_user_type) {
 
                                     for (var i = 0; i < $scope.checkBoxAdmin.object.length; i++) {
                                         if ($scope.checkBoxAdmin.object[i].menu_id == entry.menu_id) {
@@ -160,24 +200,34 @@ angular.module('App')
                                         }
                                     }
                                 }
-                                else if (entry.user_type_id == $scope.checkBoxSchool.id_user_type) {
+                                else if (entry.tipo_usuario_id == $scope.checkBoxSuscripcion.id_user_type) {
 
-                                    for (var i = 0; i < $scope.checkBoxSchool.object.length; i++) {
-                                        if ($scope.checkBoxSchool.object[i].menu_id == entry.menu_id) {
-                                            $scope.checkBoxSchool.object[i].checkBoxActive = (entry.active_menu == 1) ? true : false;
+                                    for (var i = 0; i < $scope.checkBoxSuscripcion.object.length; i++) {
+                                        if ($scope.checkBoxSuscripcion.object[i].menu_id == entry.menu_id) {
+                                            $scope.checkBoxSuscripcion.object[i].checkBoxActive = (entry.active_menu == 1) ? true : false;
                                             break;
                                         }
                                     }
                                 }
-                                else if (entry.user_type_id == $scope.checkBoxCallCenter.id_user_type) {
+                                else if (entry.tipo_usuario_id == $scope.checkBoxSiniestro.id_user_type) {
 
-                                    for (var i = 0; i < $scope.checkBoxCallCenter.object.length; i++) {
-                                        if ($scope.checkBoxCallCenter.object[i].menu_id == entry.menu_id) {
-                                            $scope.checkBoxCallCenter.object[i].checkBoxActive = (entry.active_menu == 1) ? true : false;
+                                    for (var i = 0; i < $scope.checkBoxSiniestro.object.length; i++) {
+                                        if ($scope.checkBoxSiniestro.object[i].menu_id == entry.menu_id) {
+                                            $scope.checkBoxSiniestro.object[i].checkBoxActive = (entry.active_menu == 1) ? true : false;
                                             break;
                                         }
                                     }
                                 }
+                                else if (entry.tipo_usuario_id == $scope.checkBoxCoordinador.id_user_type) {
+
+                                    for (var i = 0; i < $scope.checkBoxCoordinador.object.length; i++) {
+                                        if ($scope.checkBoxCoordinador.object[i].menu_id == entry.menu_id) {
+                                            $scope.checkBoxCoordinador.object[i].checkBoxActive = (entry.active_menu == 1) ? true : false;
+                                            break;
+                                        }
+                                    }
+                                }
+
                             });
                         } else {
                             console.error("Error obteniendo la data del servicio: " + resp.ReaxiumResponse.message);
@@ -193,33 +243,14 @@ angular.module('App')
             }
 
 
-            function init() {
-
-                console.info("Iniciando controlador SuperUserController");
-
-                if (isUndefined($sessionStorage.rol_user) || isEmptyString($sessionStorage.rol_user)) {
-                    console.error("Usuario no a iniciado session");
-                    $state.go("login");
-                }
-                else {
-                    //data user by session
-                    $scope.photeUser = $sessionStorage.user_photo;
-                    $scope.nameUser = $sessionStorage.nameUser;
-                    //menu sidebar
-                    $scope.menus = addActiveClassMenu(JSON.parse($sessionStorage.appMenus), MENU_REAXIUM_BUS_ACTIVE.CODE_USER_MENU);
-                    callServiceAccessMenu();
-                }
-            }
-
-            init();
-
 
             $scope.saveAccess = function () {
+
                 spinnerService.show("spinnerNew");
 
                 var jsonSend = {
-                    ReaxiumParameters: {
-                        ReaxiumSystem: {
+                    JcrParameters: {
+                        JcrSystem: {
                             object: []
                         }
                     }
@@ -228,41 +259,52 @@ angular.module('App')
 
                 $scope.checkBoxAdmin.object.forEach(function (entry) {
                     var checkActiveMenu = (entry.checkBoxActive == false) ? 0 : 1;
-                    jsonSend.ReaxiumParameters.ReaxiumSystem.object.push({
-                        type_user_id: entry.id_user_type,
+                    jsonSend.JcrParameters.JcrSystem.object.push({
+                        tipo_usuario_id: entry.id_user_type,
                         menu_id: entry.menu_id,
                         active_menu: checkActiveMenu
                     })
                 });
 
-                $scope.checkBoxCallCenter.object.forEach(function (entry) {
+                $scope.checkBoxSuscripcion.object.forEach(function (entry) {
                     var checkActiveMenu = (entry.checkBoxActive == false) ? 0 : 1;
-                    jsonSend.ReaxiumParameters.ReaxiumSystem.object.push({
-                        type_user_id: entry.id_user_type,
+                    jsonSend.JcrParameters.JcrSystem.object.push({
+                        tipo_usuario_id: entry.id_user_type,
                         menu_id: entry.menu_id,
                         active_menu: checkActiveMenu
                     })
                 });
 
-                $scope.checkBoxSchool.object.forEach(function (entry) {
+                $scope.checkBoxSiniestro.object.forEach(function (entry) {
                     var checkActiveMenu = (entry.checkBoxActive == false) ? 0 : 1;
-                    jsonSend.ReaxiumParameters.ReaxiumSystem.object.push({
-                        type_user_id: entry.id_user_type,
+                    jsonSend.JcrParameters.JcrSystem.object.push({
+                        tipo_usuario_id: entry.id_user_type,
                         menu_id: entry.menu_id,
                         active_menu: checkActiveMenu
                     })
                 });
+
+
+                $scope.checkBoxCoordinador.object.forEach(function (entry) {
+                    var checkActiveMenu = (entry.checkBoxActive == false) ? 0 : 1;
+                    jsonSend.JcrParameters.JcrSystem.object.push({
+                        tipo_usuario_id: entry.id_user_type,
+                        menu_id: entry.menu_id,
+                        active_menu: checkActiveMenu
+                    })
+                });
+
 
                 $log.debug("Arreglo final", jsonSend);
 
                 UserService.updateAllAccessMenu(jsonSend)
 
                     .then(function (resp) {
-                        if (resp.ReaxiumResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
-                            growl.success("Access the menu successfully updated");
+                        if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                            growl.success("Se han actualizado los accesos");
                         }
                         else {
-                            console.error("Error update access menu user rol: " + resp.ReaxiumResponse.message);
+                            console.error("Error update access menu user rol: " + resp.JcrResponse.message);
                             growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
                         }
                     })

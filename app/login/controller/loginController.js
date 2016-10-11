@@ -1,5 +1,5 @@
 /**
- * Created by VladimirIlich on 4/4/2016.
+ * Created by JcrSeguros on 4/4/2016.
  */
 
 angular.module('App')
@@ -36,6 +36,9 @@ angular.module('App')
                 }
             };
 
+            /**
+             * Metodo inicial del controlador
+             */
             var init = function () {
                 console.log('Inicializando controlador Login...');
 
@@ -53,7 +56,7 @@ angular.module('App')
             init();
 
             /**
-             * Authenticate Method
+             * Metodo para autenticar el usuario
              */
             $scope.authenticateUser = function () {
 
@@ -85,6 +88,12 @@ angular.module('App')
                                 $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION;
                                 getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_SUSCRIPCION);
                             }
+                            else if(data.JcrResponse.object[0].tipo_usuario_id == GLOBAL_CONSTANT.USER_ROL_COORDINADOR){
+
+                                $sessionStorage.nameUser = data.JcrResponse.object[0].nombre + ' ' + data.JcrResponse.object[0].apellido;
+                                $sessionStorage.rol_user = GLOBAL_CONSTANT.USER_ROL_COORDINADOR;
+                                getMenuByTypeUser(GLOBAL_CONSTANT.USER_ROL_COORDINADOR);
+                            }
                             else {
                                 spinnerService.hide('html5spinner');
                                 growl.error("User with restricted access");
@@ -107,8 +116,7 @@ angular.module('App')
             }
 
             /**
-             * Get Options Menu
-             * @param id_user_type
+             * Metodo para obtener un json del menu y asi pintar menu de la app
              */
             function getMenuByTypeUser(id_user_type) {
 
@@ -194,6 +202,9 @@ angular.module('App')
 
         }])
 
+    /**
+     * Directiva para manter check la opcion de recordar clave del usuario
+     */
     .directive('myViewCheck', function () {
 
         return {
