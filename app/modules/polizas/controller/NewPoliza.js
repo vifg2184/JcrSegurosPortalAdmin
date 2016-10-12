@@ -9,6 +9,7 @@ angular.module("App")
         'UserService',
         'ClientServices',
         'PolizaService',
+        'VehiculoService',
         '$state',
         '$rootScope',
         '$stateParams',
@@ -27,6 +28,7 @@ angular.module("App")
                   UserService,
                   ClientServices,
                   PolizaService,
+                  VehiculoService,
                   $state,
                   $rootScope,
                   $stateParams,
@@ -59,6 +61,11 @@ angular.module("App")
             $scope.selectEditAgente = null;
             $scope.CoberturaSelected = null;
             $scope.cobertura_id_selected = null;
+            $scope.listVehiculosPoliza = [];
+            $scope.showTableVehiculos = false;
+            $scope.showAddVehiculo = false;
+            $scope.selectPlaca = "";
+
 
             $scope.poliza = {
                 poliza_id: null,
@@ -91,7 +98,8 @@ angular.module("App")
                     "apellido_cliente": "",
                     "documento_id_cliente": "",
                     "tipo_cliente_id": "",
-                }
+                },
+                vehiculo:[]
             }
 
             $scope.poliza_helper = {
@@ -398,10 +406,12 @@ angular.module("App")
                 console.info("Mode edit: " + $stateParams.edit);
                 console.info("Id de la poliza: " + $stateParams.poliza_id);
                 $scope.show_agent_helper = 'hidden';
+
                 PolizaService.setModeEdit({
                     isModeEdit: Boolean($stateParams.edit),
                     idPoliza: parseInt($stateParams.poliza_id)
                 });
+
                 PolizaService.setShowGrowlMessage({isShow: false, message: ""});
 
                 spinnerService.show("spinnerNew");
@@ -416,6 +426,19 @@ angular.module("App")
                             $scope.poliza = resp.JcrResponse.object[0];
                             $scope.poliza_helper.ramo = $scope.poliza.ramo;
                             $('#selectRamos').val($scope.poliza.ramo.ramo_id);
+
+                            //si el ramo es de vehiculo se llena el arreglo
+                            if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL ||
+                                $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA){
+
+                                if($scope.poliza.vehiculo.length > 0){
+                                    $scope.listVehiculosPoliza = $scope.poliza.vehiculo;
+                                    $scope.showAddVehiculo=true;
+                                    $scope.showTableVehiculos=true;
+                                }
+
+                            }
+
                             if ($scope.poliza.ramo.seleccion_multiple == 0) {
                                 $scope.CoberturaSelected = $scope.poliza.ramo.coberturas[0];
                             } else {
@@ -487,6 +510,13 @@ angular.module("App")
                     "seleccion_multiple": ramoSelected.seleccion_multiple,
                     "coberturas": []
                 };
+
+                if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL || $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA){
+                    $scope.showAddVehiculo = true;
+                }else{
+                    $scope.showAddVehiculo = false;
+                }
+
             }
 
             /**
@@ -674,11 +704,18 @@ angular.module("App")
              */
             $scope.saveThePolicy = function () {
                 spinnerService.show("spinnerNew");
+
+                if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL ||
+                    $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA){
+                    buildVehiculoPoliza();
+                }
+
                 var request = {
                     JcrParameters: {
                         Poliza: $scope.poliza
                     }
-                }
+                };
+
                 console.log(request);
                 spinnerService.hide("spinnerNew");
                 //validar request antes de mandar peticion
@@ -718,6 +755,7 @@ angular.module("App")
             }
 
 
+
             /**
              * Open calendar
              */
@@ -741,6 +779,32 @@ angular.module("App")
             }
 
 
+            $scope.openModalVehiculos = function(){
+                openModalAddVehiculos();
+            }
+
+            /**
+             * agregando vehiculos a el request de la poliza
+             */
+            function buildVehiculoPoliza(){
+
+                var vehiculo = null;
+
+                $scope.poliza.vehiculo=[];
+
+                $scope.listVehiculosPoliza.forEach(function(entry){
+                    vehiculo = {};
+                    vehiculo.vehiculo_id = entry.vehiculo_id;
+                    vehiculo.vehiculo_placa = entry.vehiculo_placa;
+                    vehiculo.vehiculo_marca_id = entry.marca_vehiculo.marca_vehiculo_id;
+                    vehiculo.vehiculo_modelo = entry.vehiculo_modelo;
+                    vehiculo.vehiculo_ano = entry.vehiculo_ano;
+                    vehiculo.vehiculo_version = entry.vehiculo_version;
+                    $scope.poliza.vehiculo.push(vehiculo);
+                });
+
+
+            }
             function openModalAddAseguradora() {
 
                 var modalInstance = $uibModal.open({
@@ -772,6 +836,170 @@ angular.module("App")
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
+            }
+
+
+            function openModalAddVehiculos(){
+
+                var modalInstance = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'addVehiculosModal.html',
+                    controller: 'NewVehiculoModalCtrl',
+                    size: 'lg',
+                    resolve: {}
+                });
+
+                //resultado de lo selecionado en el modal
+                modalInstance.result.then(function (selectedItem) {
+
+                    console.log(selectedItem);
+
+                    if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL){
+
+                       if($scope.listVehiculosPoliza.length == 0){
+
+                           $scope.listVehiculosPoliza.push(selectedItem);
+                           $scope.showTableVehiculos = true;
+                       }
+                       else{
+                           growl.warning("Solo puede agregar mas de un vehiculo para una poliza Auto Individual");
+                       }
+
+                    }
+                    else if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA){
+
+                        $scope.listVehiculosPoliza.push(selectedItem);
+                        $scope.showTableVehiculos = true;
+                    }else{
+                        console.log("No es un ramo valido");
+                    }
+
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+
+            }
+
+            /**
+             * Borrar vehiculo selecionado
+             * @param vehiculo_placa
+             */
+            $scope.deleteVehiculoSelect = function(vehiculo_placa){
+
+                var index = -1;
+                for (var i = 0, len = $scope.listVehiculosPoliza.length; i < len; i++) {
+                    if ($scope.listVehiculosPoliza[i].vehiculo_placa === vehiculo_placa) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                $scope.listVehiculosPoliza.splice(index, 1);
+
+
+                if ($scope.listVehiculosPoliza.length == 0) {
+                    $scope.showTableVehiculos = false;
+                }
+
+            }
+
+
+            /**
+             * Borarr lista seleccionada de aseguradoras
+             * @param aseguradora_id
+             */
+            $scope.deleteAseguradoraSelect = function(aseguradora_id){
+
+                var index = -1;
+                for (var i = 0, len = $scope.aseguradoraListFinal.length; i < len; i++) {
+                    if ($scope.aseguradoraListFinal[i].aseguradora_id === aseguradora_id) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                $scope.aseguradoraListFinal.splice(index, 1);
+
+                if ($scope.aseguradoraListFinal.length == 0) {
+                    $scope.showTableAseguradora = false;
+                }
+
+            }
+
+
+            /**
+             * Metodo para buscar vehiculo por numero de placa
+             */
+            $scope.seachVehiculoByPlaca = function(){
+
+                if(!isEmptyString($scope.selectPlaca) && $scope.selectPlaca != null){
+
+                    var request={
+                        JcrParameters:{
+                            Vehiculo:{
+                                filter: $scope.selectPlaca
+                            }
+                        }
+                    };
+
+                    if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL){
+
+                        if($scope.listVehiculosPoliza.length == 0){
+                            spinnerService.show("spinnerNew");
+
+                            VehiculoService.getVehiculosByPlaca(request)
+                                .then(function(resp){
+                                    spinnerService.hide("spinnerNew");
+
+                                    if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+
+                                        var vehiculo = resp.JcrResponse.object[0];
+                                        $scope.listVehiculosPoliza.push(vehiculo);
+                                        $scope.showTableVehiculos = true;
+
+                                    }else{
+                                        growl.warning("Vehiculo no se encuentra en el sistema si lo desea puede agregar un nuevo vehiculo");
+                                    }
+                                })
+                                .catch(function(err){
+                                    spinnerService.hide("spinnerNew");
+                                    console.error("Error invocando servicio: "+err);
+                                });
+                        }else{
+                            growl.warning("Solo puede agregar mas de un vehiculo para una poliza Auto Individual");
+                        }
+
+
+                    }else if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA){
+
+                        spinnerService.show("spinnerNew");
+
+                        VehiculoService.getVehiculosByPlaca(request)
+                            .then(function(resp){
+                                spinnerService.hide("spinnerNew");
+
+                                if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+
+                                    var vehiculo = resp.JcrResponse.object[0];
+                                    $scope.listVehiculosPoliza.push(vehiculo);
+                                    $scope.showTableVehiculos = true;
+
+                                }else{
+                                    growl.warning("Vehiculo no se encuentra en el sistema si lo desea puede agregar un nuevo vehiculo");
+                                }
+                            })
+                            .catch(function(err){
+                                spinnerService.hide("spinnerNew");
+                                console.error("Error invocando servicio: "+err);
+                            });
+                    }
+
+                }
+                else{
+                    spinnerService.hide("spinnerNew");
+                    growl.warning("Seleccione un numero de placa para continuar con la buscada");
+                }
+
             }
 
             function cleanFields() {
@@ -917,3 +1145,71 @@ angular.module("App")
 
 
         }])
+
+    // controlador comportamiento del model
+    .controller('NewVehiculoModalCtrl', ['$scope', '$state', '$sessionStorage', '$uibModalInstance','VehiculoService','GLOBAL_CONSTANT',
+        function ($scope, $state, $sessionStorage, $uibModalInstance,VehiculoService,GLOBAL_CONSTANT) {
+
+            $scope.selectMarca = null;
+
+            $scope.vehiculo = {
+                vehiculo_id:null,
+                vehiculo_placa:"",
+                marca_vehiculo:{},
+                vehiculo_modelo:"",
+                vehiculo_ano:"",
+                vehiculo_version:""
+            }
+
+            /**
+             * busca marcas de automovil
+             * @param filter
+             * @returns {*}
+             */
+            $scope.searchMarcasVehiculosInTheSystem = function (filter) {
+
+                var request={
+                    JcrParameters:{
+                        Marca:{
+                            filter:filter
+                        }
+                    }
+                };
+
+
+                return VehiculoService.getMarcasVehiculos(request)
+                    .then(function (resp) {
+                        if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                            $scope.marcasFilter = [];
+                            var array = resp.JcrResponse.object;
+                            array.forEach(function (entry) {
+                                var aux = {
+                                    marca_vehiculo_id: entry.marca_vehiculo_id,
+                                    marca_vehiculo_descripcion: entry.marca_vehiculo_descripcion
+                                }
+                                $scope.marcasFilter.push(aux);
+                            });
+                        } else {
+                            $scope.marcasFilter = [];
+                            console.info(resp.JcrResponse.message);
+                        }
+                        return $scope.marcasFilter;
+                    }).catch(function (err) {
+                        console.error("Error: " + err);
+                    });
+            };
+
+
+            $scope.selectMarca = function (str) {
+                if (str != undefined && str != null) {
+                    $scope.vehiculo.marca_vehiculo.marca_vehiculo_id = str.originalObject.marca_vehiculo_id;
+                    $scope.vehiculo.marca_vehiculo.marca_vehiculo_descripcion = str.originalObject.marca_vehiculo_descripcion;
+                }
+            }
+
+
+            $scope.processVehiculo = function () {
+                $uibModalInstance.close($scope.vehiculo);
+            };
+
+        }]);

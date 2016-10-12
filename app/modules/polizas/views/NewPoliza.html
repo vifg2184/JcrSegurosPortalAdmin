@@ -547,6 +547,99 @@
                     </div>
                 </div>
 
+                <!--agregar vehiculo solo pzra ramo automovil individual o flota-->
+                <div class="row" ng-show="showAddVehiculo">
+
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Infomacion del Vehiculo</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="col-sm-6">
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input style="width: 300px;" type="text" placeholder="Buscar Vehiculo por Placa" class="form-control" ng-model="selectPlaca"/>
+                                                </td>
+                                                <td>
+                                                    <button  class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                             type="button"
+                                                             data-toggle="tooltip"
+                                                             title="Buscar"
+                                                             ng-click="seachVehiculoByPlaca();">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                    <button  class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                             type="button"
+                                                             data-toggle="tooltip"
+                                                             title="Agregar"
+                                                             ng-click="openModalVehiculos();"><i class="fa fa-save"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="col-md-12" ng-show="showTableVehiculos">
+                                        <div class="box box-info">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Vehiculos</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <table id="vehiculosTableId"
+                                                       class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Placa</th>
+                                                        <th>Marcar</th>
+                                                        <th>Modelo</th>
+                                                        <th>A&ntilde;o</th>
+                                                        <th>Version</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="vehiculo in listVehiculosPoliza">
+                                                        <td>{{vehiculo.vehiculo_placa}}</td>
+                                                        <td>{{vehiculo.marca_vehiculo.marca_vehiculo_descripcion}}</td>
+                                                        <td>{{vehiculo.vehiculo_modelo}}</td>
+                                                        <td>{{vehiculo.vehiculo_ano}}</td>
+                                                        <td>{{vehiculo.vehiculo_version}}</td>
+                                                        <td>
+                                                            <a ng-click="deleteVehiculoSelect(vehiculo.placa)"
+                                                               data-toggle="tooltip" title="Borrar Aseguradora">
+                                                                <small><i class="fa fa-fw fa-trash"></i></small></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                    </tfoot>
+                                                </table>
+                                            </div><!-- /.box-body -->
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
                 <div class="row">
                     <div class="content" style="min-height: 0px;">
                         <div class="col-md-4"></div>
@@ -620,131 +713,101 @@
                 </div>
             </script>
 
-            <!--Modal con todos los usuarios del sistema--->
-            <script type="text/ng-template" id="listUsersAddModal.html">
+            <!--Modal para agregar vehiculos--->
+            <script type="text/ng-template" id="addVehiculosModal.html">
                 <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">Usuarios Informacion</h3>
+                    <h3 class="modal-title colorTitulo">Agregar Vehiculo</h3>
                 </div>
 
                 <div class="text-center"></div>
 
                 <div class="modal-body row" style="padding: 30px;">
-                    <div>
-                        <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur
-                               on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.Users.filter"
-                               type="text"/>
-                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box box-widget widget-user">
+                                <div class="col-md-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header bg-light-blue-active with-border">
+                                            <h3 class="box-title">Informacion del Vehiculo</h3>
+                                        </div><!-- /.box-header -->
 
-                    <table id="userTable" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th ng-repeat="header in userTableHeaders">
-                                <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.Users.sortDir"
-                                         sortedby="filterCriteria.JcrParameters.Users.sortedBy"
-                                         sortvalue="{{ header.value }}">{{ header.title }}
-                                </sort-by>
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="user in users">
-                            <td>{{user.nombre }}</td>
-                            <td>{{user.apellido}}</td>
-                            <td>{{user.documento_id}}</td>
-                            <td>{{user.tipo_usuario | lowerCase | capitalize}}</td>
-                            <td>
-                                <input id="user_check_{{user.usuario_id}}"
-                                       type="radio"
-                                       name="user"
-                                       value="{{user.usuario_id}}"
-                                       ng-click="listUsers(user)"/>
-                            </td>
+                                        <div class="box-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Placa</label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Ingrese Placa"
+                                                           style="width: 350px;"
+                                                           ng-model="vehiculo.vehiculo_placa">
+                                                </div>
 
-                        </tr>
-                        </tbody>
-                        </tfoot>
-                    </table>
-                    <div ng-show="totalRecords == 0">
-                        <h3>No Customers Found</h3>
-                    </div>
-                    <div ng-show="totalPages > 1" class="align-center">
-                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.Users.page"
-                                        items-per-page="filterCriteria.JcrParameters.Users.limit"
-                                        previous-text="previous" next-text="next" last-text="last"
-                                        direction-links="true" rotate="false" max-size="5" boundary-link-numbers="true"
-                                        ng-change="selectPage()"></uib-pagination>
-                    </div>
+                                            </div>
 
-                </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Marca</label>
+                                                    <div angucomplete-alt id="ex21"
+                                                         placeholder="Ingrese Marca"
+                                                         pause="200"
+                                                         selected-object="selectMarca"
+                                                         remote-api-handler="searchMarcasVehiculosInTheSystem"
+                                                         title-field="marca_vehiculo_descripcion"
+                                                         minlength="3"
+                                                         description-field="marca_vehiculo_id"
+                                                         input-class="form-control form-control-small"
+                                                         match-class="highlight"
+                                                         style="width: 350px;">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-ok-modal btn-primary" type="button" ng-click="processUsuario()">OK</button>
-                </div>
-            </script>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Modelo</label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Ingrese Modelo"
+                                                           style="width: 350px;"
+                                                           ng-model="vehiculo.vehiculo_modelo">
+                                                </div>
+                                            </div>
 
-            <!--Modal con todos los usuarios del sistema--->
-            <script type="text/ng-template" id="listBeneficiariosAddModal.html">
-                <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">Usuarios Informacion</h3>
-                </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>A&ntilde;o</label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Ingrese Año"
+                                                           style="width: 350px;"
+                                                           ng-model="vehiculo.vehiculo_ano">
+                                                </div>
+                                            </div>
 
-                <div class="text-center"></div>
 
-                <div class="modal-body row" style="padding: 30px;">
-                    <div>
-                        <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur
-                               on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.Users.filter"
-                               type="text"/>
-                    </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Version</label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Ingrese version"
+                                                           style="width: 350px;"
+                                                           ng-model="vehiculo.vehiculo_version">
+                                                </div>
+                                            </div>
 
-                    <table id="benifTable" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th ng-repeat="header in userTableHeaders">
-                                <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.Users.sortDir"
-                                         sortedby="filterCriteria.JcrParameters.Users.sortedBy"
-                                         sortvalue="{{ header.value }}">{{ header.title }}
-                                </sort-by>
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="user in users">
-                            <td>{{user.nombre }}</td>
-                            <td>{{user.apellido}}</td>
-                            <td>{{user.documento_id}}</td>
-                            <td>{{user.tipo_usuario | lowerCase | capitalize}}</td>
-                            <td>
-                                <input id="benif_check_{{user.usuario_id}}"
-                                       type="checkbox"
-                                       ng-checked="{{user.usuario_check}}"
-                                       value="{{user.usuario_id}}"
-                                       ng-click="listUsers(user)"/>
-                            </td>
+                                        </div><!-- /.box-body -->
 
-                        </tr>
-                        </tbody>
-                        </tfoot>
-                    </table>
-                    <div ng-show="totalRecords == 0">
-                        <h3>No Customers Found</h3>
-                    </div>
-                    <div ng-show="totalPages > 1" class="align-center">
-                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.Users.page"
-                                        items-per-page="filterCriteria.JcrParameters.Users.limit"
-                                        previous-text="previous" next-text="next" last-text="last"
-                                        direction-links="true" rotate="false" max-size="5" boundary-link-numbers="true"
-                                        ng-change="selectPage()"></uib-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-ok-modal btn-primary" type="button" ng-click="processUsuario()">OK</button>
+                    <button class="btn btn-ok-modal btn-primary" type="button" ng-click="processVehiculo()">OK</button>
                 </div>
             </script>
+
+
 
         </div>
 

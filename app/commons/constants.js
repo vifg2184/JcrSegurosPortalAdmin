@@ -37,6 +37,8 @@ angular.module("App")
         PROXY_URL_VEHICULO_BY_ID:environment + "Vehiculo/vehiculoInfoById",
         PROXY_URL_VEHICULO_CREATE: environment + "Vehiculo/crearVehiculo",
         PROXY_URL_VEHICULO_DELETE:environment + "Vehiculo/borrarVehiculo",
+        PROXY_URL_LISTA_MARCAS_VEHICULO: environment + "Vehiculo/marcaVehiculoFilter",
+        PROXY_URL_SEARCH_VEHICULO_PLACA: environment +"Vehiculo/searchVehiculoByPlaca",
 
         /*Proxy Aseguradoras*/
         PROXY_URL_ASEGURADORAS_WITH_PAGINATE:environment + "Aseguradora/allAseguradorasWithPagination",
@@ -78,7 +80,9 @@ angular.module("App")
         RAMO_AUTO_FLOTA:3,
         RAMO_AUTO_INDIVIDUAL:4,
         TIPO_SINIESTRO_AUTO:2,
-        TIPO_SINIESTRO_PERSONA:1
+        TIPO_SINIESTRO_PERSONA:1,
+        RAMO_AUTO_INDIVIDUAL:4,
+        RAMO_AUTO_FLOTA:3
     })
 
     .constant('MENU_JCR_SEGUROS_ACTIVE',{

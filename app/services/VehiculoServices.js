@@ -84,6 +84,45 @@ angular.module('App')
 
         }
 
+        lookup.getMarcasVehiculosServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_LISTA_MARCAS_VEHICULO,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
+
+
+        lookup.getVehiculosByPlacaServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_SEARCH_VEHICULO_PLACA,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
+
         return lookup;
 
     }])
@@ -131,6 +170,15 @@ angular.module('App')
 
         this.getVehiculoById = function(request){
             return VehiculoLookup.getVehiculoByIdServices(request);
+        }
+
+        this.getMarcasVehiculos = function(request){
+            return VehiculoLookup.getMarcasVehiculosServices(request);
+        }
+
+
+        this.getVehiculosByPlaca = function(request){
+            return VehiculoLookup.getVehiculosByPlacaServices(request);
         }
 
     }]);
