@@ -45,6 +45,7 @@ angular.module("App")
         PROXY_URL_ASEGURADORAS_BY_ID:environment + "Aseguradora/aseguradoraInfoById",
         PROXY_URL_ASEGURADORAS_CREATE:environment + "Aseguradora/crearAseguradora",
         PROXY_URL_ASEGURADORAS_DELETE: environment + "Aseguradora/borrarAseguradora",
+        PROXY_URL_ASEGURADORAS_FIND_FILTER:environment + "Aseguradora/aseguradoraFilter",
 
         /*Proxy Cobertura*/
         PROXY_URL_COBERTURA_WITH_PAGINATE:environment +"Cobertura/allCoberturasInfoWithPagination",
@@ -55,8 +56,11 @@ angular.module("App")
         /*Proxy System*/
         PROXY_URL_MENU_SHOW: environment + "SystemList/getMenuJCR",
         PROXY_URL_MENU_ACCESS_USER:environment + "SystemList/getAccessActiveMenu",
-        PROXY_URL_MENU_UPDATE_ACCESS:environment + "SystemList/updateAccessMenuByUserRol"
+        PROXY_URL_MENU_UPDATE_ACCESS:environment + "SystemList/updateAccessMenuByUserRol",
 
+        /*Proxy Reportes*/
+        PROXY_URL_GET_INFO_RENOVACIONES: environment + "Reportes/getInfoRenovacion",
+        PROXY_URL_REPORTE_RENOVACIONES: environment + "Reportes/createReportRenovacion",
 
     })
     // configuracion file system imagenes
@@ -90,7 +94,8 @@ angular.module("App")
         CODE_POLIZAS_MENU:2,
         CODE_SINIESTRO_MENU:3,
         CODE_ASEGURADORA:4,
-        CODE_OPC_ADMIN_MENU:5
+        CODE_OPC_ADMIN_MENU:5,
+        CODE_REPORTES_MENU:6
 
     })
 

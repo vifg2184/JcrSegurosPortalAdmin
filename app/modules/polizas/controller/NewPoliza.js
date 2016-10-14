@@ -24,6 +24,7 @@ angular.module("App")
         'GLOBAL_CONSTANT',
         'MENU_JCR_SEGUROS_ACTIVE',
         '$controller',
+        '$filter',
         function ($scope,
                   UserService,
                   ClientServices,
@@ -42,7 +43,8 @@ angular.module("App")
                   GLOBAL_MESSAGE,
                   GLOBAL_CONSTANT,
                   MENU_JCR_SEGUROS_ACTIVE,
-                  $controller) {
+                  $controller,
+                  $filter) {
 
 
             //herencia metodos comunes
@@ -425,16 +427,32 @@ angular.module("App")
                         if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
                             $scope.poliza = resp.JcrResponse.object[0];
                             $scope.poliza_helper.ramo = $scope.poliza.ramo;
+                            $scope.poliza.agente_helper = $scope.poliza.agente
+
                             $('#selectRamos').val($scope.poliza.ramo.ramo_id);
+
+                            if($scope.poliza.aseguradora != null || $scope.poliza.aseguradora != undefined){
+                                $scope.aseguradoraListFinal.push($scope.poliza.aseguradora);
+                                $scope.showTableAseguradora = true;
+                            }
+
+                            var date_format_emision = formatEnglish($filter('transforDate')($scope.poliza.fecha_emision));
+                            $scope.poliza.fecha_emision = new Date(date_format_emision);
+
+                            var date_format_vigencia = formatEnglish($filter('transforDate')($scope.poliza.fecha_vencimiento));
+                            $scope.poliza.fecha_vencimiento = new Date(date_format_vigencia);
+
 
                             //si el ramo es de vehiculo se llena el arreglo
                             if($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL ||
                                 $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA){
 
                                 if($scope.poliza.vehiculo.length > 0){
+
                                     $scope.listVehiculosPoliza = $scope.poliza.vehiculo;
                                     $scope.showAddVehiculo=true;
                                     $scope.showTableVehiculos=true;
+                                    console.log($scope.listVehiculosPoliza);
                                 }
 
                             }

@@ -107,6 +107,19 @@ function formatDateSiniestro(date){
     return moment(date).format("DD-MM-YYYY");
 }
 
+function formatEnglish(date){
+    return moment(date).format("MM/DD/YYYY");
+}
+
+
+/**
+ * Attendnace
+ * @param date
+ * @returns {*}
+ */
+function formatDateAttendance(date){
+    return moment(date).format("YYYY-MM-DD");
+}
 /**
  * validar el request para creacion de usuario
  * @param obj

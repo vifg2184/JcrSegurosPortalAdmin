@@ -177,6 +177,17 @@ angular.module("App")
                 }
             })
 
+            .state('reportRenovacion',{
+                url: '/reportRenovacion',
+                controller:'ReporteRenovacionesInfoCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/reportes/views/ReportesRenovacion.html'},
+                    'header@reportRenovacion': {templateUrl: 'app/home/views/header.html'},
+                    'menu@reportRenovacion': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@reportRenovacion':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
         $urlRouterProvider.otherwise("/login");
 
     }]);

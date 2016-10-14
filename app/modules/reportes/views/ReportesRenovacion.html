@@ -1,0 +1,182 @@
+<spinner name="spinnerUserList" ng-cloak="">
+    <div class="overlay"></div>
+    <div class="spinner">
+        <div class="test"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+    </div>
+    <div class="please-wait">Please Wait...</div>
+</spinner>
+
+<div class="skin-blue sidebar-mini">
+    <div class="wrapper" ng-controller="ReporteRenovacionesInfoCtrl">
+
+        <div ui-view="header"></div>
+
+        <div ui-view="menu"></div>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <div growl></div>
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>Reporte Renovaciones</h1>
+                <ol class="breadcrumb">
+                    <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content" style="min-height:500px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height:125px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-gray-light">
+                                    <h3 class="box-title">Filtros</h3>
+                                </div><!-- /.box-header -->
+
+                                <div class="box-body">
+                                    <div class="col-sm-2">
+                                        <label>Fecha Inicio</label>
+
+                                        <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="open_start_date()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                            <input type="text" class="form-control"
+                                                   uib-datepicker-popup="{{format}}"
+                                                   is-open="popup_start_date.opened"
+                                                   datepicker-options="dateOptions"
+                                                   ng-required="true" close-text="Close"
+                                                   alt-input-formats="altInputFormats"
+                                                   ng-model="report.start_date"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>Fecha Fin</label>
+
+                                        <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="open_end_date()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                            <input type="text" class="form-control"
+                                                   uib-datepicker-popup="{{format}}"
+                                                   is-open="popup_end_date.opened"
+                                                   datepicker-options="dateOptions"
+                                                   ng-required="true" close-text="Close"
+                                                   alt-input-formats="altInputFormats"
+                                                   ng-model="report.end_date"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label>Aseguradora</label>
+                                        <div angucomplete-alt id="ex21"
+                                             placeholder="Seleccione Aseguradora"
+                                             pause="200"
+                                             selected-object="selectAseguradora"
+                                             remote-api-handler="searchTheAseguradoraInTheSystem"
+                                             title-field="aseguradora_nombre"
+                                             minlength="3"
+                                             description-field=""
+                                             input-class="form-control form-control-small"
+                                             match-class="highlight">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-primary btn-md"
+                                                    ng-click="searchRenovacionesInfo()">Search
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div><!-- /.box-body -->
+
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+
+                <!--Devices info--->
+                <div class="row" ng-show="showTableDevicesInfo">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height:135px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-gray-light">
+                                    <h3 class="box-title">Renovaciones</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+
+                                    <table id="reportGeneralDeviceInfo" class="table table-bordered table-striped text-center">
+                                        <thead>
+                                        <tr>
+                                            <th>Numero de Poliza</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>CI</th>
+                                            <th>Aseguradora</th>
+                                            <th>Placa</th>
+                                            <th>Ramo</th>
+                                            <th>Vigencia</th>
+                                            <th>Agente</th>
+                                            <th>Prima</th>
+                                            <th>SA</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat = "row in listDeviceDetailsInfo | start:(currentPage-1) * pageSize | limitTo : pageSize">
+                                            <td>{{row.numero_poliza}}</td>
+                                            <td>{{row.nombre_cliente}}</td>
+                                            <td>{{row.apellido_cliente}}</td>
+                                            <td>{{row.documento_id_cliente}}</td>
+                                            <td>{{row.aseguradora}}</td>
+                                            <td>{{row.placa}}</td>
+                                            <td>{{row.ramo_name}}</td>
+                                            <td>{{row.fecha_vencimiento | transforDate | date}}</td>
+                                            <td>{{row.agente}}</td>
+                                            <td>{{row.prima_total}}</td>
+                                            <td>{{row.suma_aseguarada}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showTableDevicesInfo && totalItems > 1">
+                    <uib-pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage"
+                                    max-size="10" class="pagination-sm"></uib-pagination>
+                </div>
+
+                <div class="row" ng-show="showTableDevicesInfo">
+                    <div class="content" style="min-height: 0px;">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-primary btn-sm"
+                                    ng-click="exportPdfReport()">Export PDF Report
+                            </button>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+
+            </section><!-- /.content -->
+
+
+        </div>
+
+        <!--footer-->
+        <div ui-view="footer"></div>
+
+    </div><!-- ./wrapper -->
+</div>

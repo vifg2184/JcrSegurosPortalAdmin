@@ -103,6 +103,26 @@ angular.module('App')
 
         }
 
+
+        lookup.searchWithFilterAseguradoraServices = function(request){
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_ASEGURADORAS_FIND_FILTER,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+
+        }
+
         return lookup;
 
     }])
@@ -160,4 +180,9 @@ angular.module('App')
         this.deleteAseguradora = function(request){
             return AseguradoraLookup.deleteAseguradoraServices(request);
         }
+
+        this.searchWithFilterAseguradora = function(request){
+            return AseguradoraLookup.searchWithFilterAseguradoraServices(request);
+        }
+
     }]);
