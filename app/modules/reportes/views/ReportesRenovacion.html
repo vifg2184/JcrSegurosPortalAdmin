@@ -132,7 +132,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat = "row in listDeviceDetailsInfo | start:(currentPage-1) * pageSize | limitTo : pageSize">
+                                        <tr ng-repeat = "row in listDeviceDetailsInfo | start:(currentPage-1) * pageSize | limitTo : pageSize track by $index">
                                             <td>{{row.numero_poliza}}</td>
                                             <td>{{row.nombre_cliente}}</td>
                                             <td>{{row.apellido_cliente}}</td>

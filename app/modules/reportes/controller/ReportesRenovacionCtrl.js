@@ -269,7 +269,7 @@ angular.module("App")
                         Reports:{
                             start_date: formatDateAttendance($scope.report.start_date),
                             end_date: formatDateAttendance($scope.report.end_date),
-                            object: $scope.listDeviceDetailsInfo
+                            aseguradora_id:$scope.report.aseguradora_id
                         }
                     }
                 };
