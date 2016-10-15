@@ -243,8 +243,8 @@
                                                                     id="selectCoberturas"
                                                                     class="form-control"
                                                                     style="width: 214px;"
-                                                                    ng-model="coberturaSeleccionada"
-                                                                    ng-change="agregarCoberturasALaPoliza(coberturaSeleccionada,true)">
+                                                                    ng-model="coberturaSeleccionada" convert-to-number
+                                                                    ng-change="agregarCoberturasALaPoliza(coberturaSeleccionada,false,0)">
                                                                 <option value="">Seleccione Cobertura...</option>
                                                                 <option ng-repeat="cobertura in poliza_helper.ramo.coberturas" value="{{cobertura.cobertura_id}}">
                                                                     {{cobertura.cobertura_nombre ||  capitalize}}
@@ -289,7 +289,7 @@
                                                                     <input type="checkbox"
                                                                            ng-model="checkCober1"
                                                                            class="text th-news"
-                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober1)"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober1,1)"
                                                                            ng-true-value="true"
                                                                            ng-false-value="false"
                                                                            id="check_id_1{{coberturas.cobertura_id}}"/>
@@ -334,7 +334,7 @@
                                                                     <input type="checkbox"
                                                                            ng-model="checkCober2"
                                                                            class="text th-news"
-                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober2)"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober2,1)"
                                                                            ng-true-value="true"
                                                                            ng-false-value="false"
                                                                            id="check_id_2{{coberturas.cobertura_id}}"/>
@@ -379,7 +379,7 @@
                                                                     <input type="checkbox"
                                                                            ng-model="checkCober3"
                                                                            class="text th-news"
-                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober3)"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober3,1)"
                                                                            ng-true-value="true"
                                                                            ng-false-value="false"
                                                                            id="check_id_3{{coberturas.cobertura_id}}"/>
@@ -424,7 +424,7 @@
                                                                     <input type="checkbox"
                                                                            ng-model="checkCober4"
                                                                            class="text th-news"
-                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober4)"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober4,1)"
                                                                            ng-true-value="true"
                                                                            ng-false-value="false"
                                                                            id="check_id_4{{coberturas.cobertura_id}}"/>
@@ -555,12 +555,12 @@
                                                 <p class="input-group">
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default"
-                                                                    ng-click="open1()"><i
+                                                                    ng-click="open3()"><i
                                                                     class="glyphicon glyphicon-calendar"></i></button>
                                                         </span>
                                                     <input id="fechaNacimiento" type="text" class="form-control"
                                                            uib-datepicker-popup="{{format}}"
-                                                           is-open="popup1.opened"
+                                                           is-open="popup3.opened"
                                                            datepicker-options="dateOptions"
                                                            ng-required="true" close-text="Close"
                                                            alt-input-formats="altInputFormats"
@@ -635,7 +635,7 @@
                                                     <tr>
                                                         <td>
                                                             <select id="selectTipoTomador" class="form-control"
-                                                                    ng-model="poliza.tomador.tipo_cliente_id">
+                                                                    ng-model="poliza.tomador.tipo_cliente_id" convert-to-number>
                                                                 <option value="">
                                                                     Seleccione
                                                                 </option>
@@ -667,7 +667,8 @@
                                                                  description-field="nombre_completo"
                                                                  minlength="3"
                                                                  remote-api-handler="findClientsByDocument"
-                                                                 match-class="highlight">
+                                                                 match-class="highlight"
+                                                                 initial-value="selectEditTomador">
                                                             </div>
                                                         </td>
 

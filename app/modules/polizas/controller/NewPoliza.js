@@ -68,6 +68,7 @@ angular.module("App")
             $scope.showAddVehiculo = false;
             $scope.selectPlaca = "";
             $scope.selectEditAsegurado = null;
+            $scope.selectEditTomador = null;
 
             $scope.poliza = {
                 poliza_id: null,
@@ -105,7 +106,9 @@ angular.module("App")
             }
 
             $scope.poliza_helper = {
-                ramo: {}
+                ramo: {
+                    coberturas:[]
+                }
             }
 
             $scope.formats = ['dd-MM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
@@ -216,145 +219,151 @@ angular.module("App")
                     coberturas: coberturaDefecto,
                 },
                 {
-                    ramo_id: 7,
+                    ramo_id: 6,
                     ramo_nombre: "Armas y Equipaje",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 9,
+                    ramo_id: 7,
+                    ramo_nombre: "Accidentes Colectivos",
+                    seleccion_multiple: "0",
+                    coberturas: coberturaDefecto
+                },
+                {
+                    ramo_id: 8,
                     ramo_nombre: "Combinado Empresarial",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 10,
-                    ramo_nombre: "Combinado Rescidencial",
+                    ramo_id: 9,
+                    ramo_nombre: "Combinado Residencial",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 11,
+                    ramo_id: 10,
                     ramo_nombre: "Construccion",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 12,
+                    ramo_id: 11,
                     ramo_nombre: "Dinero y Valores",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 13,
+                    ramo_id: 12,
                     ramo_nombre: "Objetos Valiosos",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 14,
+                    ramo_id: 13,
                     ramo_nombre: "Equipo Contratista",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 15,
+                    ramo_id: 14,
                     ramo_nombre: "Equipo Electronico",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 16,
+                    ramo_id: 15,
                     ramo_nombre: "Fidelidad",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 17,
+                    ramo_id: 16,
                     ramo_nombre: "Fidelidad 3D",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 18,
+                    ramo_id: 17,
                     ramo_nombre: "Incendio y Terremoto",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 19,
+                    ramo_id: 18,
                     ramo_nombre: "Lucro Cesante",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 20,
+                    ramo_id: 19,
                     ramo_nombre: "Montaje",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 21,
+                    ramo_id: 20,
                     ramo_nombre: "Industria y Comercio",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 22,
+                    ramo_id: 21,
                     ramo_nombre: "RCG",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 23,
+                    ramo_id: 22,
                     ramo_nombre: "RCE",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 24,
+                    ramo_id: 23,
                     ramo_nombre: "Responsabilidad Civil Patronal",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 25,
+                    ramo_id: 24,
                     ramo_nombre: "Responsabilidad Civil Medico",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 26,
+                    ramo_id: 25,
                     ramo_nombre: "Robo",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 27,
+                    ramo_id: 26,
                     ramo_nombre: "Rotura de Maquinaria",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 28,
+                    ramo_id: 27,
                     ramo_nombre: "Seguro Escolar",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 29,
+                    ramo_id: 28,
                     ramo_nombre: "Seguro Especial",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 30,
-                    ramo_nombre: "Servicios Funerales Colectivos",
+                    ramo_id: 29,
+                    ramo_nombre: "Servicios Funerarios Colectivos",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
                 },
                 {
-                    ramo_id: 31,
+                    ramo_id: 30,
                     ramo_nombre: "Transporte Maritimo",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
@@ -382,8 +391,8 @@ angular.module("App")
                     ramo_nombre: "Ramos Tecnicos de Ingenieria",
                     seleccion_multiple: "0",
                     coberturas: coberturaDefecto
-                }];
-
+                }
+            ];
             /**
              * Options calendar
              * @type {string[]}
@@ -445,6 +454,10 @@ angular.module("App")
                             var date_format_vigencia = formatEnglish($filter('transforDate')($scope.poliza.fecha_vencimiento));
                             $scope.poliza.fecha_vencimiento = new Date(date_format_vigencia);
 
+                            var fecha_nacimeinto_cliente = formatEnglish($filter('transforDate')($scope.poliza.asegurado.fecha_nacimiento));
+                            $scope.poliza.asegurado.fecha_nacimiento = new Date(fecha_nacimeinto_cliente);
+
+
                             $scope.selectEditAsegurado = {
                                 cliente_id: $scope.poliza.asegurado.cliente_id,
                                 nombre_cliente: $scope.poliza.asegurado.nombre_cliente,
@@ -457,6 +470,21 @@ angular.module("App")
                                 tipo_cliente_id: $scope.poliza.asegurado.tipo_cliente_id,
                                 genero_cliente:$scope.poliza.asegurado.genero_cliente,
                             };
+
+                            $scope.selectEditTomador = {
+                                cliente_id: $scope.poliza.asegurado.cliente_id,
+                                nombre_cliente: $scope.poliza.asegurado.nombre_cliente,
+                                apellido_cliente:$scope.poliza.asegurado.apellido_cliente,
+                                documento_id_cliente:$scope.poliza.asegurado.documento_id_cliente,
+                                nombre_completo : $scope.poliza.asegurado.nombre_cliente + ' ' +$scope.poliza.asegurado.apellido_cliente,
+                                fecha_nacimiento :  $scope.poliza.asegurado.fecha_nacimiento,
+                                correo_cliente: $scope.poliza.asegurado.correo_cliente,
+                                direccion: $scope.poliza.asegurado.direccion,
+                                tipo_cliente_id: $scope.poliza.asegurado.tipo_cliente_id,
+                                genero_cliente:$scope.poliza.asegurado.genero_cliente,
+                            };
+
+
 
                             //si el ramo es de vehiculo se llena el arreglo
                             if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL ||
@@ -471,156 +499,155 @@ angular.module("App")
                                 }
                             }
 
+                            //tipo de seleccion
                             if ($scope.poliza.ramo.seleccion_multiple == 0) {
-                                $scope.poliza_helper.ramo = $scope.poliza.ramo;
+
+                                console.log("Seleccion Normal");
+
+                                var ramoDefault={coberturas:[]};
+
+                                var ramo={coberturas:[]};
+
+                                //evaluo el tipo de cobertura cobertura
                                 $scope.CoberturaSelected = $scope.poliza.ramo.coberturas[0];
+
+                                $scope.poliza_helper.ramo.ramo_id = $scope.poliza.ramo.ramo_id;
+                                $scope.poliza_helper.ramo.ramo_nombre = $scope.poliza.ramo.ramo_nombre;
+                                $scope.poliza_helper.ramo.seleccion_multiple="0";
+
+                                if($scope.poliza.ramo.coberturas[0].cobertura_id == GLOBAL_CONSTANT.COBERTURA_OTROS_COBERTURAS){
+
+                                    $scope.poliza_helper.ramo.coberturas.push($scope.poliza.ramo.coberturas[0]);
+                                }
+                                else{
+                                    //entonces es de automovil
+                                    if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_PERDIDA_TOTAL,$scope.poliza.ramo.coberturas)){
+
+                                        $scope.poliza_helper.ramo.coberturas.push(coberturaStandarAutomovil[0]);
+                                    }
+                                    else{
+                                        $scope.poliza_helper.ramo.coberturas.push($scope.poliza.ramo.coberturas[0]);
+                                    }
+
+                                    if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_AMPLIA,$scope.poliza.ramo.coberturas)){
+
+                                        $scope.poliza_helper.ramo.coberturas.push(coberturaStandarAutomovil[1]);
+
+                                    }
+                                    else{
+
+                                        $scope.poliza_helper.ramo.coberturas.push($scope.poliza.ramo.coberturas[0]);
+                                    }
+
+                                    if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_RCV,$scope.poliza.ramo.coberturas)){
+
+                                        $scope.poliza_helper.ramo.coberturas.push(coberturaStandarAutomovil[2]);
+                                    }
+                                    else{
+
+                                        $scope.poliza_helper.ramo.coberturas.push($scope.poliza.ramo.coberturas[0]);
+                                    }
+
+                                    if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_PRODUCTO_ESPECIALES,$scope.poliza.ramo.coberturas)){
+
+                                        $scope.poliza_helper.ramo.coberturas.push(coberturaStandarAutomovil[3]);
+
+                                    }else{
+
+                                        $scope.poliza_helper.ramo.coberturas.push($scope.poliza.ramo.coberturas[0]);
+                                    }
+
+                                }
+
+                                $scope.coberturaSeleccionada=$scope.poliza.ramo.coberturas[0].cobertura_id;
+                                console.log("Id de la cobertura: "+ $scope.poliza.ramo.coberturas[0].cobertura_id);
                             }
                             else {
-                                    //seleccion multiple
-                                console.log($scope.poliza.ramo);
 
-                               if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_HC_BASICA, $scope.poliza.ramo.coberturas)){
+                                console.log("Seleccion Multiple");
 
-                                   var ramoDefault={
-                                       ramo_id:$scope.poliza.ramo.ramo_id,
-                                       ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                       seleccion_multiple:"1",
-                                       coberturas:coberturaStandarSalud
+                                $scope.poliza_helper.ramo.ramo_id = $scope.poliza.ramo.ramo_id;
+                                $scope.poliza_helper.ramo.ramo_nombre = $scope.poliza.ramo.ramo_nombre;
+                                $scope.poliza_helper.ramo.seleccion_multiple="1";
 
-                                   };
+                                if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_HC_BASICA, $scope.poliza.ramo.coberturas)){
 
-                                    $scope.poliza_helper.ramo = ramoDefault;
+                                    $scope.poliza_helper.ramo.coberturas.push(coberturaStandarSalud[0]);
                                     $scope.checkCober1 = false;
+
                                 }
                                 else{
 
                                    $scope.checkCober1 = true;
 
-                                   var ramo={
-                                       ramo_id:$scope.poliza.ramo.ramo_id,
-                                       ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                       seleccion_multiple:"1",
-                                       coberturas:[]
-                                   };
-
                                        $scope.poliza.ramo.coberturas.forEach(function(entry){
 
                                         if(entry.cobertura_id == GLOBAL_CONSTANT.COBERTURA_HC_BASICA){
-                                            ramo.coberturas.push(entry);
+                                            $scope.poliza_helper.ramo.coberturas.push(entry);
                                             $scope.montoCoberHcbSa1 = entry.descripciones_cobertura[0].monto;
                                             $scope.montoCoberHcbDedu1 = entry.descripciones_cobertura[1].monto;
                                         }
                                     });
 
-                                   $scope.poliza_helper.ramo = ramo;
                                 }
 
                                 if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_HC_EXCEOSO, $scope.poliza.ramo.coberturas)){
 
-                                    var ramoDefault={
-                                        ramo_id:$scope.poliza.ramo.ramo_id,
-                                        ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                        seleccion_multiple:"1",
-                                        coberturas:coberturaStandarSalud
-
-                                    };
-
-                                    $scope.poliza_helper.ramo = ramoDefault;
+                                    $scope.poliza_helper.ramo.coberturas.push(coberturaStandarSalud[1]);
                                     $scope.checkCober2 = false;
                                 }
                                 else{
 
                                     $scope.checkCober2 = true;
 
-                                    var ramo={
-                                        ramo_id:$scope.poliza.ramo.ramo_id,
-                                        ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                        seleccion_multiple:"1",
-                                        coberturas:[]
-                                    };
-
-
                                     $scope.poliza.ramo.coberturas.forEach(function(entry){
 
                                         if(entry.cobertura_id == GLOBAL_CONSTANT.COBERTURA_HC_EXCEOSO){
-                                            ramo.coberturas.push(entry);
+                                            $scope.poliza_helper.ramo.coberturas.push(entry);
                                             $scope.montoCoberHceSa2 = entry.descripciones_cobertura[0].monto;
                                             $scope.montoCoberHceDedu2 = entry.descripciones_cobertura[1].monto;
                                         }
                                     });
 
-                                    $scope.poliza_helper.ramo = ramo;
                                 }
 
                                 if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_MATERNIDAD_BASICA, $scope.poliza.ramo.coberturas)){
 
-                                    var ramoDefault={
-                                        ramo_id:$scope.poliza.ramo.ramo_id,
-                                        ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                        seleccion_multiple:"1",
-                                        coberturas:coberturaStandarSalud
-
-                                    };
-
-                                    $scope.poliza_helper.ramo = ramoDefault;
+                                    $scope.poliza_helper.ramo.coberturas.push(coberturaStandarSalud[2]);
                                     $scope.checkCober3 = false;
                                 }
                                 else{
 
                                     $scope.checkCober3 = true;
 
-                                    var ramo={
-                                        ramo_id:$scope.poliza.ramo.ramo_id,
-                                        ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                        seleccion_multiple:"1",
-                                        coberturas:[]
-                                    };
-
                                     $scope.poliza.ramo.coberturas.forEach(function(entry){
 
                                         if(entry.cobertura_id == GLOBAL_CONSTANT.COBERTURA_MATERNIDAD_BASICA){
-                                            ramo.coberturas.push(entry);
+                                            $scope.poliza_helper.ramo.coberturas.push(entry);
                                             $scope.montoCoberMbSa3 = entry.descripciones_cobertura[0].monto;
                                             $scope.montoCoberMbDedu3 = entry.descripciones_cobertura[1].monto;
                                         }
                                     });
 
-                                    $scope.poliza_helper.ramo = ramo;
                                 }
 
                                 if(!existeCobertura(GLOBAL_CONSTANT.COBERTURA_MATERNIDAD_EXCESO, $scope.poliza.ramo.coberturas)){
 
-                                    var ramoDefault={
-                                        ramo_id:$scope.poliza.ramo.ramo_id,
-                                        ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                        seleccion_multiple:"1",
-                                        coberturas:coberturaStandarSalud
-
-                                    };
-
-                                    $scope.poliza_helper.ramo = ramoDefault;
+                                    $scope.poliza_helper.ramo.coberturas.push(coberturaStandarSalud[3]);
                                     $scope.checkCober4 = false;
                                 }
                                 else{
                                     $scope.checkCober4 = true;
 
-                                    var ramo={
-                                        ramo_id:$scope.poliza.ramo.ramo_id,
-                                        ramo_nombre:$scope.poliza.ramo.ramo_nombre,
-                                        seleccion_multiple:"1",
-                                        coberturas:[]
-                                    };
-
-                                    $scope.poliza_helper.ramo.coberturas.forEach(function(entry){
+                                    $scope.poliza.ramo.coberturas.forEach(function(entry){
 
                                         if(entry.cobertura_id == GLOBAL_CONSTANT.COBERTURA_MATERNIDAD_EXCESO){
-                                            ramo.coberturas.push(entry);
+                                            $scope.poliza_helper.ramo.coberturas.push(entry);
                                             $scope.montoCoberMeSa4 = entry.descripciones_cobertura[0].monto;
                                             $scope.montoCoberMeDedu4 = entry.descripciones_cobertura[1].monto;
                                         }
                                     });
 
-                                    $scope.poliza_helper.ramo = ramo;
                                 }
 
                                 console.log($scope.poliza_helper);
@@ -711,46 +738,24 @@ angular.module("App")
              * @param coberturaId
              */
 
-            $scope.agregarCoberturasALaPoliza = function (coberturaId, isChecked) {
+            $scope.agregarCoberturasALaPoliza = function (coberturaId, isChecked,mode) {
+
                 console.log(coberturaId);
 
                 var sizeListaCoberturas = $scope.poliza.ramo.coberturas.length;
 
 
+                if(GLOBAL_CONSTANT.SELECCION_MULTIPLE == mode){
 
                     if (coberturaId != null && coberturaId != 0 && coberturaId != "") {
                         if (isChecked) {
 
                             if(sizeListaCoberturas < 4){
-
-                                var cobertura = null;
-                                for (var i = 0; i < $scope.poliza_helper.ramo.coberturas.length; i++) {
-                                    if ($scope.poliza_helper.ramo.coberturas[i].cobertura_id == coberturaId) {
-                                        cobertura = $scope.poliza_helper.ramo.coberturas[i];
-                                        console.log("Cobertura seleccionada");
-                                        console.log(cobertura);
-                                        $scope.CoberturaSelected = cobertura;
-                                        break;
-                                    }
-                                }
-                                var coberturaObject = {
-                                    cobertura_id: cobertura.cobertura_id,
-                                    cobertura_nombre: cobertura.cobertura_nombre,
-                                    descripciones_cobertura: []
-                                };
-                                for (var i = 0; i < cobertura.descripciones_cobertura.length; i++) {
-                                    var descripcion_cobertura = {
-                                        descripcion_cobertura_id: cobertura.descripciones_cobertura[i].descripcion_cobertura_id,
-                                        descripcion_cobertura_nombre: cobertura.descripciones_cobertura[i].descripcion_cobertura_nombre,
-                                        monto: 0
-                                    };
-                                    coberturaObject.descripciones_cobertura.push(descripcion_cobertura);
-                                }
-                                $scope.poliza.ramo.coberturas.push(coberturaObject);
+                                buildListCoberturas(coberturaId);
                             }
 
-
-                        } else {
+                        }
+                        else {
                             for (var i = $scope.poliza.ramo.coberturas.length - 1; i >= 0; i--) {
                                 if ($scope.poliza.ramo.coberturas[i].cobertura_id === coberturaId) {
                                     $scope.poliza.ramo.coberturas.splice(i, 1);
@@ -761,12 +766,56 @@ angular.module("App")
                     } else {
                         $scope.CoberturaSelected = "";
                     }
+                }
+                else if(GLOBAL_CONSTANT.SELECCION_NORMAL == mode){
 
+                    if (coberturaId != null && coberturaId != 0 && coberturaId != "") {
 
+                        if(sizeListaCoberturas == 0){
+                            buildListCoberturas(coberturaId);
+                        }else{
+                            $scope.poliza.ramo.coberturas=[];
+                            buildListCoberturas(coberturaId);
+                        }
+
+                    }else{
+                        $scope.CoberturaSelected = "";
+                    }
+                }
 
                 console.log($scope.poliza.ramo.coberturas);
             }
 
+
+            function buildListCoberturas(coberturaId){
+
+                var cobertura = null;
+
+                for (var i = 0; i < $scope.poliza_helper.ramo.coberturas.length; i++) {
+                    if ($scope.poliza_helper.ramo.coberturas[i].cobertura_id == coberturaId) {
+                        cobertura = $scope.poliza_helper.ramo.coberturas[i];
+                        console.log("Cobertura seleccionada");
+                        console.log(cobertura);
+                        $scope.CoberturaSelected = cobertura;
+                        break;
+                    }
+                }
+                var coberturaObject = {
+                    cobertura_id: cobertura.cobertura_id,
+                    cobertura_nombre: cobertura.cobertura_nombre,
+                    descripciones_cobertura: []
+                };
+                for (var i = 0; i < cobertura.descripciones_cobertura.length; i++) {
+                    var descripcion_cobertura = {
+                        descripcion_cobertura_id: cobertura.descripciones_cobertura[i].descripcion_cobertura_id,
+                        descripcion_cobertura_nombre: cobertura.descripciones_cobertura[i].descripcion_cobertura_nombre,
+                        monto: 0
+                    };
+                    coberturaObject.descripciones_cobertura.push(descripcion_cobertura);
+                }
+                $scope.poliza.ramo.coberturas.push(coberturaObject);
+
+            }
 
             /**
              * Agrega los montos de cobertura seleccionados al objeto poliza
@@ -964,6 +1013,10 @@ angular.module("App")
                 $scope.popup2.opened = true;
             };
 
+            $scope.open3 = function () {
+                $scope.popup3.opened = true;
+            };
+
             $scope.popup1 = {
                 opened: false
             };
@@ -972,6 +1025,9 @@ angular.module("App")
                 opened: false
             };
 
+            $scope.popup3 = {
+                opened: false
+            };
             $scope.openModalAseguradora = function () {
                 openModalAddAseguradora();
             }
