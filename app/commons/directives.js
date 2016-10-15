@@ -206,6 +206,21 @@ angular.module('App')
             });
         }
     }])
+    .directive('convertToNumber',function(){
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function(val) {
+                    return parseInt(val, 10);
+                });
+                ngModel.$formatters.push(function(val) {
+                    return '' + val;
+                });
+            }
+        };
+
+    })
+
     .directive('dynamicModel', ['$compile', '$parse', function ($compile, $parse) {
         return {
             restrict: 'A',

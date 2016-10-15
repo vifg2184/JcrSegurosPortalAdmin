@@ -51,7 +51,7 @@ angular.module('App')
             $http({
                 method: 'POST',
                 data: JSON.stringify(request),
-                url: CONST_PROXY_URL.PROXY_URL_POLIZA_BY_ID,
+                url: CONST_PROXY_URL.PROXY_URL_GET_POLIZA_BY_ID,
             }).success(function (response) {
                 defered.resolve(response);
             }).error(function (err) {

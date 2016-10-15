@@ -277,43 +277,194 @@
                                         </div>
                                         <div ng-show="poliza_helper.ramo.seleccion_multiple == '1'">
                                             <br/>
+                                            <div ng-repeat="coberturas in poliza_helper.ramo.coberturas" class="divForResponsiveTable">
 
-                                            <div ng-repeat="coberturas in poliza_helper.ramo.coberturas"
-                                                 class="divForResponsiveTable">
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <input type="checkbox" ng-model="check"
-                                                                   class="text th-news"
-                                                                   ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,check)"
-                                                                   ng-true-value="true" ng-false-value="false"/>
-                                                            <span class="text-padding-standard">{{coberturas.cobertura_nombre || capitalize}}</span>
+                                                <div ng-switch="coberturas.cobertura_id">
 
-                                                        </th>
+                                                    <div ng-switch-when="1">
+                                                        <table>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <input type="checkbox"
+                                                                           ng-model="checkCober1"
+                                                                           class="text th-news"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober1)"
+                                                                           ng-true-value="true"
+                                                                           ng-false-value="false"
+                                                                           id="check_id_1{{coberturas.cobertura_id}}"/>
+                                                                    <span class="text-padding-standard">{{coberturas.cobertura_nombre || capitalize}}</span>
 
-                                                        <th ng-show="check" class="text-table"
-                                                            ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
-                                                            {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
-                                                        </th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td ng-show="check"
-                                                            ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
-                                                            <input type="text"
-                                                                   class="th-new"
-                                                                   ng-model="monto"
-                                                                   ng-change="agregarMontoACobertura(coberturas,descripciones_cobertura,monto)"
-                                                                   placeholder="{{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}"/>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                                                </th>
+
+                                                                <th ng-show="checkCober1" class="text-table"
+                                                                    ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
+                                                                    {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="checkCober1">
+                                                                <td></td>
+                                                                <td>
+                                                                    <input id="saId_1{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberHcbSa1"
+                                                                           ng-change="agregarMontoACobertura(coberturas,1,montoCoberHcbSa1)"
+                                                                           placeholder="Suma Asegurada"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="deducibleId_1{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberHcbDedu1"
+                                                                           ng-change="agregarMontoACobertura(coberturas,2,montoCoberHcbDedu1)"
+                                                                           placeholder="Deducible"/>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div ng-switch-when="2">
+                                                        <table>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <input type="checkbox"
+                                                                           ng-model="checkCober2"
+                                                                           class="text th-news"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober2)"
+                                                                           ng-true-value="true"
+                                                                           ng-false-value="false"
+                                                                           id="check_id_2{{coberturas.cobertura_id}}"/>
+                                                                    <span class="text-padding-standard">{{coberturas.cobertura_nombre || capitalize}}</span>
+
+                                                                </th>
+
+                                                                <th ng-show="checkCober2" class="text-table"
+                                                                    ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
+                                                                    {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="checkCober2">
+                                                                <td></td>
+                                                                <td>
+                                                                    <input id="saId_2{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberHceSa2"
+                                                                           ng-change="agregarMontoACobertura(coberturas,1,montoCoberHceSa2)"
+                                                                           placeholder="Suma Asegurada"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="deducibleId_2{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberHceDedu2"
+                                                                           ng-change="agregarMontoACobertura(coberturas,2,montoCoberHceDedu2)"
+                                                                           placeholder="Deducible"/>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div ng-switch-when="3">
+                                                        <table>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <input type="checkbox"
+                                                                           ng-model="checkCober3"
+                                                                           class="text th-news"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober3)"
+                                                                           ng-true-value="true"
+                                                                           ng-false-value="false"
+                                                                           id="check_id_3{{coberturas.cobertura_id}}"/>
+                                                                    <span class="text-padding-standard">{{coberturas.cobertura_nombre || capitalize}}</span>
+
+                                                                </th>
+
+                                                                <th ng-show="checkCober3" class="text-table"
+                                                                    ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
+                                                                    {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="checkCober3">
+                                                                <td></td>
+                                                                <td>
+                                                                    <input id="saId_3{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberMbSa3"
+                                                                           ng-change="agregarMontoACobertura(coberturas,1,montoCoberMbSa3)"
+                                                                           placeholder="Suma Asegurada"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="deducibleId_3{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberMbDedu3"
+                                                                           ng-change="agregarMontoACobertura(coberturas,2,montoCoberMbDedu3)"
+                                                                           placeholder="Deducible"/>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div ng-switch-when="4">
+                                                        <table>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <input type="checkbox"
+                                                                           ng-model="checkCober4"
+                                                                           class="text th-news"
+                                                                           ng-change="agregarCoberturasALaPoliza(coberturas.cobertura_id,checkCober4)"
+                                                                           ng-true-value="true"
+                                                                           ng-false-value="false"
+                                                                           id="check_id_4{{coberturas.cobertura_id}}"/>
+                                                                    <span class="text-padding-standard">{{coberturas.cobertura_nombre || capitalize}}</span>
+
+                                                                </th>
+
+                                                                <th ng-show="checkCober4" class="text-table"
+                                                                    ng-repeat="descripciones_cobertura in coberturas.descripciones_cobertura">
+                                                                    {{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="checkCober4">
+                                                                <td></td>
+                                                                <td>
+                                                                    <input id="saId_4{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberMeSa4"
+                                                                           ng-change="agregarMontoACobertura(coberturas,1,montoCoberMeSa4)"
+                                                                           placeholder="Suma Asegurada"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="deducibleId_4{{coberturas.cobertura_id}}"
+                                                                           type="text"
+                                                                           class="th-new"
+                                                                           ng-model="montoCoberMeDedu4"
+                                                                           ng-change="agregarMontoACobertura(coberturas,2,montoCoberMeDedu4)"
+                                                                           placeholder="Deducible"/>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                                 <br/>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -341,11 +492,11 @@
                                                     <tr>
                                                         <td>
                                                             <select id="selectTipoCliente" class="form-control"
-                                                                    ng-model="poliza.asegurado.tipo_cliente_id">
+                                                                    ng-model="poliza.asegurado.tipo_cliente_id" convert-to-number>
                                                                 <option value="">
                                                                     Seleccione
                                                                 </option>
-                                                                <option value='2'>
+                                                                <option value="2">
                                                                     {{'V'}}
                                                                 </option>
                                                                 <option value='3'>
@@ -373,7 +524,8 @@
                                                                  input-changed="onChangeValueFromAseguradoDocument"
                                                                  minlength="3"
                                                                  remote-api-handler="findClientsByDocument"
-                                                                 match-class="highlight">
+                                                                 match-class="highlight"
+                                                                 initial-value="selectEditAsegurado">
                                                             </div>
                                                         </td>
 
@@ -634,11 +786,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
 
 
                 <div class="row">

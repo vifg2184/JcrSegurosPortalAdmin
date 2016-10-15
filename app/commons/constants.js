@@ -20,7 +20,6 @@ angular.module("App")
 
         /*Proxy Poliza*/
         PROXY_URL_POLIZA_WITH_PAGINATE:environment + "Poliza/allPolizaWithPagination",
-        PROXY_URL_POLIZA_BY_ID:environment + "Poliza/getPolizaById",
         PROXY_URL_CREATE_POLIZA:environment + "Poliza/servicioCrearPoliza",
         PROXY_URL_GET_POLIZA_BY_ID:environment + "Poliza/getPolizaById",
         PROXY_URL_DELETE_POLIZA:environment + "Poliza/borrarPoliza",
@@ -86,7 +85,11 @@ angular.module("App")
         TIPO_SINIESTRO_AUTO:2,
         TIPO_SINIESTRO_PERSONA:1,
         RAMO_AUTO_INDIVIDUAL:4,
-        RAMO_AUTO_FLOTA:3
+        RAMO_AUTO_FLOTA:3,
+        COBERTURA_HC_BASICA:1,
+        COBERTURA_HC_EXCEOSO:2,
+        COBERTURA_MATERNIDAD_BASICA:3,
+        COBERTURA_MATERNIDAD_EXCESO:4
     })
 
     .constant('MENU_JCR_SEGUROS_ACTIVE',{
