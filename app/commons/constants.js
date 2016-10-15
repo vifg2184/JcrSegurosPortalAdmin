@@ -23,6 +23,7 @@ angular.module("App")
         PROXY_URL_CREATE_POLIZA:environment + "Poliza/servicioCrearPoliza",
         PROXY_URL_GET_POLIZA_BY_ID:environment + "Poliza/getPolizaById",
         PROXY_URL_DELETE_POLIZA:environment + "Poliza/borrarPoliza",
+        PROXY_URL_GET_POLIZA_BY_SINIESTROS: environment + "Poliza/allPolizaWithPaginationBySiniestro",
 
         /*Proxy Siniestro*/
         PROXY_URL_SINIESTRO_WITH_PAGINATE: environment + "Siniestro/allSiniestrosWithPagination",

@@ -188,6 +188,32 @@ angular.module("App")
                 }
             })
 
+
+            .state('infoPoliza',{
+                url: '/infoPoliza',
+                controller:'ViewPolizaCtrl',
+                params:{edit:true,poliza_id: null},
+                views: {
+                    '': {templateUrl: 'app/modules/polizas/views/ViewPoliza.html'},
+                    'header@infoPoliza': {templateUrl: 'app/home/views/header.html'},
+                    'menu@infoPoliza': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@infoPoliza':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
+
+            .state('infoSiniestro',{
+                url: '/infoSiniestro',
+                controller:'ViewSiniestroCtrl',
+                params:{edit:true,siniestro_id: null,tipo_siniestro_id:null},
+                views: {
+                    '': {templateUrl: 'app/modules/siniestros/views/ViewSiniestro.html'},
+                    'header@infoSiniestro': {templateUrl: 'app/home/views/header.html'},
+                    'menu@infoSiniestro': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@infoSiniestro':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
         $urlRouterProvider.otherwise("/login");
 
     }]);

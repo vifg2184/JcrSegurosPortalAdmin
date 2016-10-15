@@ -45,6 +45,29 @@ angular.module('App')
         };
 
 
+        lookup.allPolizasBySiniestrosServices = function (filterCriteria) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            console.log("Entro aqui 2");
+            $http({
+                method: 'POST',
+                data: JSON.stringify(filterCriteria),
+                url: CONST_PROXY_URL.PROXY_URL_GET_POLIZA_BY_SINIESTROS,
+            }).success(function (response) {
+                polizaJson.poliza = response.JcrResponse.object;
+                polizaJson.totalPages = response.JcrResponse.totalPages;
+                polizaJson.totalRecords = response.JcrResponse.totalRecords;
+                defered.resolve(polizaJson);
+            }).error(function (err) {
+                defered.reject(err);
+            })
+
+            return promise;
+        };
+
+
         lookup.getPolizaById = function (request) {
             var defered = $q.defer();
             var promise = defered.promise;
@@ -145,6 +168,7 @@ angular.module('App')
 
         
         this.allPolizaPaginate = function(request){
+            console.log("Osea esta llamando aqui");
             return PolizasLookup.allPolizas(request);
         }
 
@@ -159,4 +183,10 @@ angular.module('App')
         this.deletePolizaById =  function(request){
             return PolizasLookup.deletePoliza(request);
         }
+
+        this.allPolizasBySiniestros = function(request){
+            console.log("Entro aqui 1");
+            return PolizasLookup.allPolizasBySiniestrosServices(request);
+        }
+
     }]);

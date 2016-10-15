@@ -79,7 +79,9 @@
                                                 <td>{{obj.tipo_siniestro_id | tipo_siniestro}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
                                                 <td><a data-toggle="tooltip" title="Borrar Siniestro" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearSiniestro({siniestro_id:obj.siniestro_id,edit:true,tipo_siniestro_id:obj.tipo_siniestro_id})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                    <a ui-sref="crearSiniestro({siniestro_id:obj.siniestro_id,edit:true,tipo_siniestro_id:obj.tipo_siniestro_id})" data-toggle="tooltip" title="Editar Siniestro"><small><i class="fa fa-fw fa-pencil"></i> </small></a>&nbsp;
+                                                    <a ui-sref="infoSiniestro({siniestro_id:obj.siniestro_id,tipo_siniestro_id:obj.tipo_siniestro_id})" data-toggle="tooltip" title="Ver Siniestro"><small><i class="fa fa-fw fa-info"></i> </small></a>
+
                                                 </td>
                                                 <!--ng-click="editMode(user.user_id)"-->
                                             </tr>
