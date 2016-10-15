@@ -266,7 +266,7 @@
                                                                    class="th-new text-center"
                                                                    ng-model="monto"
                                                                    ng-value="{{descripciones_cobertura.monto}}"
-                                                                   ng-change="agregarMontoACobertura(CoberturaSelected,descripciones_cobertura,monto)"
+                                                                   ng-change="agregarMontoACoberturaModeZero(CoberturaSelected,descripciones_cobertura,monto)"
                                                                    placeholder="{{descripciones_cobertura.descripcion_cobertura_nombre || capitalize}}"/>
                                                         </td>
                                                     </tr>
@@ -587,13 +587,13 @@
                                                 <br ng-show="poliza.asegurado.tipo_cliente_id == 4 || poliza.asegurado.tipo_cliente_id == 1 || poliza.asegurado.tipo_cliente_id == ''"/>
                                                 <label>Telefono</label>
                                                 <input type="text" class="form-control" placeholder="Telefono"
-                                                       ng-model="poliza.asegurado.telefono">
+                                                       ng-model="poliza.asegurado.telefono"/>
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>
                                                 <label>Correo Electronico</label>
                                                 <input type="text" class="form-control" placeholder="Email"
-                                                       ng-model="poliza.asegurado.correo_cliente">
+                                                       ng-model="poliza.asegurado.correo_cliente"/>
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>

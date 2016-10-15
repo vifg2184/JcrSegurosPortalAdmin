@@ -89,10 +89,10 @@ angular.module("App")
                     "documento_id_cliente": "",
                     "fecha_nacimiento": "",
                     "genero_cliente": "",
-                    telefono: "",
                     "correo_cliente": "",
                     "direccion": "",
                     "tipo_cliente_id": "",
+                    "telefono": "",
                     "es_tomador": false
                 },
                 tomador: {
@@ -411,8 +411,6 @@ angular.module("App")
              */
             $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_POLIZAS_MENU);
 
-
-            //TODO metodo inicial
             $scope.init = function () {
 
                 console.info("Iniciando controlador PolizaNewCtrl...");
@@ -458,6 +456,8 @@ angular.module("App")
                             $scope.poliza.asegurado.fecha_nacimiento = new Date(fecha_nacimeinto_cliente);
 
 
+                            console.log("Telefono:" +$scope.poliza.asegurado.telefono);
+
                             $scope.selectEditAsegurado = {
                                 cliente_id: $scope.poliza.asegurado.cliente_id,
                                 nombre_cliente: $scope.poliza.asegurado.nombre_cliente,
@@ -468,20 +468,22 @@ angular.module("App")
                                 correo_cliente: $scope.poliza.asegurado.correo_cliente,
                                 direccion: $scope.poliza.asegurado.direccion,
                                 tipo_cliente_id: $scope.poliza.asegurado.tipo_cliente_id,
+                                telefono:$scope.poliza.asegurado.telefono,
                                 genero_cliente:$scope.poliza.asegurado.genero_cliente,
                             };
 
                             $scope.selectEditTomador = {
-                                cliente_id: $scope.poliza.asegurado.cliente_id,
-                                nombre_cliente: $scope.poliza.asegurado.nombre_cliente,
-                                apellido_cliente:$scope.poliza.asegurado.apellido_cliente,
-                                documento_id_cliente:$scope.poliza.asegurado.documento_id_cliente,
-                                nombre_completo : $scope.poliza.asegurado.nombre_cliente + ' ' +$scope.poliza.asegurado.apellido_cliente,
-                                fecha_nacimiento :  $scope.poliza.asegurado.fecha_nacimiento,
-                                correo_cliente: $scope.poliza.asegurado.correo_cliente,
-                                direccion: $scope.poliza.asegurado.direccion,
-                                tipo_cliente_id: $scope.poliza.asegurado.tipo_cliente_id,
-                                genero_cliente:$scope.poliza.asegurado.genero_cliente,
+                                cliente_id: $scope.poliza.tomador.cliente_id,
+                                nombre_cliente: $scope.poliza.tomador.nombre_cliente,
+                                apellido_cliente:$scope.poliza.tomador.apellido_cliente,
+                                documento_id_cliente:$scope.poliza.tomador.documento_id_cliente,
+                                nombre_completo : $scope.poliza.tomador.nombre_cliente + ' ' +$scope.poliza.tomador.apellido_cliente,
+                                fecha_nacimiento :  $scope.poliza.tomador.fecha_nacimiento,
+                                correo_cliente: $scope.poliza.tomador.correo_cliente,
+                                direccion: $scope.poliza.tomador.direccion,
+                                tipo_cliente_id: $scope.poliza.tomador.tipo_cliente_id,
+                                telefono:$scope.poliza.tomador.telefono,
+                                genero_cliente:$scope.poliza.tomador.genero_cliente,
                             };
 
 
@@ -825,16 +827,32 @@ angular.module("App")
              * @param monto
              */
             $scope.agregarMontoACobertura = function (cobertura, descripcionCoberturaId, monto) {
+
                 for (var i = 0; i < $scope.poliza.ramo.coberturas.length; i++) {
                     if ($scope.poliza.ramo.coberturas[i].cobertura_id == cobertura.cobertura_id) {
                         for (var j = 0; j < $scope.poliza.ramo.coberturas[i].descripciones_cobertura.length; j++) {
                             if ($scope.poliza.ramo.coberturas[i].descripciones_cobertura[j].descripcion_cobertura_id == descripcionCoberturaId) {
+                                $scope.poliza.ramo.coberturas[i].descripciones_cobertura[j].monto = monto;
+                                console.log("entro aqui");
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            $scope.agregarMontoACoberturaModeZero = function (cobertura, descripcionCobertura, monto) {
+                for (var i = 0; i < $scope.poliza.ramo.coberturas.length; i++) {
+                    if ($scope.poliza.ramo.coberturas[i].cobertura_id == cobertura.cobertura_id) {
+                        for (var j = 0; j < $scope.poliza.ramo.coberturas[i].descripciones_cobertura.length; j++) {
+                            if ($scope.poliza.ramo.coberturas[i].descripciones_cobertura[j].descripcion_cobertura_id == descripcionCobertura.descripcion_cobertura_id) {
                                 $scope.poliza.ramo.coberturas[i].descripciones_cobertura[j].monto = monto;
                             }
                         }
                     }
                 }
             }
+
 
             /**
              *  Maneja el objeto cuando se reutiliza un cliente del sistema como tomador
@@ -846,6 +864,7 @@ angular.module("App")
                     $scope.poliza.tomador.apellido_cliente = objectSelected.originalObject.apellido_cliente;
                     $scope.poliza.tomador.cliente_id = objectSelected.originalObject.cliente_id;
                     $scope.poliza.tomador.documento_id_cliente = objectSelected.originalObject.documento_id_cliente;
+                    $scope.poliza.tomador.telefono =  objectSelected.originalObject.telefono;
                     //$scope.poliza.tomador.tipo_cliente_id = objectSelected.originalObject.tipo_cliente_id;
                 }
             }
@@ -864,6 +883,7 @@ angular.module("App")
                     $scope.poliza.asegurado.fecha_nacimiento = objectSelected.originalObject.fecha_nacimiento;
                     $('#fechaNacimiento').val(formatDate($scope.poliza.asegurado.fecha_nacimiento));
                     $scope.poliza.asegurado.genero_cliente = objectSelected.originalObject.genero_cliente;
+                    $scope.poliza.asegurado.telefono =  objectSelected.originalObject.telefono;
                     //$scope.poliza.asegurado.tipo_cliente_id = objectSelected.originalObject.tipo_cliente_id;
                 }
             }
@@ -889,6 +909,7 @@ angular.module("App")
                                 correo_cliente: entry.correo_cliente,
                                 direccion: entry.direccion,
                                 tipo_cliente_id: entry.tipo_cliente_id,
+                                telefono: entry.telefono,
                                 genero_cliente: entry.genero_cliente
                             };
                             $scope.clientFound.push(aux);
