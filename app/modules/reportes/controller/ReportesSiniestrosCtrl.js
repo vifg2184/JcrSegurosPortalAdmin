@@ -3,7 +3,7 @@
  */
 
 angular.module("App")
-    .controller("ReporteRenovacionesInfoCtrl", ['$scope',
+    .controller("ReporteSiniestroInfoCtrl", ['$scope',
         '$state',
         '$sessionStorage',
         '$rootScope',
@@ -43,6 +43,9 @@ angular.module("App")
             });
 
 
+            //Search on the menu
+            $scope.menuOptions = {searchWord: ''};
+
             $scope.totalPages = 0;
 
             //default criteria that will be sent to the server
@@ -53,25 +56,25 @@ angular.module("App")
                         limit: 10,
                         start_date:"",
                         end_date:"",
-                        aseguradora_id:null
+                        aseguradora_id:null,
+                        numero_poliza:null,
+                        ramo_id:null
                     }
                 }
             };
 
-            //Search on the menu
-            $scope.menuOptions = {searchWord: ''};
-
-            $scope.totalItems = 0;
-            $scope.currentPage = 1;
-            $scope.pageSize = 10;
 
             $scope.report = {
                 start_date: "",
                 end_date: "",
-                aseguradora_id: null
+                aseguaradora_id:null,
+                numero_poliza:null,
+                ramo_id:null
+
             }
 
             $scope.showTableDevicesInfo = false;
+            $scope.selectAseguradora = null;
 
             $scope.listDeviceDetailsInfo = [];
             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
@@ -96,7 +99,7 @@ angular.module("App")
 
             $scope.init = function(){
 
-                console.info("Iniciando controlador DeviceRelRouteCtrl");
+                console.info("Iniciando controlador ReporteSiniestroInfoCtrl");
                 $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_REPORTES_MENU);
             }
 
@@ -168,79 +171,83 @@ angular.module("App")
             /**
              * Metodo para obtener informacion de los dispositivos
              */
-            $scope.searchRenovacionesInfo = function(){
+            $scope.searchSiniestralidadInfo = function(){
 
                 $scope.filterCriteria.JcrParameters.Reports.start_date = formatDateAttendance($scope.report.start_date) + " 00:00:00";
                 $scope.filterCriteria.JcrParameters.Reports.end_date = formatDateAttendance($scope.report.end_date) + " 23:59:59";
-                $scope.filterCriteria.JcrParameters.Reports.aseguradora_id = $scope.report.aseguradora_id;
+                $scope.filterCriteria.JcrParameters.Reports.aseguradora_id =  $scope.report.aseguradora_id;
+                $scope.filterCriteria.JcrParameters.Reports.numero_poliza = $scope.report.numero_poliza;
+                $scope.filterCriteria.JcrParameters.Reports.ramo_id = ($scope.report.ramo_id == "") ? null : $scope.report.ramo_id;
 
-                $scope.getAllRenovaciones();
+                $scope.getAllSiniestros();
+
             }
 
 
 
-            $scope.getAllRenovaciones = function(){
+            /**
+             * Call service all user
+             */
+            $scope.getAllSiniestros= function () {
 
                 spinnerService.show("spinnerUserList");
 
-                ReportesServices.getInfoRenovaciones($scope.filterCriteria).then(function(resp){
+                ReportesServices.getInfoSiniestros($scope.filterCriteria).then(function (data) {
 
                     spinnerService.hide("spinnerUserList");
 
-                    if(resp.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+                    if(data.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+                        $scope.listSiniestros = [];
 
-                        $scope.listDeviceDetailsInfo = [];
-                        $scope.totalPages = resp.totalPages;
-                        $scope.totalRecords = resp.totalRecords;
-                        console.log(resp);
+                        $scope.totalPages = data.totalPages;
+                        $scope.totalRecords = data.totalRecords;
+                        console.log(data);
+                        var siniestro = null;
 
-                        var renovacion = null;
+                        data.siniestro.forEach(function(entry){
 
-                        resp.renovaciones.forEach(function(entry){
+                            siniestro = {};
 
-                            renovacion = {};
+                            siniestro.numero_poliza =  entry.numero_poliza;
+                            siniestro.numero_siniestro = entry.numero_siniestro;
+                            siniestro.cliente = entry.asegurado.nombre_cliente + " " + entry.asegurado.apellido_cliente;
+                            siniestro.documentoId = entry.asegurado.documento_id_cliente;
+                            siniestro.placa = (entry.tipo_siniestro == 1) ? "N/A" : entry.vehiculo[0].vehiculo_placa;
+                            siniestro.ramo = entry.ramo[0].ramo_nombre;
+                            siniestro.fecha_vigencia = entry.fecha_vencimiento;
+                            siniestro.agente = entry.agente;
+                            siniestro.aseguradora = entry.aseguradora[0].aseguradora_nombre;
+                            siniestro.prima = entry.prima_total;
+                            siniestro.sa = entry.coberturas[0].descripciones_cobertura[0].monto;
+                            siniestro.monto_siniestro = entry.monto_siniestro;
+                            siniestro.calculo = entry.calculo;
 
-                            renovacion.poliza_id = entry.poliza_id;
-                            renovacion.numero_poliza = entry.numero_poliza;
-                            renovacion.nombre_cliente = entry.asegurado.nombre_cliente;
-                            renovacion.apellido_cliente = entry.asegurado.apellido_cliente;
-                            renovacion.documento_id_cliente = entry.asegurado.documento_id_cliente;
-                            renovacion.agente = entry.agente;
-
-                            if(entry.ramo.ramo_id == 4 || entry.ramo.ramo_id == 3){
-                                renovacion.placa = entry.vehiculos[0].vehiculo_placa;
-                            }else{
-                                renovacion.placa="N/A";
-                            }
-
-                            renovacion.prima_total = entry.prima_total;
-                            renovacion.fecha_vencimiento = entry.fecha_vencimiento;
-                            renovacion.ramo_name = entry.ramo.ramo_nombre;
-                            renovacion.suma_aseguarada = entry.suma_asegurada[0].descripciones_cobertura[0].monto;
-                            renovacion.aseguradora = entry.aseguradora
-                            $scope.listDeviceDetailsInfo.push(renovacion);
-
+                            $scope.listSiniestros.push(siniestro);
                         });
 
-                        $scope.showTableDevicesInfo = true;
-                    }
-                    else{
-                        console.log("Error repuesta servicio: "+resp.message);
-                        growl.error(resp.message);
+                        $scope.showTableSiniestros = true;
+
+                    }else{
+                        console.log(data);
+                        $scope.showTableSiniestros = false;
                     }
 
-                }).catch(function(err){
-                    console.error("Error a invocar servicio: "+err);
+                }).catch(function (err) {
+                    console.error("Error invocando servicio getAllUsers " + err);
+                    $scope.listSiniestros = [];
+                    $scope.totalPages = 0;
+                    $scope.totalRecords = 0;
                     spinnerService.hide("spinnerUserList");
                     growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
                 });
-
             }
+
 
             //called when navigate to another page in the pagination
             $scope.selectPage = function () {
-                $scope.getAllRenovaciones();
+                $scope.getAllSiniestros();
             };
+
 
             /**
              * invocar servicio para crear reportes
@@ -252,32 +259,34 @@ angular.module("App")
                 var request = {
                     JcrParameters:{
                         Reports:{
-                            start_date: formatDateAttendance($scope.report.start_date),
-                            end_date: formatDateAttendance($scope.report.end_date),
-                            aseguradora_id:$scope.report.aseguradora_id
+                            start_date: $scope.filterCriteria.JcrParameters.Reports.start_date,
+                            end_date: $scope.filterCriteria.JcrParameters.Reports.end_date,
+                            aseguradora_id: $scope.filterCriteria.JcrParameters.Reports.aseguradora_id,
+                            numero_poliza: $scope.filterCriteria.JcrParameters.Reports.numero_poliza,
+                            ramo_id: $scope.filterCriteria.JcrParameters.Reports.ramo_id
                         }
                     }
                 };
 
 
-                ReportesServices.getCreateReporteRenovaciones(request)
-                        .then(function(resp){
+                ReportesServices.getCreateReporteSiniestralidad(request)
+                    .then(function(resp){
 
-                            spinnerService.hide("spinnerUserList");
-
-                            if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
-                                $window.open(resp.JcrResponse.url_pdf, '_blank', '');
-                            }
-                            else{
-                                console.log("Error invocando el servicio: " + resp.JcrResponse.message);
-                                growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
-                            }
-
-                        }).catch(function(err){
-                        console.error("Error a invocar servicio: "+err);
                         spinnerService.hide("spinnerUserList");
-                        growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
-                    });
+
+                        if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+                            $window.open(resp.JcrResponse.url_pdf, '_blank', '');
+                        }
+                        else{
+                            console.log("Error invocando el servicio: " + resp.JcrResponse.message);
+                            growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
+                        }
+
+                    }).catch(function(err){
+                    console.error("Error a invocar servicio: "+err);
+                    spinnerService.hide("spinnerUserList");
+                    growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
+                });
 
 
 

@@ -214,6 +214,18 @@ angular.module("App")
                 }
             })
 
+            .state('reportSiniestros',{
+                url: '/reportSiniestros',
+                controller:'ReporteSiniestroInfoCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/reportes/views/ReportesSiniestros.html'},
+                    'header@reportSiniestros': {templateUrl: 'app/home/views/header.html'},
+                    'menu@reportSiniestros': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@reportSiniestros':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
+
         $urlRouterProvider.otherwise("/login");
 
     }]);
