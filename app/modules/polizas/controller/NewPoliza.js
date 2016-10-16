@@ -1115,8 +1115,6 @@ angular.module("App")
             }
 
 
-            //TODO trabajando aqui
-
             function openModalAddVehiculos() {
 
                 var modalInstance = $uibModal.open({
@@ -1246,10 +1244,12 @@ angular.module("App")
             }
 
             function cleanFields() {
+
                 $scope.aseguradoraListFinal = [];
                 $scope.showTableAseguradora = false;
+
                 $scope.poliza = {
-                    poliza_id: "",
+                    poliza_id: null,
                     numero_poliza: "",
                     ramo: null,
                     aseguradora_id: "",
@@ -1261,7 +1261,7 @@ angular.module("App")
                     agente: "",
                     agente_helper: "",
                     asegurado: {
-                        "cliente_id": "",
+                        "cliente_id": null,
                         "nombre_cliente": "",
                         "apellido_cliente": "",
                         "documento_id_cliente": "",
@@ -1274,14 +1274,20 @@ angular.module("App")
                         "es_tomador": false
                     },
                     tomador: {
-                        "cliente_id": "",
+                        "cliente_id": null,
                         "nombre_cliente": "",
                         "apellido_cliente": "",
                         "documento_id_cliente": "",
                         "tipo_cliente_id": "",
-                    }
+                    },
+                    vehiculo: []
                 }
 
+                $scope.listVehiculosPoliza=[];
+                $scope.showTableVehiculos = false;
+                $('#selectRamos').val("");
+
+                $scope.poliza_helper.ramo.coberturas=[];
                 clearInput('autocompleteClient');
                 clearInput('autocompleteTomador');
 
