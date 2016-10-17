@@ -225,6 +225,17 @@ angular.module("App")
                 }
             })
 
+            .state('reportSA',{
+                url: '/reportSA',
+                controller:'ReporteSAInfoCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/reportes/views/ReportesSumaAsegurada.html'},
+                    'header@reportSA': {templateUrl: 'app/home/views/header.html'},
+                    'menu@reportSA': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@reportSA':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
 
         $urlRouterProvider.otherwise("/login");
 
