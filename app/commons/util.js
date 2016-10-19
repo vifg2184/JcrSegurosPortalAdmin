@@ -394,3 +394,178 @@ function confirmPassword(newPassword,confirmPassword){
 
     return result;
 }
+
+
+
+function validacionRangoFechaFinanciamiento(fechas_validacion){
+
+    var result = {
+        isValidate:true,
+        numero_coutas:0,
+        message:""
+    };
+
+    var fecha_inicio_financiamiento = formatDateAttendance(fechas_validacion.fecha_inicio_financiamiento);
+    var fecha_fin_financiamiento = formatDateAttendance(fechas_validacion.fecha_fin_financiamiento);
+    var fecha_emision = formatDateAttendance(fechas_validacion.fecha_emision);
+    var fecha_vigencia = formatDateAttendance(fechas_validacion.fecha_vigencia);
+
+
+    //primero valido si la fecha de inicio de financiamiento es mayor a la de emision
+
+    if(!moment(fecha_inicio_financiamiento).isAfter(fecha_emision)){
+        result.isValidate = false;
+        result.message="La fecha de inicio del financiamiento no puedo ser menor que la fecha emision de la poliza";
+    }
+
+    if(result.isValidate){
+
+        // valido si la fecha del fin de financiamiento no sea mayor que la de vigencia
+        if(!moment(fecha_fin_financiamiento).isBefore(fecha_vigencia)){
+            result.isValidate = false;
+            result.message="La fecha final del financiamiento no puede ser mayor la fecha de vigencia de la poliza";
+        }
+    }
+
+
+   if(result.isValidate){
+       var numero_coutas = validacionNumeroCoutasFinanciamiento(fecha_inicio_financiamiento,fecha_vigencia);
+
+       if(numero_coutas > 0 && numero_coutas <= 11){
+           result.numero_coutas = numero_coutas;
+       }
+       else{
+           result.isValidate = false;
+           result.message = "Coutas calculadas no son validas para el financiamiento";
+       }
+
+   }
+
+    return result;
+}
+
+
+function validacionNumeroCoutasFinanciamiento(fecha_inicio_financiamiento,fecha_vigencia_poliza){
+
+    try{
+
+        var a = moment(fecha_vigencia_poliza);
+        var b = moment(fecha_inicio_financiamiento);
+
+        var months = a.diff(b,'months');
+        b.add(months, 'months');
+    }catch (err){
+        console.log("Error calculando cuotas: "+err);
+        months = 0;
+    }
+
+
+    return months;
+}
+
+
+function validateRequestPoliza(request){
+
+    var response = {
+        isValidate: true,
+        message: ""
+    };
+
+
+    if(request.numero_poliza == ""){
+        response.message="Numero de poliza vacio";
+        response.isValidate = false;
+    }
+    else if(request.ramo == null ){
+        response.message="Ramo Invalido";
+        response.isValidate = false;
+    }
+    else if(request.aseguradora_id == ""){
+        response.message="Aseguradora no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.numero_recibo == ""){
+        response.message="Numero de recibo no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.fecha_emision == ""){
+        response.message="Fecha de emision no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.fecha_vencimiento == ""){
+        response.message="Fecha de vigencia no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.referencia == ""){
+        response.message="Campo Referencia no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.prima_total ==""){
+        response.message="Campo Prima no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.agente_helper ==""){
+        response.message="Campo Agente no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.asegurado.nombre_cliente == ""){
+        response.message="Campo Nombre Cliente no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.asegurado.apellido_cliente == ""){
+        response.message="Campo Apellido Cliente no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.asegurado.documento_id_cliente == ""){
+        response.message="Campo Cedula ID cliente no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.asegurado.fecha_nacimiento == ""){
+        response.message="Campo Fecha de Nacimiento Cliente no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.asegurado.genero_cliente == ""){
+        response.message="Campo Genero Cliente no debe estar vacio";
+        response.isValidate = false;
+    }
+    else if(request.asegurado.telefono == ""){
+        response.message="Campo Telefonos no debe estar vacio";
+        response.isValidate = false;
+    }
+
+
+    if(!request.asegurado.es_tomador){
+
+        if(request.tomador.nombre_cliente == ""){
+            response.message="Campo Nombre tomador no debe estar vacio";
+            response.isValidate = false;
+        }
+        else if(request.tomador.apellido_cliente == ""){
+            response.message="Campo Apellido Tomador no debe estar vacio";
+            response.isValidate = false;
+        }else if(request.tomador.documento_id_cliente == ""){
+            response.message="Cedula de Identidad del Tomador";
+            response.isValidate = false;
+        }
+    }
+
+
+    if(request.es_financiado){
+
+        if(request.financiamento.numero_cuotas == ""){
+            response.message="Debe Seleccionar Numero de Cuotas en el Financiamiento";
+            response.isValidate = false;
+        }
+        else if(request.financiamento.monto_inicial == ""){
+            response.message="El Monto del financiamiento esta vacio";
+            response.isValidate = false;
+        }
+        else if(request.financiamento.numero_financiamiento == ""){
+            response.message="El Numero del financiamiento esta vacio";
+            response.isValidate = false;
+        }
+    }
+
+
+    return response;
+}

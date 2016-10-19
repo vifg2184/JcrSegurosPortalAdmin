@@ -78,7 +78,7 @@
                                                 <td>{{poliza.ramo.ramo_nombre | lowerCase | capitalize}}</td>
                                                 <td>{{poliza.numero_recibo}}</td>
                                                 <td>{{poliza.aseguradora.aseguradora_nombre | lowerCase | capitalize}}</td>
-                                                <td>{{poliza.prima_total}}</td>
+                                                <td>{{poliza.prima_total }}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
                                                 <td><a data-toggle="tooltip" title="Delete User" ng-click="deletePoliza(poliza.poliza_id,poliza.numero_poliza)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
                                                     <a ui-sref="crearPoliza({poliza_id:poliza.poliza_id,edit:true})" data-toggle="tooltip" title="Editar Poliza"><small><i class="fa fa-fw fa-pencil"></i> </small></a>&nbsp;

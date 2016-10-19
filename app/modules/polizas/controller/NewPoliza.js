@@ -69,6 +69,15 @@ angular.module("App")
             $scope.selectPlaca = "";
             $scope.selectEditAsegurado = null;
             $scope.selectEditTomador = null;
+            $scope.listCuotas=[];
+
+            $scope.makeCuotas=true;
+
+            $scope.fecha_financimiento={
+                date_start:"",
+                date_end:""
+            }
+
 
             $scope.poliza = {
                 poliza_id: null,
@@ -82,25 +91,35 @@ angular.module("App")
                 prima_total: "",
                 agente: "",
                 agente_helper: "",
+                es_financiado:false,
                 asegurado: {
-                    "cliente_id": null,
-                    "nombre_cliente": "",
-                    "apellido_cliente": "",
-                    "documento_id_cliente": "",
-                    "fecha_nacimiento": "",
-                    "genero_cliente": "",
-                    "correo_cliente": "",
-                    "direccion": "",
-                    "tipo_cliente_id": "",
-                    "telefono": "",
-                    "es_tomador": false
+                    cliente_id: null,
+                    nombre_cliente: "",
+                    apellido_cliente: "",
+                    documento_id_cliente: "",
+                    fecha_nacimiento: "",
+                    genero_cliente: "",
+                    correo_cliente: "",
+                    direccion: "",
+                    tipo_cliente_id: "",
+                    telefono: "",
+                    es_tomador: false
                 },
                 tomador: {
-                    "cliente_id": null,
-                    "nombre_cliente": "",
-                    "apellido_cliente": "",
-                    "documento_id_cliente": "",
-                    "tipo_cliente_id": "",
+                    cliente_id: null,
+                    nombre_cliente: "",
+                    apellido_cliente: "",
+                    documento_id_cliente: "",
+                    tipo_cliente_id: "",
+                },
+                financiamento:{
+                    financiamiento_id:null,
+                    poliza_id:null,
+                    numero_cuotas:"",
+                    monto_inicial:"",
+                    numero_financiamiento:"",
+                    financiamientos_desde:"",
+                    financiamientos_hasta:""
                 },
                 vehiculo: []
             }
@@ -499,6 +518,28 @@ angular.module("App")
                                     $scope.showTableVehiculos = true;
                                     console.log($scope.listVehiculosPoliza);
                                 }
+                            }
+
+                            //comprobar si hay financiamiento
+
+                            if($scope.poliza.es_financiado){
+                                var fecha_finan_init = formatEnglish($filter('transforDate')($scope.poliza.financiamento.financiamientos_desde));
+                                $scope.fecha_financimiento.date_start = new Date(fecha_finan_init);
+
+                                var fecha_finan_end = formatEnglish($filter('transforDate')($scope.poliza.financiamento.financiamientos_hasta));
+                                $scope.fecha_financimiento.date_end = new Date(fecha_finan_end);
+
+                                var numero_coutas = $scope.poliza.financiamento.numero_cuotas;
+
+                                $scope.listCuotas = [];
+
+                                for(var i=0; i< numero_coutas; i++){
+                                    var cont = i+1;
+                                    $scope.listCuotas.push(cont);
+                                }
+
+                                $('#cuotasId').val(numero_coutas);
+                                $scope.makeCuotas=false;
                             }
 
                             //tipo de seleccion
@@ -972,55 +1013,79 @@ angular.module("App")
              *
              */
             $scope.saveThePolicy = function () {
-                spinnerService.show("spinnerNew");
 
-                if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL ||
-                    $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA) {
-                    buildVehiculoPoliza();
-                }
+                //validar el request poliza
+                console.log($scope.poliza);
+                var validacion = validateRequestPoliza($scope.poliza);
 
-                var request = {
-                    JcrParameters: {
-                        Poliza: $scope.poliza
+                if(validacion.isValidate){
+
+                    if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL ||
+                        $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA) {
+                        buildVehiculoPoliza();
                     }
-                };
 
-                console.log(request);
-                spinnerService.hide("spinnerNew");
-                //validar request antes de mandar peticion
-                PolizaService.newPoliza(request).then(function (resp) {
-                    if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
-                        //modo edicion
-                        if (PolizaService.getModeEdit().isModeEdit) {
-                            PolizaService.setShowGrowlMessage({
-                                isShow: true,
-                                message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS
-                            });
-                            $state.go("verPolizas");
+                    //valido el financiamiento
+
+                    console.log($scope.fecha_financimiento.date_start);
+                    console.log($scope.fecha_financimiento.date_end);
+
+                    $scope.poliza.financiamento.financiamientos_desde = formatDateSiniestro($scope.fecha_financimiento.date_start);
+                    $scope.poliza.financiamento.financiamientos_hasta = formatDateSiniestro($scope.fecha_financimiento.date_end);
+
+
+                    var request = {
+                        JcrParameters: {
+                            Poliza: $scope.poliza
+                        }
+                    };
+
+                    console.log(request);
+                    spinnerService.show("spinnerNew");
+
+                    //validar request antes de mandar peticion
+                    PolizaService.newPoliza(request).then(function (resp) {
+                        spinnerService.hide("spinnerNew");
+
+                        if (resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE) {
+                            //modo edicion
+                            if (PolizaService.getModeEdit().isModeEdit) {
+                                PolizaService.setShowGrowlMessage({
+                                    isShow: true,
+                                    message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS
+                                });
+                                $state.go("verPolizas");
+                            }
+                            else {
+                                $confirm({text: 'Desea crear una nueva poliza en sistema', ok: 'Si', cancel: 'No'})
+                                    .then(function () {
+                                        cleanFields();
+                                    })
+                                    .catch(function () {
+                                        PolizaService.setShowGrowlMessage({
+                                            isShow: true,
+                                            message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS
+                                        });
+                                        $state.go("verPolizas");
+                                    });
+                            }
                         }
                         else {
-                            $confirm({text: 'Desea crear una nueva poliza en sistema', ok: 'Si', cancel: 'No'})
-                                .then(function () {
-                                    cleanFields();
-                                })
-                                .catch(function () {
-                                    PolizaService.setShowGrowlMessage({
-                                        isShow: true,
-                                        message: GLOBAL_MESSAGE.MESSAGE_SAVE_POLIZA_SUCCCESS
-                                    });
-                                    $state.go("verPolizas");
-                                });
+                            console.log("Error: " + resp.JcrResponse.message);
+                            growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
                         }
-                    }
-                    else {
-                        console.log("Error: " + resp.JcrResponse.message);
-                        growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
-                    }
-                    spinnerService.hide("spinnerNew");
-                }).catch(function (err) {
-                    spinnerService.hide("spinnerNew");
-                    console.log("Error: " + err);
-                });
+                        spinnerService.hide("spinnerNew");
+                    }).catch(function (err) {
+                        spinnerService.hide("spinnerNew");
+                        console.log("Error: " + err);
+                    });
+
+                }
+                else{
+                    growl.warning(validacion.message);
+                }
+
+
             }
 
 
@@ -1243,10 +1308,61 @@ angular.module("App")
 
             }
 
-            function cleanFields() {
 
-                $scope.aseguradoraListFinal = [];
-                $scope.showTableAseguradora = false;
+            $scope.openFechaFinanciamiendoDesde = function () {
+                $scope.popupFechaFinanDesde.opened = true;
+            };
+
+            $scope.popupFechaFinanDesde = {opened: false};
+
+
+            $scope.openFechaFinanciamiendoHasta = function () {
+                $scope.popupFechaFinanHasta.opened = true;
+            };
+
+            $scope.popupFechaFinanHasta = {opened: false};
+
+
+            $scope.criterioFinanciamiento = function(){
+
+                if($scope.fecha_financimiento.date_start != "" && $scope.fecha_financimiento.date_end != "" &&
+                    $scope.poliza.fecha_emision != "" && $scope.poliza.fecha_vencimiento){
+
+                    var obj = {};
+
+                      obj.fecha_inicio_financiamiento = $scope.fecha_financimiento.date_start;
+                      obj.fecha_fin_financiamiento = $scope.fecha_financimiento.date_end;
+                      obj.fecha_emision = $scope.poliza.fecha_emision;
+                      obj.fecha_vigencia = $scope.poliza.fecha_vencimiento;
+
+                    var result =  validacionRangoFechaFinanciamiento(obj);
+                    console.log(result);
+
+                    if(result.isValidate){
+
+                        $scope.listCuotas = [];
+
+                        for(var i=0;i<result.numero_coutas;i++){
+                            var cont = i+1;
+                            $scope.listCuotas.push(cont);
+                        }
+
+                        $scope.makeCuotas = false;
+                    }
+                    else{
+                        growl.warning(result.message);
+                        $scope.listCuotas = [];
+                        $scope.makeCuotas = true;
+                    }
+
+                }else{
+                    $scope.listCuotas = [];
+                    $scope.makeCuotas = true;
+                }
+            }
+
+
+            function cleanFields() {
 
                 $scope.poliza = {
                     poliza_id: null,
@@ -1254,12 +1370,13 @@ angular.module("App")
                     ramo: null,
                     aseguradora_id: "",
                     numero_recibo: "",
-                    vigencia_desde: "",
-                    vigencia_hasta: "",
+                    fecha_emision: "",
+                    fecha_vencimiento: "",
                     referencia: "",
                     prima_total: "",
                     agente: "",
                     agente_helper: "",
+                    es_financiado:false,
                     asegurado: {
                         "cliente_id": null,
                         "nombre_cliente": "",
@@ -1280,10 +1397,25 @@ angular.module("App")
                         "documento_id_cliente": "",
                         "tipo_cliente_id": "",
                     },
+                    financiamento:{
+                        financiamiento_id:null,
+                        poliza_id:null,
+                        numero_cuotas:"",
+                        monto_inicial:"",
+                        numero_financiamiento:"",
+                        financiamientos_desde:"",
+                        financiamientos_hasta:""
+                    },
                     vehiculo: []
                 }
 
-                $scope.listVehiculosPoliza=[];
+                $scope.listCuotas=[];
+                $scope.listVehiculosPoliza = [];
+                $scope.aseguradoraListFinal = [];
+                $scope.fecha_financimiento.date_start = "";
+                $scope.fecha_financimiento.date_end = "";
+                $scope.makeCuotas = true;
+                $scope.showTableAseguradora = false;
                 $scope.showTableVehiculos = false;
                 $('#selectRamos').val("");
 
