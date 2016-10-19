@@ -81,6 +81,7 @@ angular.module("App")
                 referencia: "",
                 prima_total: "",
                 agente: "",
+                observacion:"",
                 agente_helper: "",
                 asegurado: {
                     "cliente_id": null,

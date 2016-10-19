@@ -78,7 +78,7 @@ angular.module("App")
 
             $scope.listDeviceDetailsInfo = [];
             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
-            $scope.format = $scope.formats[3];
+            $scope.format = $scope.formats[2];
             $scope.altInputFormats = ['M!/d!/yyyy'];
 
             $scope.selectBusiness = null;

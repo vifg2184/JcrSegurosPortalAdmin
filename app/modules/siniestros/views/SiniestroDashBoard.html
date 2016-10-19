@@ -25,11 +25,11 @@
             <section class="content-header">
                 <h1>
                     Siniestros
-                    <small>Control panel</small>
+                    <small>Panel de Control</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Siniestros Dashboard</li>
+                    <li class="active">Siniestros</li>
                 </ol>
             </section>
 
@@ -56,10 +56,10 @@
                                     <div class="box-body">
 
                                         <div>
-                                            <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                                            <input class="form-control reduceSize" placeholder="Buscar por tipo de siniestro" on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
                                         </div>
 
-                                        <table id="userTable" class="table table-bordered table-striped">
+                                        <table id="userTable" class="table table-bordered table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th ng-repeat="header in siniestroTableHeaders">
@@ -68,14 +68,14 @@
                                                 <th>Numero de Poliza</th>
                                                 <th>Monto Ordenes</th>
                                                 <th>Ramo</th>
-                                                <th>Actions</th>
+                                                <th>Acción</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="obj in siniestro">
                                                 <td>{{obj.numero_siniestro}}</td>
                                                 <td>{{obj.poliza.numero_poliza}}</td>
-                                                <td>{{obj.monto_siniestro}}</td>
+                                                <td>{{obj.monto_siniestro | separador_punto }}</td>
                                                 <td>{{obj.tipo_siniestro_id | tipo_siniestro}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
                                                 <td><a data-toggle="tooltip" title="Borrar Siniestro" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
@@ -92,7 +92,7 @@
                                             <h3>No Customers Found</h3>
                                         </div>
                                         <div ng-show="totalPages > 1" class="align-center">
-                                            <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="previous" next-text="next" last-text="last"
+                                            <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"
                                                             direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
                                         </div>
                                     </div><!-- /.box-body -->

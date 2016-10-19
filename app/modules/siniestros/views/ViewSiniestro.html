@@ -45,7 +45,7 @@
                                     <div class="col-md-4">
                                         <div class="box box-info">
                                             <div class="box-body">
-                                                <table>
+                                                <table class="text-center">
                                                     <tbody>
                                                     <tr>
                                                         <td style="width:0px;">
@@ -74,14 +74,14 @@
                                                 <h3 class="box-title">Poliza</h3>
                                             </div><!-- /.box-header -->
                                             <div class="box-body">
-                                                <table id="businessFinalTable"
+                                                <table id="businessFinalTable text-center"
                                                        class="table table-bordered table-striped">
                                                     <thead>
                                                     <tr>
                                                         <th>Numero Poliza</th>
                                                         <th>Ramo</th>
                                                         <th>Aseguradora</th>
-                                                        <th>Actions</th>
+                                                        <th>Acción</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -117,7 +117,7 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Informacion Siniestro</h3>
+                                    <h3 class="box-title">Informacion de Siniestro</h3>
                                 </div><!-- /.box-header -->
 
                                 <!-- form start -->
@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label>Observaciones de Ordenes</label><br>
-                                                    <textarea rows="3" cols="80" ng-model="siniestro.observaciones_ordenes"  ng-disabled="true"></textarea>
+                                                    <textarea rows="3" cols="60" ng-model="siniestro.observaciones_ordenes"  ng-disabled="true"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -329,7 +329,7 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Reclamos Salud</h3>
+                                    <h3 class="box-title">Reclamos de Salud</h3>
                                 </div><!-- /.box-header -->
 
                                 <!-- form start -->
@@ -367,7 +367,7 @@
             <!--Modal con todos las polizas del sistema--->
             <script type="text/ng-template" id="listPolizaSearchModal.html">
                 <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">Informacion de la Poliza</h3>
+                    <h3 class="modal-title colorTitulo">Informacion de Poliza</h3>
                 </div>
 
                 <div class="text-center"></div>
@@ -377,7 +377,7 @@
                         <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
                     </div>
 
-                    <table id="userTable" class="table table-bordered table-striped">
+                    <table id="userTable" class="table table-bordered table-striped text-center">
                         <thead>
                         <tr>
                             <th ng-repeat="header in polizaTableHeaders">
@@ -410,7 +410,7 @@
                         <h3>No Customers Found</h3>
                     </div>
                     <div ng-show="totalPages > 1" class="align-center">
-                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="previous" next-text="next" last-text="last"
+                        <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"
                                         direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
                     </div>
                 </div>

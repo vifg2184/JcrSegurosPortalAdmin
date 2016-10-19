@@ -24,12 +24,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Usuarios
-                    <small>Control panel</small>
+                    Usuario
+                    <small>Panel de Control</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Userios Dashboard</li>
+                    <li class="active">Ver Usuario</li>
                 </ol>
             </section>
 
@@ -45,27 +45,27 @@
                                     <div class="box-header ">
                                         <div class="small-box">
                                             <div class="customIcon">
-                                                <a ui-sref="crearUsuarios" data-toggle="tooltip" title="Add User">
+                                                <a ui-sref="crearUsuarios" data-toggle="tooltip" title="Agregar Usuario">
                                                     <button class="btn btn-primary"><i class="ion ion-plus"></i></button>
                                                 </a>
                                             </div>
                                         </div>
-                                        <h3 class="box-title">System Users</h3>
+                                        <h3 class="box-title">Sistema de Usuario</h3>
 
                                     </div><!-- /.box-header -->
                                     <div class="box-body">
 
                                         <div>
-                                            <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="userCtrl.filterCriteria.JcrParameters.Users.filter" type="text" />
+                                            <input class="form-control reduceSize" placeholder="Buscar Usuario" on-enter-blur on-blur-change="filterResult()" ng-model="userCtrl.filterCriteria.JcrParameters.Users.filter" type="text" />
                                         </div>
 
-                                        <table id="userTable" class="table table-bordered table-striped">
+                                        <table id="userTable" class="table table-bordered table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th ng-repeat="header in userCtrl.userTableHeaders">
                                                     <sort-by onsort="onSort" sortdir="userCtrl.filterCriteria.JcrParameters.Users.sortDir" sortedby="userCtrl.filterCriteria.JcrParameters.Users.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                                                 </th>
-                                                <th>Actions</th>
+                                                <th>Acción</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -73,8 +73,8 @@
                                                 <td>{{user.nombre }}</td>
                                                 <td>{{user.apellido}}</td>
                                                 <td>{{user.tipo_usuario.tipo_usuario_nombre | lowerCase | capitalize}}</td>
-                                                <td><a data-toggle="tooltip" title="Delete User" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearUsuarios({id_user:user.usuario_id,edit:true})" data-toggle="tooltip" title="Edit User"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
+                                                <td><a data-toggle="tooltip" title="Borrar Usuario" ng-click="deleteUser(user.usuario_id)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
+                                                    <a ui-sref="crearUsuarios({id_user:user.usuario_id,edit:true})" data-toggle="tooltip" title="Editar Usuario"><small><i class="fa fa-fw fa-pencil"></i> </small></a>
                                                 </td>
                                                 <!--ng-click="editMode(user.user_id)"-->
                                             </tr>
@@ -85,7 +85,7 @@
                                             <h3>No Customers Found</h3>
                                         </div>
                                         <div ng-show="userCtrl.totalPages > 1" class="align-center">
-                                            <uib-pagination total-items="userCtrl.totalRecords" ng-model="userCtrl.filterCriteria.JcrParameters.Users.page" items-per-page="userCtrl.filterCriteria.JcrParameters.Users.limit" previous-text="previous" next-text="next" last-text="last"
+                                            <uib-pagination total-items="userCtrl.totalRecords" ng-model="userCtrl.filterCriteria.JcrParameters.Users.page" items-per-page="userCtrl.filterCriteria.JcrParameters.Users.limit" previous-text="Anterior" next-text="Siguiente" last-text="ultimo"
                                                             direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="userCtrl.selectPage()"></uib-pagination>
                                         </div>
 
