@@ -472,6 +472,98 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!--agregar vehiculo solo pzra ramo automovil individual o flota-->
+                <div class="row" ng-show="showAddVehiculo">
+
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Infomacion del Vehiculo</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="col-sm-6">
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input style="width: 300px;" type="text"
+                                                           placeholder="Buscar Vehiculo por Placa" class="form-control"
+                                                           ng-model="selectPlaca"/>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                            type="button"
+                                                            data-toggle="tooltip"
+                                                            title="Buscar"
+                                                            ng-click="seachVehiculoByPlaca();">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                    <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
+                                                            type="button"
+                                                            data-toggle="tooltip"
+                                                            title="Agregar"
+                                                            ng-click="openModalVehiculos();"><i class="fa fa-save"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="col-md-12" ng-show="showTableVehiculos">
+                                        <div class="box box-info">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Vehiculos</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <table id="vehiculosTableId"
+                                                       class="table table-bordered table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Placa</th>
+                                                        <th>Marcar</th>
+                                                        <th>Modelo</th>
+                                                        <th>A&ntilde;o</th>
+                                                        <th>Version</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="vehiculo in listVehiculosPoliza">
+                                                        <td>{{vehiculo.vehiculo_placa}}</td>
+                                                        <td>{{vehiculo.marca_vehiculo.marca_vehiculo_descripcion}}</td>
+                                                        <td>{{vehiculo.vehiculo_modelo}}</td>
+                                                        <td>{{vehiculo.vehiculo_ano}}</td>
+                                                        <td>{{vehiculo.vehiculo_version}}</td>
+                                                        <td>
+                                                            <a ng-click="deleteVehiculoSelect(vehiculo.placa)"
+                                                               data-toggle="tooltip" title="Borrar Aseguradora">
+                                                                <small><i class="fa fa-fw fa-trash"></i></small>
+                                                                </i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                    </tfoot>
+                                                </table>
+                                            </div><!-- /.box-body -->
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!--Informacion de Asegurado-->
                 <div class="row">
                     <div class="col-lg-12">
@@ -794,93 +886,30 @@
                     </div>
                 </div>
 
-                <!--agregar vehiculo solo pzra ramo automovil individual o flota-->
-                <div class="row" ng-show="showAddVehiculo">
-
-                    <div class="col-lg-12">
+                <!--Observacones-->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Infomacion del Vehiculo</h3>
+                                    <h3 class="box-title">Observaciones</h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
-                                    <div class="col-sm-6">
-                                        <table>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input style="width: 300px;" type="text" placeholder="Buscar Vehiculo por Placa" class="form-control" ng-model="selectPlaca"/>
-                                                </td>
-                                                <td>
-                                                    <button  class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
-                                                             type="button"
-                                                             data-toggle="tooltip"
-                                                             title="Buscar"
-                                                             ng-click="seachVehiculoByPlaca();">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                    <button  class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
-                                                             type="button"
-                                                             data-toggle="tooltip"
-                                                             title="Agregar"
-                                                             ng-click="openModalVehiculos();"><i class="fa fa-save"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-
-                                    <div class="col-md-12" ng-show="showTableVehiculos">
-                                        <div class="box box-info">
-                                            <div class="box-header">
-                                                <h3 class="box-title">Vehiculos</h3>
-                                            </div><!-- /.box-header -->
-                                            <div class="box-body">
-                                                <table id="vehiculosTableId"
-                                                       class="table table-bordered table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Placa</th>
-                                                        <th>Marcar</th>
-                                                        <th>Modelo</th>
-                                                        <th>A&ntilde;o</th>
-                                                        <th>Version</th>
-                                                        <th>Acciones</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr ng-repeat="vehiculo in listVehiculosPoliza">
-                                                        <td>{{vehiculo.vehiculo_placa}}</td>
-                                                        <td>{{vehiculo.marca_vehiculo.marca_vehiculo_descripcion}}</td>
-                                                        <td>{{vehiculo.vehiculo_modelo}}</td>
-                                                        <td>{{vehiculo.vehiculo_ano}}</td>
-                                                        <td>{{vehiculo.vehiculo_version}}</td>
-                                                        <td>
-                                                            <a ng-click="deleteVehiculoSelect(vehiculo.placa)"
-                                                               data-toggle="tooltip" title="Borrar Aseguradora">
-                                                                <small><i class="fa fa-fw fa-trash"></i></small></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                    </tfoot>
-                                                </table>
-                                            </div><!-- /.box-body -->
+                                <!-- form start -->
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group col-md-12">
+                                            <label>Descripcion</label>
+                                            <textarea class="form-control" rows="5" ng-model="poliza.observacion"></textarea>
                                         </div>
-                                    </div>
-
-
+                                    </div><!-- /.box-body -->
                                 </div>
-                            </div>
+
+                            </div><!-- /.box -->
+
                         </div>
+
                     </div>
                 </div>
-
 
                 <div class="row">
                     <div class="content" style="min-height: 0px;">
@@ -906,7 +935,7 @@
                 <div class="modal-body row" style="padding: 30px;">
 
                     <div>
-                        <input class="form-control reduceSize" placeholder="Search here..."
+                        <input class="form-control reduceSize" placeholder="Buscar Aseguradora"
                                on-enter-blur on-blur-change="filterResult()"
                                ng-model="filterCriteria.JcrParameters.filter" type="text"/>
                     </div>
@@ -942,8 +971,8 @@
                     </div>
                     <div ng-show="totalPages > 1" class="align-center">
                         <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page"
-                                        items-per-page="filterCriteria.JcrParameters.limit" previous-text="previous"
-                                        next-text="next" last-text="last"
+                                        items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior"
+                                        next-text="Siguiente" last-text="Ultimo"
                                         direction-links="true" rotate="false" max-size="5" boundary-link-numbers="true"
                                         ng-change="selectPage()"></uib-pagination>
                     </div>

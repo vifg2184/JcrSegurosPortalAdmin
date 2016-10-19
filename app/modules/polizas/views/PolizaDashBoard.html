@@ -25,11 +25,11 @@
             <section class="content-header">
                 <h1>
                     Polizas
-                    <small>Control panel</small>
+                    <small>Panel de Control</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Polizas Dashboard</li>
+                    <li class="active">Ver Polizas</li>
                 </ol>
             </section>
 
@@ -56,10 +56,10 @@
                                     <div class="box-body">
 
                                         <div>
-                                            <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                                            <input class="form-control reduceSize" placeholder="Buscar Poliza" on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
                                         </div>
 
-                                        <table id="userTable" class="table table-bordered table-striped">
+                                        <table id="userTable" class="table table-bordered table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th ng-repeat="header in polizaTableHeaders">
@@ -69,7 +69,7 @@
                                                 <th>Numero de Recibo</th>
                                                 <th>Aseguradora</th>
                                                 <th>Prima</th>
-                                                <th>Actions</th>
+                                                <th>Acción</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -78,9 +78,9 @@
                                                 <td>{{poliza.ramo.ramo_nombre | lowerCase | capitalize}}</td>
                                                 <td>{{poliza.numero_recibo}}</td>
                                                 <td>{{poliza.aseguradora.aseguradora_nombre | lowerCase | capitalize}}</td>
-                                                <td>{{poliza.prima_total }}</td>
+                                                <td>{{poliza.prima_total | separador_punto}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
-                                                <td><a data-toggle="tooltip" title="Delete User" ng-click="deletePoliza(poliza.poliza_id,poliza.numero_poliza)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
+                                                <td><a data-toggle="tooltip" title="Borrar Poliza" ng-click="deletePoliza(poliza.poliza_id,poliza.numero_poliza)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
                                                     <a ui-sref="crearPoliza({poliza_id:poliza.poliza_id,edit:true})" data-toggle="tooltip" title="Editar Poliza"><small><i class="fa fa-fw fa-pencil"></i> </small></a>&nbsp;
                                                     <a ui-sref="infoPoliza({poliza_id:poliza.poliza_id})" data-toggle="tooltip" title="Ver Poliza"><small><i class="fa fa-fw fa-info"></i> </small></a>
                                                 </td>
@@ -92,7 +92,7 @@
                                             <h3>No Customers Found</h3>
                                         </div>
                                         <div ng-show="totalPages > 1" class="align-center">
-                                            <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="previous" next-text="next" last-text="last"
+                                            <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"
                                                             direction-links="true" rotate="false" max-size="5"  boundary-link-numbers="true" ng-change="selectPage()"></uib-pagination>
                                         </div>
                                     </div><!-- /.box-body -->

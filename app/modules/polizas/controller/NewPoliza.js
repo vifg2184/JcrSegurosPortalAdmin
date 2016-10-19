@@ -90,6 +90,7 @@ angular.module("App")
                 referencia: "",
                 prima_total: "",
                 agente: "",
+                observacion:"",
                 agente_helper: "",
                 es_financiado:false,
                 asegurado: {

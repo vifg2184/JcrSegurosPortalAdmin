@@ -5186,3 +5186,7 @@ table.text-center, table.text-center td, table.text-center th {
         width: 50%;
     }
 }
+
+.font-table{
+    font-size: 13px;
+}

@@ -25,11 +25,11 @@
             <section class="content-header">
                 <h1>
                     Aseguradoras
-                    <small>Control panel</small>
+                    <small>Panel de Control</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Aseguradoras Dashboard</li>
+                    <li class="active">Ver Aseguradoras</li>
                 </ol>
             </section>
 
@@ -56,7 +56,7 @@
                                     <div class="box-body">
 
                                         <div>
-                                            <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                                            <input class="form-control reduceSize" placeholder="Buscar Aseguradora" on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
                                         </div>
 
                                         <table id="userTable" class="table table-bordered table-striped">
@@ -65,7 +65,7 @@
                                                 <th ng-repeat="header in aseguradoraTableHeaders">
                                                     <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir" sortedby="filterCriteria.JcrParameters.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                                                 </th>
-                                                <th>Actions</th>
+                                                <th><Acción></Acción></th>
                                             </tr>
                                             </thead>
                                             <tbody>
