@@ -247,6 +247,17 @@ angular.module("App")
                 }
             })
 
+            .state('reportVC',{
+                url: '/reportVC',
+                controller:'ReporteVCruzadasCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/reportes/views/ReportesVCruzadas.html'},
+                    'header@reportVC': {templateUrl: 'app/home/views/header.html'},
+                    'menu@reportVC': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@reportVC':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
         $urlRouterProvider.otherwise("/login");
 
     }]);

@@ -26,6 +26,12 @@ angular.module('App')
             totalRecords: 0
         };
 
+        var vcJson = {
+            poliza: {},
+            totalPages: 0,
+            totalRecords: 0
+        };
+
         factory.getInfoRenovacionesServices = function (request) {
             var defered = $q.defer();
             var promise = defered.promise;
@@ -152,6 +158,47 @@ angular.module('App')
         }
 
 
+        factory.getInfoVCruzadasServices = function (request) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_INFO_VENTA_CRUZADA,
+            }).success(function (response) {
+                vcJson.code = response.JcrResponse.code;
+                vcJson.message = response.JcrResponse.message;
+                vcJson.polizas = response.JcrResponse.object;
+                vcJson.totalPages = response.JcrResponse.totalPages;
+                vcJson.totalRecords = response.JcrResponse.totalRecords;
+                defered.resolve(vcJson);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
+
+
+        factory.getCreateReporteVentasCServices = function (request) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_REPORT_VENTAS_CRUZADAS,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
+
         return factory;
     }])
 
@@ -181,6 +228,14 @@ angular.module('App')
 
         this.getCreateReporteSA = function(request){
             return ReportesFactory.getCreateReporteSAServices(request);
+        }
+
+        this.getInfoVCruzadas = function(request){
+            return ReportesFactory.getInfoVCruzadasServices(request);
+        }
+
+        this.getCreateReporteVentasC = function(request){
+            return ReportesFactory.getCreateReporteVentasCServices(request);
         }
     }]);
 

@@ -65,6 +65,8 @@ angular.module("App")
         PROXY_URL_REPORTES_SINIESTRALIDAD: environment + "Reportes/createReportSiniestralidad",
         PROXY_URL_INFO_SA: environment + "Reportes/getSumasAsegurasInfo",
         PROXY_URL_REPORT_SA: environment + "Reportes/createReportSA",
+        PROXY_URL_INFO_VENTA_CRUZADA:environment + "Reportes/getInfoVentasCruzadas",
+        PROXY_URL_REPORT_VENTAS_CRUZADAS:environment +"Reportes/createReportVentasCruzadas",
 
         /*Proxy Recordatorio*/
         PROXY_URL_RECORDATORIOS: environment + "Recordatorio/sendRecordatorio",
