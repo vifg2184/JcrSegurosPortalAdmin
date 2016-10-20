@@ -275,14 +275,14 @@ angular.module("App")
                             start_date: $scope.filterCriteria.JcrParameters.Reports.start_date,
                             end_date: $scope.filterCriteria.JcrParameters.Reports.end_date,
                             aseguradora_id: $scope.filterCriteria.JcrParameters.Reports.aseguradora_id,
-                            numero_poliza: $scope.filterCriteria.JcrParameters.Reports.numero_poliza,
-                            ramo_id: $scope.filterCriteria.JcrParameters.Reports.ramo_id
+                            monto: $scope.filterCriteria.JcrParameters.Reports.monto
+
                         }
                     }
                 };
 
 
-                ReportesServices.getCreateReporteSiniestralidad(request)
+                ReportesServices.getCreateReporteSA(request)
                     .then(function(resp){
 
                         spinnerService.hide("spinnerUserList");

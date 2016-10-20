@@ -134,6 +134,22 @@ angular.module('App')
             return promise;
         }
 
+        factory.getCreateReporteSAServices = function (request) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_REPORT_SA,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
 
 
         return factory;
@@ -161,6 +177,10 @@ angular.module('App')
 
         this.getInfoSumaAsegurada = function(request){
             return ReportesFactory.getInfoSumaAseguradaServices(request);
+        }
+
+        this.getCreateReporteSA = function(request){
+            return ReportesFactory.getCreateReporteSAServices(request);
         }
     }]);
 
