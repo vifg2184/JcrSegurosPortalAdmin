@@ -66,6 +66,9 @@ angular.module("App")
         PROXY_URL_INFO_SA: environment + "Reportes/getSumasAsegurasInfo",
         PROXY_URL_REPORT_SA: environment + "Reportes/createReportSA"
 
+        /*Proxy Recordatorio*/
+        PROXY_URL_RECORDATORIOS: environment + "Recordatorio/sendRecordatorio",
+
     })
     // configuracion file system imagenes
     .constant('FILE_SYSTEM_ROUTE',{
