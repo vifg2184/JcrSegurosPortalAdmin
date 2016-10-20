@@ -75,28 +75,13 @@
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <label>Desde Bs.</label>
+                                        <label>Monto</label>
                                         <input type="text" class="form-control" placeholder="Suma Aseguarda"
-                                               ng-model="report.numero_poliza"/>
+                                               ng-model="report.monto"/>
                                     </div>
 
-                                    <div class="col-sm-2">
-                                        <label>Hasta Bs.</label>
-                                        <input type="text" class="form-control" placeholder="Suma Asegurada"
-                                               ng-model="report.numero_poliza"/>
-                                    </div>
 
                                     <div class="col-sm-3">
-                                        <label>Ramo</label>
-                                        <select id="selectRamos" class="form-control" ng-model="report.ramo_id">
-                                            <option value="">Seleccione Ramo</option>
-                                            <option value="P">Personas</option>
-                                            <option value="A">Auto</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <br>
                                         <label>Aseguradora</label>
                                         <div angucomplete-alt id="ex21"
                                              placeholder="Seleccione Aseguradora"
@@ -112,11 +97,10 @@
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <br>
                                         <div class="input-group">
                                             <label>&nbsp;</label>
                                             <button class="btn btn-block btn-primary btn-md"
-                                                    ng-click="searchSiniestralidadInfo()">Search
+                                                    ng-click="searchSAInfo()">Search
                                             </button>
                                         </div>
 
@@ -129,49 +113,44 @@
                 </div><!-- /.row -->
 
                 <!--Devices info--->
-                <div class="row" ng-show="showTableSiniestros">
+                <div class="row" ng-show="showTableDevicesInfo">
                     <div class="col-lg-12">
                         <div class="content" style="min-height:135px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-gray-light">
-                                    <h3 class="box-title">Polizas</h3>
+                                    <h3 class="box-title">Poliza Aumento SA</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
 
-                                    <table id="reportGeneralDeviceInfo" class="table table-bordered font-table table-striped text-center">
+                                    <table id="reportGeneralDeviceInfo" class="table table-bordered table-striped text-center font-table">
                                         <thead>
                                         <tr>
                                             <th>Numero de Poliza</th>
-                                            <th>Numero de Siniestro</th>
-                                            <th>Cliente</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
                                             <th>CI</th>
+                                            <th>Aseguradora</th>
                                             <th>Placa</th>
                                             <th>Ramo</th>
                                             <th>Vigencia</th>
                                             <th>Agente</th>
-                                            <th>Aseguradora</th>
                                             <th>Prima</th>
                                             <th>SA</th>
-                                            <th>Monto Siniestro</th>
-                                            <th>Siniestralidad</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat = "row in listSiniestros">
-
+                                        <tr ng-repeat = "row in listDeviceDetailsInfo">
                                             <td>{{row.numero_poliza}}</td>
-                                            <td>{{row.numero_siniestro}}</td>
-                                            <td>{{row.cliente}}</td>
-                                            <td>{{row.documentoId}}</td>
-                                            <td>{{row.placa}}</td>
-                                            <td>{{row.ramo}}</td>
-                                            <td>{{row.fecha_vigencia | transforDate | date}}</td>
-                                            <td>{{row.agente}}</td>
+                                            <td>{{row.nombre_cliente}}</td>
+                                            <td>{{row.apellido_cliente}}</td>
+                                            <td>{{row.documento_id_cliente}}</td>
                                             <td>{{row.aseguradora}}</td>
-                                            <td>{{row.prima}}</td>
-                                            <td>{{row.sa}}</td>
-                                            <td>{{row.monto_siniestro}}</td>
-                                            <td>{{row.calculo | format_porcent}}</td>
+                                            <td>{{row.placa}}</td>
+                                            <td>{{row.ramo_name}}</td>
+                                            <td>{{row.fecha_vencimiento | transforDate | date}}</td>
+                                            <td>{{row.agente}}</td>
+                                            <td>{{row.prima_total | separador_punto}}</td>
+                                            <td>{{row.suma_aseguarada | separador_punto}}</td>
                                         </tr>
                                         </tbody>
                                     </table>

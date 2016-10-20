@@ -50,7 +50,6 @@ angular.module('App')
             var defered = $q.defer();
             var promise = defered.promise;
 
-            console.log("Entro aqui 2");
             $http({
                 method: 'POST',
                 data: JSON.stringify(filterCriteria),
@@ -185,7 +184,6 @@ angular.module('App')
         }
 
         this.allPolizasBySiniestros = function(request){
-            console.log("Entro aqui 1");
             return PolizasLookup.allPolizasBySiniestrosServices(request);
         }
 

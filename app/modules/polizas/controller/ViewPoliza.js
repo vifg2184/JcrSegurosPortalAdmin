@@ -70,6 +70,10 @@ angular.module("App")
             $scope.selectEditAsegurado = null;
             $scope.selectEditTomador = null;
 
+            $scope.fecha_financimiento={
+                date_start:"",
+                date_end:""
+            }
 
             $scope.poliza = {
                 poliza_id: null,
@@ -83,6 +87,7 @@ angular.module("App")
                 prima_total: "",
                 agente: "",
                 agente_helper: "",
+                observacion:"",
                 asegurado: {
                     "cliente_id": null,
                     "nombre_cliente": "",
@@ -457,7 +462,28 @@ angular.module("App")
                             $scope.poliza.asegurado.fecha_nacimiento = new Date(fecha_nacimeinto_cliente);
 
 
-                            console.log("Telefono:" +$scope.poliza.asegurado.telefono);
+                            //comprobar si hay financiamiento
+
+                            if($scope.poliza.es_financiado){
+                                var fecha_finan_init = formatEnglish($filter('transforDate')($scope.poliza.financiamento.financiamientos_desde));
+                                $scope.fecha_financimiento.date_start = new Date(fecha_finan_init);
+
+                                var fecha_finan_end = formatEnglish($filter('transforDate')($scope.poliza.financiamento.financiamientos_hasta));
+                                $scope.fecha_financimiento.date_end = new Date(fecha_finan_end);
+
+                                var numero_coutas = $scope.poliza.financiamento.numero_cuotas;
+
+                                $scope.listCuotas = [];
+
+                                for(var i=0; i< numero_coutas; i++){
+                                    var cont = i+1;
+                                    $scope.listCuotas.push(cont);
+                                }
+
+                                $('#cuotasId').val(numero_coutas);
+                                $scope.makeCuotas=false;
+                            }
+
 
                             $scope.selectEditAsegurado = {
                                 cliente_id: $scope.poliza.asegurado.cliente_id,

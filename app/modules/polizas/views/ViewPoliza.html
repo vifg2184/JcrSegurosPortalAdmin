@@ -718,6 +718,115 @@
                     </div>
                 </div>
 
+
+                <!--Informacion financiamiento-->
+                <div class="row" ng-if="poliza.es_financiado">
+                    <div class="col-lg-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Infomacion de Financiamiento</h3>
+                                </div><!-- /.box-header -->
+                                <!-- form start -->
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+
+                                            <div class="col-sm-3">
+                                                <br>
+                                                <label>Desde</label>
+                                                <p class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="openFechaFinanciamiendoDesde()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    <input type="text" class="form-control"
+                                                           uib-datepicker-popup="{{format}}"
+                                                           is-open="popupFechaFinanDesde.opened"
+                                                           datepicker-options="dateOptions"
+                                                           ng-required="true" close-text="Close"
+                                                           alt-input-formats="altInputFormats"
+                                                           ng-model="fecha_financimiento.date_start"
+                                                           ng-disabled="true"/>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <br>
+                                                <label>Hasta</label>
+                                                <p class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="openFechaFinanciamiendoHasta()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    <input type="text" class="form-control"
+                                                           uib-datepicker-popup="{{format}}"
+                                                           is-open="popupFechaFinanHasta.opened"
+                                                           datepicker-options="dateOptions"
+                                                           ng-required="true" close-text="Close"
+                                                           alt-input-formats="altInputFormats"
+                                                           ng-model="fecha_financimiento.date_end"
+                                                           ng-disabled="true"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <label>Numero de Financiamiento</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Numero Financiamiento" ng-model="poliza.financiamento.numero_financiamiento" ng-disabled="true">
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <label>Coutas</label>
+                                                <select id="cuotasId" class="form-control" ng-model="poliza.financiamento.numero_cuotas" ng-disabled="true" convert-to-number>
+                                                    <option value="">Seleccione Couta</option>
+                                                    <option ng-repeat="option in listCuotas">{{option}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label>Monto</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Monto Financiamiento"
+                                                       ng-model="poliza.financiamento.monto_inicial" ng-disabled="true">
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div><!-- /.box-body -->
+                                </div>
+
+                            </div><!-- /.box -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Observacones-->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="content" style="min-height: 0px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-light-blue-active with-border ">
+                                    <h3 class="box-title">Observaciones</h3>
+                                </div><!-- /.box-header -->
+                                <!-- form start -->
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group col-md-12">
+                                            <label>Descripcion</label>
+                                            <textarea class="form-control" rows="5" ng-model="poliza.observacion" ng-disabled="true"></textarea>
+                                        </div>
+                                    </div><!-- /.box-body -->
+                                </div>
+
+                            </div><!-- /.box -->
+
+                        </div>
+
+                    </div>
+                </div>
                 <!--agregar vehiculo solo pzra ramo automovil individual o flota-->
                 <div class="row" ng-show="showAddVehiculo">
 

@@ -206,31 +206,37 @@ angular.module('App')
 
     .filter("separador_punto", function() {
         return function(price, digits, thoSeperator, decSeperator, bdisplayprice) {
-            var i;
-            digits = (typeof digits === "undefined") ? 2 : digits;
-            bdisplayprice = (typeof bdisplayprice === "undefined") ? true : bdisplayprice;
-            thoSeperator = (typeof thoSeperator === "undefined") ? "." : thoSeperator;
-            price = price.toString();
-            var _temp = price.split(".");
-            var dig = (typeof _temp[1] === "undefined") ? "00" : _temp[1];
-            if (bdisplayprice && parseInt(dig,10)===0) {
-                dig = "";
-            } else {
-                dig = dig.toString();
-                if (dig.length > digits) {
-                    dig = (Math.round(parseFloat("0." + dig) * Math.pow(10, digits))).toString();
+
+            try{
+                var i;
+                digits = (typeof digits === "undefined") ? 2 : digits;
+                bdisplayprice = (typeof bdisplayprice === "undefined") ? true : bdisplayprice;
+                thoSeperator = (typeof thoSeperator === "undefined") ? "." : thoSeperator;
+                price = price.toString();
+                var _temp = price.split(".");
+                var dig = (typeof _temp[1] === "undefined") ? "00" : _temp[1];
+                if (bdisplayprice && parseInt(dig,10)===0) {
+                    dig = "";
+                } else {
+                    dig = dig.toString();
+                    if (dig.length > digits) {
+                        dig = (Math.round(parseFloat("0." + dig) * Math.pow(10, digits))).toString();
+                    }
+                    for (i = dig.length; i < digits; i++) {
+                        dig += "0";
+                    }
                 }
-                for (i = dig.length; i < digits; i++) {
-                    dig += "0";
+                var num = _temp[0];
+                var s = "",
+                    ii = 0;
+                for (i = num.length - 1; i > -1; i--) {
+                    s = ((ii++ % 3 === 2) ? ((i > 0) ? thoSeperator : "") : "") + num.substr(i, 1) + s;
                 }
+                return s + dig;
+            }catch(err){
+                console.log(err);
             }
-            var num = _temp[0];
-            var s = "",
-                ii = 0;
-            for (i = num.length - 1; i > -1; i--) {
-                s = ((ii++ % 3 === 2) ? ((i > 0) ? thoSeperator : "") : "") + num.substr(i, 1) + s;
-            }
-            return s + dig;
+
         }
     });
 

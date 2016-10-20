@@ -20,6 +20,11 @@ angular.module('App')
             totalRecords: 0
         };
 
+        var saJson = {
+            poliza: {},
+            totalPages: 0,
+            totalRecords: 0
+        };
 
         factory.getInfoRenovacionesServices = function (request) {
             var defered = $q.defer();
@@ -106,6 +111,31 @@ angular.module('App')
             return promise;
         }
 
+        factory.getInfoSumaAseguradaServices = function (request) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_INFO_SA,
+            }).success(function (response) {
+                saJson.code = response.JcrResponse.code;
+                saJson.message = response.JcrResponse.message;
+                saJson.polizas = response.JcrResponse.object;
+                saJson.totalPages = response.JcrResponse.totalPages;
+                saJson.totalRecords = response.JcrResponse.totalRecords;
+                defered.resolve(saJson);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
+
+
+
         return factory;
     }])
 
@@ -129,5 +159,8 @@ angular.module('App')
             return ReportesFactory.getCreateReporteSiniestralidadServices(request);
         }
 
+        this.getInfoSumaAsegurada = function(request){
+            return ReportesFactory.getInfoSumaAseguradaServices(request);
+        }
     }]);
 

@@ -19,6 +19,7 @@ angular.module("App")
         'MENU_JCR_SEGUROS_ACTIVE',
         '$controller',
         '$stateParams',
+        '$filter',
         function ($scope,
                   SiniestroService,
                   PolizaService,
@@ -34,7 +35,8 @@ angular.module("App")
                   GLOBAL_CONSTANT,
                   MENU_JCR_SEGUROS_ACTIVE,
                   $controller,
-                  $stateParams) {
+                  $stateParams,
+                  $filter) {
 
             //herencia metodos comunes
             $controller('BaseCtrl', {
@@ -146,6 +148,10 @@ angular.module("App")
                                 $scope.siniestro.monto_siniestro = dataSiniestro.monto_siniestro;
                                 $scope.siniestro.observaciones_ordenes = dataSiniestro.observaciones_ordenes;
 
+                                var date_format_ocurrencia = formatEnglish($filter('transforDate')(dataSiniestro.fecha_ocurrencia));
+                                $scope.siniestro.fecha_ocurrencia = new Date(date_format_ocurrencia);
+
+                                console.log(dataSiniestro);
 
                                 // invocando servicio para obtener poliza
 
@@ -175,7 +181,6 @@ angular.module("App")
                                         if ($scope.siniestro.tipo_siniestro_id == GLOBAL_CONSTANT.TIPO_SINIESTRO_AUTO) {
 
                                             $scope.siniestro.siniestro_automovil_id = dataSiniestro.siniestroAuto.siniestro_automovil_id;
-                                            $scope.siniestro.fecha_ocurrencia = getDateFormat(dataSiniestro.siniestroAuto.fecha_ocurrencia);
                                             $scope.siniestro.fecha_declaracion = getDateFormat(dataSiniestro.siniestroAuto.fecha_declaracion);
                                             $scope.siniestro.fecha_inspeccion = getDateFormat(dataSiniestro.siniestroAuto.fecha_inspeccion);
                                             $scope.siniestro.fecha_entrada_taller = getDateFormat(dataSiniestro.siniestroAuto.fecha_entrada_taller);
@@ -184,21 +189,23 @@ angular.module("App")
 
                                             //procesando repuestos
 
-                                            if (dataSiniestro.repuestos.length > 0) {
+                                            if(dataSiniestro.hay_repuestos){
 
-                                                var repuesto = null;
-                                                $scope.respuestos.active = 2;
-                                                dataSiniestro.repuestos.forEach(function (entry) {
+                                                if (dataSiniestro.repuestos.length > 0) {
 
-                                                    repuesto = {};
-                                                    repuesto.id = entry.repuesto_id;
-                                                    repuesto.fecha_llegada = formatDate(entry.fecha_llegada);
-                                                    repuesto.descripcion = entry.descripcion;
-                                                    repuesto.observaciones = entry.observaciones;
-                                                    repuesto.mode = "E";
-                                                    $scope.choices.push(repuesto);
+                                                    var repuesto = null;
+                                                    $scope.respuestos.active = 2;
+                                                    dataSiniestro.repuestos.forEach(function (entry) {
 
-                                                });
+                                                        repuesto = {};
+                                                        repuesto.id = entry.repuesto_id;
+                                                        repuesto.fecha_llegada = formatDate(entry.fecha_llegada);
+                                                        repuesto.descripcion = entry.descripcion;
+                                                        repuesto.observaciones = entry.observaciones;
+                                                        repuesto.mode = "E";
+                                                        $scope.choices.push(repuesto);
+                                                    });
+                                                }
                                             }
 
                                             $scope.showInfoAutoSiniestro = true;
@@ -353,30 +360,8 @@ angular.module("App")
 
                 var requestNewSiniestro = null;
 
-                if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_HOSPITALIZACION_COLECTIVO ||
-                    $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_HOSPITALIZACION_INDIVIDUAL) {
 
-                    requestNewSiniestro = {
-                        JcrParameters: {
-                            SiniestroSystem: {
-                                siniestro: {
-                                    poliza_id: $scope.siniestro.poliza_id,
-                                    numero_siniestro: $scope.siniestro.numero_siniestro,
-                                    monto_siniestro: $scope.siniestro.monto_siniestro,
-                                    tipo_siniestro_id: GLOBAL_CONSTANT.TIPO_SINIESTRO_PERSONA,
-                                    observaciones_ordenes: $scope.siniestro.observaciones_ordenes
-                                }
-                            }
-                        }
-                    }
-
-
-                    if (SiniestroService.getModeEdit().isModeEdit) {
-                        requestNewSiniestro.JcrParameters.SiniestroSystem.siniestro.siniestro_id = SiniestroService.getModeEdit().idSiniestro;
-                    }
-
-                } else if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA ||
-                    $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL) {
+                if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA || $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL) {
 
                     requestNewSiniestro = {
                         JcrParameters: {
@@ -386,10 +371,11 @@ angular.module("App")
                                     numero_siniestro: $scope.siniestro.numero_siniestro,
                                     monto_siniestro: $scope.siniestro.monto_siniestro,
                                     tipo_siniestro_id: GLOBAL_CONSTANT.TIPO_SINIESTRO_AUTO,
-                                    observaciones_ordenes: $scope.siniestro.observaciones_ordenes
+                                    observaciones_ordenes: $scope.siniestro.observaciones_ordenes,
+                                    fecha_ocurrencia: formatDateSiniestro($scope.siniestro.fecha_ocurrencia),
+                                    hay_repuestos:false
                                 },
                                 auto: {
-                                    fecha_ocurrencia: formatDateSiniestro($scope.siniestro.fecha_ocurrencia),
                                     fecha_declaracion: formatDateSiniestro($scope.siniestro.fecha_declaracion),
                                     fecha_inspeccion: formatDateSiniestro($scope.siniestro.fecha_inspeccion),
                                     taller_propuesto: $scope.siniestro.taller_propuesto,
@@ -403,6 +389,7 @@ angular.module("App")
                     }
 
                     if ($scope.choices.length > 0) {
+
                         $scope.choices.forEach(function (entry) {
 
                             var repuesto = {};
@@ -412,19 +399,47 @@ angular.module("App")
                                     repuesto.repuesto_id = entry.id;
                                 }
                             }
-                            repuesto.fecha_llegada = entry.fecha_llegada.replace('/', '-').replace('/', '-');
-                            repuesto.descripcion = entry.descripcion;
-                            repuesto.observaciones = entry.observaciones;
 
-                            requestNewSiniestro.JcrParameters.SiniestroSystem.auto.repuestos.push(repuesto);
+                            if(entry.fecha_llegada != "" && entry.descripcion != "" && entry.observaciones !=""){
+
+                                repuesto.fecha_llegada = entry.fecha_llegada.replace('/', '-').replace('/', '-');
+                                repuesto.descripcion = entry.descripcion;
+                                repuesto.observaciones = entry.observaciones;
+                                requestNewSiniestro.JcrParameters.SiniestroSystem.auto.repuestos.push(repuesto);
+                            }
+
                         });
 
+                        requestNewSiniestro.JcrParameters.SiniestroSystem.siniestro.hay_repuestos =
+                            (requestNewSiniestro.JcrParameters.SiniestroSystem.auto.repuestos.length > 0) ? true : false;
                     }
 
                     if (SiniestroService.getModeEdit().isModeEdit) {
                         requestNewSiniestro.JcrParameters.SiniestroSystem.siniestro.siniestro_id = SiniestroService.getModeEdit().idSiniestro;
                         requestNewSiniestro.JcrParameters.SiniestroSystem.auto.siniestro_automovil_id = $scope.siniestro.siniestro_automovil_id;
+                    }
 
+                }
+                else{
+
+                    requestNewSiniestro = {
+                        JcrParameters: {
+                            SiniestroSystem: {
+                                siniestro: {
+                                    poliza_id: $scope.siniestro.poliza_id,
+                                    numero_siniestro: $scope.siniestro.numero_siniestro,
+                                    monto_siniestro: $scope.siniestro.monto_siniestro,
+                                    tipo_siniestro_id: GLOBAL_CONSTANT.TIPO_SINIESTRO_PERSONA,
+                                    observaciones_ordenes: $scope.siniestro.observaciones_ordenes,
+                                    fecha_ocurrencia: formatDateSiniestro($scope.siniestro.fecha_ocurrencia)
+                                }
+                            }
+                        }
+                    };
+
+
+                    if (SiniestroService.getModeEdit().isModeEdit) {
+                        requestNewSiniestro.JcrParameters.SiniestroSystem.siniestro.siniestro_id = SiniestroService.getModeEdit().idSiniestro;
                     }
 
                 }
@@ -481,14 +496,11 @@ angular.module("App")
 
                             $scope.poliza.ramo = $scope.polizaListFinal[0].ramo;
 
-                            if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_HOSPITALIZACION_COLECTIVO ||
-                                $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_HOSPITALIZACION_INDIVIDUAL) {
-                                $scope.showReclamoSalud = true;
-                            }
-                            else if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA ||
-                                $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL) {
-
+                            if ($scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_FLOTA || $scope.poliza.ramo.ramo_id == GLOBAL_CONSTANT.RAMO_AUTO_INDIVIDUAL) {
                                 $scope.showInfoAutoSiniestro = true;
+                            }
+                            else{
+                                $scope.showReclamoSalud = true;
                             }
 
                             console.log($scope.polizaListFinal);
@@ -530,17 +542,23 @@ angular.module("App")
                     limit: 10,
                     sortDir: 'asc',
                     sortedBy: 'numero_poliza',
-                    filter: ''
+                    filter: '',
+                    search_code:0
                 }
             };
 
+            $scope.buscarType = {id:"",name:""};
+            $scope.listSearch=[{id:'1',name:'Buscar por CI'},{id:'2',name:'Buscar por Placa'}];
             $scope.totalPages = 0;
             $scope.polizaListSelect = [];
+
             /**
              * Call service all user
              */
             $scope.getAllPoliza = function () {
 
+
+                $scope.filterCriteria.JcrParameters.search_code = $scope.buscarType.id;
 
                 PolizaService.allPolizasBySiniestros($scope.filterCriteria).then(function (data) {
                     $scope.polizas = data.poliza;

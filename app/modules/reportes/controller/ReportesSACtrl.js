@@ -57,8 +57,8 @@ angular.module("App")
                         start_date:"",
                         end_date:"",
                         aseguradora_id:null,
-                        numero_poliza:null,
-                        ramo_id:null
+                        monto:""
+
                     }
                 }
             };
@@ -68,8 +68,7 @@ angular.module("App")
                 start_date: "",
                 end_date: "",
                 aseguaradora_id:null,
-                numero_poliza:null,
-                ramo_id:null
+                monto:""
 
             }
 
@@ -171,13 +170,12 @@ angular.module("App")
             /**
              * Metodo para obtener informacion de los dispositivos
              */
-            $scope.searchSiniestralidadInfo = function(){
+            $scope.searchSAInfo = function(){
 
                 $scope.filterCriteria.JcrParameters.Reports.start_date = formatDateAttendance($scope.report.start_date) + " 00:00:00";
                 $scope.filterCriteria.JcrParameters.Reports.end_date = formatDateAttendance($scope.report.end_date) + " 23:59:59";
                 $scope.filterCriteria.JcrParameters.Reports.aseguradora_id =  $scope.report.aseguradora_id;
-                $scope.filterCriteria.JcrParameters.Reports.numero_poliza = $scope.report.numero_poliza;
-                $scope.filterCriteria.JcrParameters.Reports.ramo_id = ($scope.report.ramo_id == "") ? null : $scope.report.ramo_id;
+                $scope.filterCriteria.JcrParameters.Reports.monto = $scope.report.monto;
 
                 $scope.getAllSiniestros();
 
@@ -192,44 +190,59 @@ angular.module("App")
 
                 spinnerService.show("spinnerUserList");
 
-                ReportesServices.getInfoSiniestros($scope.filterCriteria).then(function (data) {
+                ReportesServices.getInfoSumaAsegurada($scope.filterCriteria).then(function (resp) {
 
                     spinnerService.hide("spinnerUserList");
 
-                    if(data.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
-                        $scope.listSiniestros = [];
+                    if(resp.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
 
-                        $scope.totalPages = data.totalPages;
-                        $scope.totalRecords = data.totalRecords;
-                        console.log(data);
-                        var siniestro = null;
+                        $scope.listDeviceDetailsInfo = [];
+                        $scope.totalPages = resp.totalPages;
+                        $scope.totalRecords = resp.totalRecords;
+                        console.log(resp);
 
-                        data.siniestro.forEach(function(entry){
+                        var poliza = null;
 
-                            siniestro = {};
+                        resp.polizas.forEach(function(entry){
 
-                            siniestro.numero_poliza =  entry.numero_poliza;
-                            siniestro.numero_siniestro = entry.numero_siniestro;
-                            siniestro.cliente = entry.asegurado.nombre_cliente + " " + entry.asegurado.apellido_cliente;
-                            siniestro.documentoId = entry.asegurado.documento_id_cliente;
-                            siniestro.placa = (entry.tipo_siniestro == 1) ? "N/A" : entry.vehiculo[0].vehiculo_placa;
-                            siniestro.ramo = entry.ramo[0].ramo_nombre;
-                            siniestro.fecha_vigencia = entry.fecha_vencimiento;
-                            siniestro.agente = entry.agente;
-                            siniestro.aseguradora = entry.aseguradora[0].aseguradora_nombre;
-                            siniestro.prima = entry.prima_total;
-                            siniestro.sa = entry.coberturas[0].descripciones_cobertura[0].monto;
-                            siniestro.monto_siniestro = entry.monto_siniestro;
-                            siniestro.calculo = entry.calculo;
+                            poliza = {};
 
-                            $scope.listSiniestros.push(siniestro);
+                            poliza.poliza_id = entry.poliza_id;
+                            poliza.numero_poliza = entry.numero_poliza;
+                            poliza.nombre_cliente = entry.asegurado.nombre_cliente;
+                            poliza.apellido_cliente = entry.asegurado.apellido_cliente;
+                            poliza.documento_id_cliente = entry.asegurado.documento_id_cliente;
+                            poliza.agente = entry.agente;
+
+                            if(entry.ramo.ramo_id == 4 || entry.ramo.ramo_id == 3){
+                                poliza.placa = entry.vehiculos[0].vehiculo_placa;
+                            }
+                            else{
+                                poliza.placa="N/A";
+                            }
+
+                            poliza.prima_total = entry.prima_total;
+                            poliza.fecha_vencimiento = entry.fecha_vencimiento;
+                            poliza.ramo_name = entry.ramo.ramo_nombre;
+
+                            entry.suma_asegurada.forEach(function(entry){
+
+                                if(entry.descripciones_cobertura[0].monto < $scope.filterCriteria.JcrParameters.Reports.monto){
+                                    poliza.suma_aseguarada = entry.descripciones_cobertura[0].monto;
+                                }
+                            });
+
+                            //poliza.suma_aseguarada = entry.suma_asegurada[0].descripciones_cobertura[0].monto;
+                            poliza.aseguradora = entry.aseguradora;
+                            $scope.listDeviceDetailsInfo.push(poliza);
+
                         });
 
-                        $scope.showTableSiniestros = true;
-
-                    }else{
-                        console.log(data);
-                        $scope.showTableSiniestros = false;
+                        $scope.showTableDevicesInfo = true;
+                    }
+                    else{
+                        console.log("Error repuesta servicio: "+resp.message);
+                        growl.error(resp.message);
                     }
 
                 }).catch(function (err) {

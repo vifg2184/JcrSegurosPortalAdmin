@@ -98,15 +98,10 @@
                                             </div><!-- /.box-body -->
                                         </div><!-- /.box -->
                                     </div>
-
-
                                 </div>
                             </div><!-- /.box-body -->
-
                         </div><!-- /.box -->
-
                     </div>
-
                 </div>
 
 
@@ -127,7 +122,24 @@
                                             <div class="col-sm-12">
                                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <label>Numero de Siniestro</label><br>
-                                                    <input type="number" class="form-control"placeholder="Numero de Siniestro" ng-model="siniestro.numero_siniestro">
+                                                    <input type="text" class="form-control"placeholder="Numero de Siniestro" ng-model="siniestro.numero_siniestro">
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>Fecha de Ocurrencia</label>
+                                                    <p class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default"
+                                                                    ng-click="openFechaOcurrencia()"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                        <input type="text" class="form-control"
+                                                               uib-datepicker-popup="{{format}}"
+                                                               is-open="popupFechaOcurrencia.opened"
+                                                               datepicker-options="dateOptions"
+                                                               ng-required="true" close-text="Close"
+                                                               alt-input-formats="altInputFormats"
+                                                               ng-model="siniestro.fecha_ocurrencia"/>
+                                                    </p>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <label>Observaciones de Ordenes</label><br>
@@ -143,7 +155,6 @@
                 </div>
 
 
-
                 <!--Siniestro Auto-->
                 <div class="row" ng-show="showInfoAutoSiniestro">
                     <div class="col-lg-12">
@@ -157,23 +168,6 @@
                                 <div class="form-horizontal">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <div class="col-sm-6">
-                                                <label>Fecha de Ocurrencia</label>
-                                                <p class="input-group">
-                                                        <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default"
-                                                                    ng-click="openFechaOcurrencia()"><i
-                                                                    class="glyphicon glyphicon-calendar"></i></button>
-                                                        </span>
-                                                    <input type="text" class="form-control"
-                                                           uib-datepicker-popup="{{format}}"
-                                                           is-open="popupFechaOcurrencia.opened"
-                                                           datepicker-options="dateOptions"
-                                                           ng-required="true" close-text="Close"
-                                                           alt-input-formats="altInputFormats"
-                                                           ng-model="siniestro.fecha_ocurrencia"/>
-                                                </p>
-                                            </div>
                                             <div class="col-sm-6">
                                                 <label>Fecha de Declaracion</label>
                                                 <p class="input-group">
@@ -191,9 +185,7 @@
                                                            ng-model="siniestro.fecha_declaracion"/>
                                                 </p>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
                                             <div class="col-sm-6">
                                                 <label>Fecha de Inspeccion</label>
                                                 <p class="input-group">
@@ -211,6 +203,10 @@
                                                            ng-model="siniestro.fecha_inspeccion"/>
                                                 </p>
                                             </div>
+                                        </div>
+
+                                        <div class="form-group">
+
                                             <div class="col-sm-6">
                                                 <label>Fecha de Entrada al Taller</label>
                                                 <p class="input-group">
@@ -229,13 +225,13 @@
                                                 </p>
                                             </div>
 
-                                        </div>
-
-                                        <div class="form-group">
                                             <div class="col-sm-6">
                                                 <label>Taller Propuesto</label>
                                                 <input type="text" class="form-control" placeholder="Taller Propuesto" ng-model="siniestro.taller_propuesto">
                                             </div>
+                                        </div>
+
+                                        <div class="form-group">
 
                                             <div class="col-sm-6">
                                                 <label>Fecha de Cierre</label>
@@ -295,7 +291,7 @@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <label>Prima</label><br>
-                                                    <strong><span>{{poliza.prima | currency:"Bs. ":0}}</span></strong>
+                                                    <strong><span>{{poliza.prima | separador_punto}}</span></strong>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label>Monto Reclamo</label>
@@ -324,7 +320,7 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Reclamos Salud</h3>
+                                    <h3 class="box-title">Reclamos</h3>
                                 </div><!-- /.box-header -->
 
                                 <!-- form start -->
@@ -335,10 +331,10 @@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <label>Prima</label><br>
-                                                    <strong><span>{{poliza.prima | currency:"Bs. ":0}}</span></strong>
+                                                    <strong><span>{{poliza.prima | separador_punto}}</span></strong>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <label>Monto de Carta Aval o Reembolso</label>
+                                                    <label>Monto Reclamo</label>
                                                     <input type="number" class="form-control"placeholder="Monto de Ordenes" ng-keyup="calcularSiniestralidad()" ng-model="siniestro.monto_siniestro">
                                                 </div>
                                                 <div class="col-sm-4">
@@ -380,7 +376,10 @@
 
                 <div class="modal-body row" style="padding: 30px;">
                     <div>
-                        <input class="form-control reduceSize" placeholder="Search here..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                        <select class="form-control reduceSize" ng-model="buscarType" ng-options="option.name for option in listSearch track by option.id">
+                            <option value="">Seleccione Busqueda</option>
+                        </select>
+                        <input class="form-control reduceSize" placeholder="Buscar por CI o Placa..." on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
                     </div>
 
                     <table id="userTable" class="table table-bordered table-striped">
@@ -413,7 +412,7 @@
                         </tfoot>
                     </table>
                     <div ng-show="totalRecords == 0">
-                        <h3>No Customers Found</h3>
+                        <h4>No Existe Polizas</h4>
                     </div>
                     <div ng-show="totalPages > 1" class="align-center">
                         <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"

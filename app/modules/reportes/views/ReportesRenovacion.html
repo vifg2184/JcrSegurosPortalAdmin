@@ -142,8 +142,8 @@
                                             <td>{{row.ramo_name}}</td>
                                             <td>{{row.fecha_vencimiento | transforDate | date}}</td>
                                             <td>{{row.agente}}</td>
-                                            <td>{{row.prima_total}}</td>
-                                            <td>{{row.suma_aseguarada}}</td>
+                                            <td>{{row.prima_total | separador_punto}}</td>
+                                            <td>{{row.suma_aseguarada | separador_punto}}</td>
                                         </tr>
                                         </tbody>
                                     </table>

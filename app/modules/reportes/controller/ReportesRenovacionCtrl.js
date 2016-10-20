@@ -217,7 +217,7 @@ angular.module("App")
                             renovacion.fecha_vencimiento = entry.fecha_vencimiento;
                             renovacion.ramo_name = entry.ramo.ramo_nombre;
                             renovacion.suma_aseguarada = entry.suma_asegurada[0].descripciones_cobertura[0].monto;
-                            renovacion.aseguradora = entry.aseguradora
+                            renovacion.aseguradora = entry.aseguradora;
                             $scope.listDeviceDetailsInfo.push(renovacion);
 
                         });

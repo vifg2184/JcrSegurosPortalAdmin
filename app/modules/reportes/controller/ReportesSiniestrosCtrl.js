@@ -57,8 +57,10 @@ angular.module("App")
                         start_date:"",
                         end_date:"",
                         aseguradora_id:null,
-                        numero_poliza:null,
-                        ramo_id:null
+                        ci_or_placa:"",
+                        ramo_id:null,
+                        tipo_busqueda:0
+
                     }
                 }
             };
@@ -68,13 +70,16 @@ angular.module("App")
                 start_date: "",
                 end_date: "",
                 aseguaradora_id:null,
-                numero_poliza:null,
+                ci_or_placa:null,
                 ramo_id:null
 
             }
 
             $scope.showTableDevicesInfo = false;
             $scope.selectAseguradora = null;
+
+            $scope.buscarType = {id:"",name:""};
+            $scope.listSearch=[{id:'1',name:'Buscar por CI'},{id:'2',name:'Buscar por Placa'}];
 
             $scope.listDeviceDetailsInfo = [];
             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
@@ -176,13 +181,13 @@ angular.module("App")
                 $scope.filterCriteria.JcrParameters.Reports.start_date = formatDateAttendance($scope.report.start_date) + " 00:00:00";
                 $scope.filterCriteria.JcrParameters.Reports.end_date = formatDateAttendance($scope.report.end_date) + " 23:59:59";
                 $scope.filterCriteria.JcrParameters.Reports.aseguradora_id =  $scope.report.aseguradora_id;
-                $scope.filterCriteria.JcrParameters.Reports.numero_poliza = $scope.report.numero_poliza;
+                $scope.filterCriteria.JcrParameters.Reports.ci_or_placa = $scope.report.ci_or_placa;
                 $scope.filterCriteria.JcrParameters.Reports.ramo_id = ($scope.report.ramo_id == "") ? null : $scope.report.ramo_id;
+                $scope.filterCriteria.JcrParameters.Reports.tipo_busqueda = ($scope.buscarType != null) ? $scope.buscarType.id : 0;
 
                 $scope.getAllSiniestros();
 
             }
-
 
 
             /**
@@ -262,8 +267,9 @@ angular.module("App")
                             start_date: $scope.filterCriteria.JcrParameters.Reports.start_date,
                             end_date: $scope.filterCriteria.JcrParameters.Reports.end_date,
                             aseguradora_id: $scope.filterCriteria.JcrParameters.Reports.aseguradora_id,
-                            numero_poliza: $scope.filterCriteria.JcrParameters.Reports.numero_poliza,
-                            ramo_id: $scope.filterCriteria.JcrParameters.Reports.ramo_id
+                            ci_or_placa:  $scope.filterCriteria.JcrParameters.Reports.ci_or_placa,
+                            ramo_id: $scope.filterCriteria.JcrParameters.Reports.ramo_id,
+                            tipo_busqueda: ($scope.buscarType != null) ? $scope.buscarType.id : 0
                         }
                     }
                 };

@@ -62,7 +62,8 @@ angular.module("App")
         PROXY_URL_GET_INFO_RENOVACIONES: environment + "Reportes/getInfoRenovacion",
         PROXY_URL_REPORTE_RENOVACIONES: environment + "Reportes/createReportRenovacion",
         PROXY_URL_INFO_SINIESTROS: environment + "Reportes/getInfoSiniestralidad",
-        PROXY_URL_REPORTES_SINIESTRALIDAD: environment + "Reportes/createReportSiniestralidad"
+        PROXY_URL_REPORTES_SINIESTRALIDAD: environment + "Reportes/createReportSiniestralidad",
+        PROXY_URL_INFO_SA: environment + "Reportes/getSumasAsegurasInfo"
 
     })
     // configuracion file system imagenes

@@ -38,7 +38,7 @@
 
                                 <div class="box-body">
                                     <div class="col-sm-2">
-                                        <label>Fecha Inicio</label>
+                                        <label>*Fecha Inicio</label>
 
                                         <div class="input-group">
                                                         <span class="input-group-btn">
@@ -56,7 +56,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label>Fecha Fin</label>
+                                        <label>*Fecha Fin</label>
 
                                         <div class="input-group">
                                                         <span class="input-group-btn">
@@ -75,12 +75,20 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <label>Numero de Siniestro</label>
-                                        <input type="text" class="form-control" placeholder="Numero Poliza"
-                                               ng-model="report.numero_poliza"/>
+                                        <label>Documento CI / Placa</label>
+                                        <input type="text" class="form-control" placeholder="Ingresar CI/Placa"
+                                               ng-model="report.ci_or_placa"/>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label>Tipo Busqueda</label>
+                                        <select class="form-control" ng-model="buscarType" ng-options="option.name for option in listSearch track by option.id">
+                                            <option value="">Seleccione Busqueda</option>
+                                        </select>
                                     </div>
 
                                     <div class="col-sm-3">
+                                        <br>
                                         <label>Ramo</label>
                                        <select id="selectRamos" class="form-control" ng-model="report.ramo_id">
                                            <option value="">Seleccione Ramo</option>
@@ -160,12 +168,12 @@
                                             <td>{{row.documentoId}}</td>
                                             <td>{{row.placa}}</td>
                                             <td>{{row.ramo}}</td>
-                                            <td>{{row.fecha_vigencia | transforDate | date}}</td>
+                                            <td>{{row.fecha_vigencia | date}}</td>
                                             <td>{{row.agente}}</td>
                                             <td>{{row.aseguradora}}</td>
-                                            <td>{{row.prima}}</td>
-                                            <td>{{row.sa}}</td>
-                                            <td>{{row.monto_siniestro}}</td>
+                                            <td>{{row.prima | separador_punto}}</td>
+                                            <td>{{row.sa | separador_punto}}</td>
+                                            <td>{{row.monto_siniestro | separador_punto}}</td>
                                             <td>{{row.calculo | format_porcent}}</td>
                                         </tr>
                                         </tbody>
