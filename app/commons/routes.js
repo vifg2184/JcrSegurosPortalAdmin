@@ -236,6 +236,16 @@ angular.module("App")
                 }
             })
 
+            .state('recordatorio',{
+                url: '/recordatorio',
+                controller:'recordatorioCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/recordatorio/views/recordatorio.html'},
+                    'header@recordatorio': {templateUrl: 'app/home/views/header.html'},
+                    'menu@recordatorio': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@recordatorio':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
 
         $urlRouterProvider.otherwise("/login");
 

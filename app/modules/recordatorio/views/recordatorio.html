@@ -1,0 +1,93 @@
+<spinner name="spinnerNew" ng-cloak="">
+    <div class="overlay"></div>
+    <div class="spinner">
+        <div class="test"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+    </div>
+    <div class="please-wait">Please Wait...</div>
+</spinner>
+
+<div class="skin-blue sidebar-mini">
+    <div class="wrapper" ng-controller="recordatorioCtrl">
+
+        <div ui-view="header"></div>
+
+        <div ui-view="menu"></div>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <div growl></div>
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Recordatorios
+                    <small>Panel de Control</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content" style="min-height:500px;">
+                <div class="row">
+                    <div class="col-lg-6 ">
+                        <div class="content" style="min-height:125px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-gray-light">
+                                    <h3 class="box-title">Recordatorio</h3>
+                                </div><!-- /.box-header -->
+
+                                <div class="box-body">
+                                    <h4>Enviar Recordatorio</h4>
+                                    <div class="col-sm-3 col-md-offset-4">
+                                        <div class="input-group">
+                                            <button class="btn btn-block btn-primary btn-md"
+                                                    ng-click="enviarRecordatorio()">Enviar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div><!-- /.box-body -->
+
+                            </div><!-- /.box -->
+                        </div>
+
+                        <div class="content" style="min-height:125px;">
+                            <div class="box box-primary">
+                                <div class="box-header bg-gray-light">
+                                    <h3 class="box-title">Planillas para Descargar</h3>
+                                </div><!-- /.box-header -->
+
+                                <div class="box-body">
+
+                                    <div class="col-md-6">
+                                        <ol>
+                                            <li >
+                                                <a href="./planillas/users.csv">planilla 2</i></a>
+                                            </li>
+                                            <li>
+                                                planilla 3
+                                            </li>
+                                            <li>
+                                                planilla 4
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div><!-- /.box-body -->
+
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+
+            </section><!-- /.content -->
+
+
+        </div>
+
+        <!--footer-->
+        <div ui-view="footer"></div>
+
+    </div><!-- ./wrapper -->
+</div>
