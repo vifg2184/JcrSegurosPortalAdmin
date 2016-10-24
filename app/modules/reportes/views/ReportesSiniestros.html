@@ -119,7 +119,7 @@
                                         <div class="input-group">
                                             <label>&nbsp;</label>
                                             <button class="btn btn-block btn-primary btn-md"
-                                                    ng-click="searchSiniestralidadInfo()">Search
+                                                    ng-click="searchSiniestralidadInfo()">Buscar
                                             </button>
                                         </div>
 
@@ -185,7 +185,7 @@
                 </div>
 
                 <div ng-show="totalRecords == 0">
-                    <h3>No Customers Found</h3>
+                    <h3>No se encontro ningun registro.</h3>
                 </div>
                 <div ng-show="totalPages > 1" class="align-center">
                     <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.Reports.page" items-per-page="filterCriteria.JcrParameters.Reports.limit" previous-text="previous" next-text="next" last-text="last"

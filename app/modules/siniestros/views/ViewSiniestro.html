@@ -39,7 +39,7 @@
                         <div class="content" style="min-height: 400px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border">
-                                    <h3 class="box-title">Buscar Poliza</h3>
+                                    <h3 class="box-title">Buscar Póliza</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <div class="col-md-4">
@@ -49,9 +49,9 @@
                                                     <tbody>
                                                     <tr>
                                                         <td style="width:0px;">
-                                                            Buscar Polizas en Sistema&nbsp;&nbsp;&nbsp;
+                                                            Buscar Pólizas en Sistema&nbsp;&nbsp;&nbsp;
                                                         </td>
-                                                        <td>
+                                                        <td class="col-md-3">
                                                             <button class="btn btn-go btn-go-effect btn-flat hvr-bubble-float-left"
                                                                     type="button"
                                                                     data-toggle="tooltip"
@@ -77,7 +77,7 @@
                                                        class="table table-bordered table-striped text-center">
                                                     <thead>
                                                     <tr>
-                                                        <th>Numero Poliza</th>
+                                                        <th>Número Poliza</th>
                                                         <th>Ramo</th>
                                                         <th>Aseguradora</th>
                                                         <th>Acción</th>
@@ -121,8 +121,8 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                                    <label>Numero de Siniestro</label><br>
-                                                    <input type="text" class="form-control"placeholder="Numero de Siniestro" ng-model="siniestro.numero_siniestro" ng-disabled="true">
+                                                    <label>Número de Siniestro</label><br>
+                                                    <input type="text" class="form-control"placeholder="Número de Siniestro" ng-model="siniestro.numero_siniestro" ng-disabled="true">
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                                     <label>Fecha de Ocurrencia</label>
@@ -294,7 +294,7 @@
                                                     <strong><span>{{poliza.prima | separador_punto}}</span></strong>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <label>Monto Reclamo</label>
+                                                    <label>Monto del Reclamo</label>
                                                     <input type="number" class="form-control"placeholder="Monto de Ordenes" ng-keyup="calcularSiniestralidad()" ng-model="siniestro.monto_siniestro" ng-disabled="true">
                                                 </div>
                                                 <div class="col-sm-4">
@@ -334,7 +334,7 @@
                                                     <strong><span>{{poliza.prima | separador_punto}}</span></strong>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <label>Monto Reclamo</label>
+                                                    <label>Monto del Reclamo</label>
                                                     <input type="number" class="form-control"placeholder="Monto de Ordenes" ng-keyup="calcularSiniestralidad()" ng-model="siniestro.monto_siniestro" ng-disabled="true">
                                                 </div>
                                                 <div class="col-sm-4">
@@ -359,7 +359,7 @@
             <!--Modal con todos las polizas del sistema--->
             <script type="text/ng-template" id="listPolizaSearchModal.html">
                 <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">Información de la Poliza</h3>
+                    <h3 class="modal-title colorTitulo">Información de la Póliza</h3>
                 </div>
 
                 <div class="text-center"></div>
@@ -379,7 +379,7 @@
                                 <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir" sortedby="filterCriteria.JcrParameters.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                             </th>
                             <th>Ramo</th>
-                            <th>Numero de Recibo</th>
+                            <th>Número de Recibo</th>
                             <th>Aseguradora</th>
                             <th>Agregar</th>
                         </tr>
@@ -402,7 +402,7 @@
                         </tfoot>
                     </table>
                     <div ng-show="totalRecords == 0">
-                        <h4>No Existe Polizas</h4>
+                        <h4>No Existen Pólizas</h4>
                     </div>
                     <div ng-show="totalPages > 1" class="align-center">
                         <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"

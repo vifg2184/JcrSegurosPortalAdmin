@@ -58,7 +58,7 @@ angular.module('App')
              * @type {*[]}
              */
             $scope.polizaTableHeaders = [{
-                title: 'Numero de Poliza',
+                title: 'Número de Póliza',
                 value: 'numero_poliza'
             }];
 

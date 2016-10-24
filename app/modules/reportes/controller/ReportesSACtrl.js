@@ -242,7 +242,7 @@ angular.module("App")
                     }
                     else{
                         console.log("Error repuesta servicio: "+resp.message);
-                        growl.error(resp.message);
+                        growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR_SA);
                     }
 
                 }).catch(function (err) {

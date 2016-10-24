@@ -49,7 +49,7 @@ angular.module('App')
              * @type {*[]}
              */
             $scope.siniestroTableHeaders = [{
-                title: 'Numero de Siniestro',
+                title: 'Número de Siniestro',
                 value: 'numero_siniestro'
             }];
 

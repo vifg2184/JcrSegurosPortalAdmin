@@ -24,12 +24,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Polizas
+                    Pólizas
                     <small>Panel de Control</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Ver Polizas</li>
+                    <li class="active">Ver Pólizas</li>
                 </ol>
             </section>
 
@@ -45,18 +45,18 @@
                                     <div class="box-header ">
                                         <div class="small-box">
                                             <div class="customIcon">
-                                                <a ui-sref="crearPoliza" data-toggle="tooltip" title="Agregar Poliza">
+                                                <a ui-sref="crearPoliza" data-toggle="tooltip" title="Agregar Póliza">
                                                     <button class="btn btn-primary"><i class="ion ion-plus"></i></button>
                                                 </a>
                                             </div>
                                         </div>
-                                        <h3 class="box-title">Sistema de Polizas</h3>
+                                        <h3 class="box-title">Sistema de Pólizas</h3>
 
                                     </div><!-- /.box-header -->
                                     <div class="box-body">
 
                                         <div>
-                                            <input class="form-control reduceSize" placeholder="Buscar Poliza" on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
+                                            <input class="form-control reduceSize" placeholder="Buscar Póliza" on-enter-blur on-blur-change="filterResult()" ng-model="filterCriteria.JcrParameters.filter" type="text" />
                                         </div>
 
                                         <table id="userTable" class="table table-bordered table-striped text-center">
@@ -66,7 +66,7 @@
                                                     <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir" sortedby="filterCriteria.JcrParameters.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                                                 </th>
                                                 <th>Ramo</th>
-                                                <th>Numero de Recibo</th>
+                                                <th>Número de Recibo</th>
                                                 <th>Aseguradora</th>
                                                 <th>Prima</th>
                                                 <th>Acción</th>
@@ -80,16 +80,16 @@
                                                 <td>{{poliza.aseguradora.aseguradora_nombre | lowerCase | capitalize}}</td>
                                                 <td>{{poliza.prima_total | separador_punto}}</td>
                                                 <!--<td><a href="" ng-click="userCtrl.showInformation(user.usuario_id)">Information</a></td>-->
-                                                <td><a data-toggle="tooltip" title="Borrar Poliza" ng-click="deletePoliza(poliza.poliza_id,poliza.numero_poliza)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
-                                                    <a ui-sref="crearPoliza({poliza_id:poliza.poliza_id,edit:true})" data-toggle="tooltip" title="Editar Poliza"><small><i class="fa fa-fw fa-pencil"></i> </small></a>&nbsp;
-                                                    <a ui-sref="infoPoliza({poliza_id:poliza.poliza_id})" data-toggle="tooltip" title="Ver Poliza"><small><i class="fa fa-fw fa-info"></i> </small></a>
+                                                <td><a data-toggle="tooltip" title="Borrar Póliza" ng-click="deletePoliza(poliza.poliza_id,poliza.numero_poliza)"><small><i class="fa fa-fw fa-trash"></i></small></i></a>&nbsp;
+                                                    <a ui-sref="crearPoliza({poliza_id:poliza.poliza_id,edit:true})" data-toggle="tooltip" title="Editar Póliza"><small><i class="fa fa-fw fa-pencil"></i> </small></a>&nbsp;
+                                                    <a ui-sref="infoPoliza({poliza_id:poliza.poliza_id})" data-toggle="tooltip" title="Ver Póliza"><small><i class="fa fa-fw fa-info"></i> </small></a>
                                                 </td>
                                             </tr>
                                             </tbody>
                                             </tfoot>
                                         </table>
                                         <div ng-show="totalRecords == 0">
-                                            <h3>No Customers Found</h3>
+                                            <h3>No se han encontrado Clientes</h3>
                                         </div>
                                         <div ng-show="totalPages > 1" class="align-center">
                                             <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"

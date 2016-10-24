@@ -65,7 +65,7 @@
                                                 <th ng-repeat="header in siniestroTableHeaders">
                                                     <sort-by onsort="onSort" sortdir="filterCriteria.JcrParameters.sortDir" sortedby="filterCriteria.JcrParameters.sortedBy" sortvalue="{{ header.value }}">{{ header.title }}</sort-by>
                                                 </th>
-                                                <th>Numero de Poliza</th>
+                                                <th>Número de Póliza</th>
                                                 <th>Monto Ordenes</th>
                                                 <th>Ramo</th>
                                                 <th>Acción</th>
@@ -89,7 +89,7 @@
                                             </tfoot>
                                         </table>
                                         <div ng-show="totalRecords == 0">
-                                            <h3>No Customers Found</h3>
+                                            <h3>No se encontro registro</h3>
                                         </div>
                                         <div ng-show="totalPages > 1" class="align-center">
                                             <uib-pagination total-items="totalRecords" ng-model="filterCriteria.JcrParameters.page" items-per-page="filterCriteria.JcrParameters.limit" previous-text="Anterior" next-text="Siguiente" last-text="Ultimo"

@@ -209,7 +209,7 @@ angular.module('App')
 
         return {
             restrict: "AE",
-            template: '<div class="checkbox icheck"><label><input id="checkLogin" type="checkbox"> Remember Me</label></div>',
+            template: '<div class="checkbox icheck"><label><input id="checkLogin" type="checkbox"> Recordar contraseña</label></div>',
 
             link: function (scope, elem, attrs, ctrl) {
 

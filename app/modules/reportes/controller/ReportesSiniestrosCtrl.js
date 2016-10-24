@@ -243,7 +243,7 @@ angular.module("App")
                     $scope.totalPages = 0;
                     $scope.totalRecords = 0;
                     spinnerService.hide("spinnerUserList");
-                    growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
+                    growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR_SINIESTROS);
                 });
             }
 

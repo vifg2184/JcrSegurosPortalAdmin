@@ -5190,3 +5190,86 @@ table.text-center, table.text-center td, table.text-center th {
 .font-table{
     font-size: 13px;
 }
+
+.btn-materiel{
+    display: block;
+    box-shadow: rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
+    transform: scale(1);
+    text-align: center;
+    width: 90px;
+    height: 35px;
+    cursor: pointer;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    font-size: 1.1875rem;
+    transition-delay: .2s;
+    color: rgb(255, 255, 255);
+    padding: 8px 0px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+    outline: 0px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+}
+
+.btn-materiel-save{
+    display: block;
+    box-shadow: rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
+    transform: scale(1);
+    text-align: center;
+    width: 90px;
+    height: 35px;
+    cursor: pointer;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    font-size: 1.1875rem;
+    transition-delay: .2s;
+    color: rgb(255, 255, 255);
+    padding: 8px 0px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+    outline: 0px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    margin-left: 70px;
+}
+
+.btn-material-circle{
+    display: block;
+    box-shadow: rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
+    transform: scale(1);
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    font-size: 2.1875rem;
+    transition-delay: .2s;
+    color: rgb(255, 255, 255);
+    padding: 8px 0px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+    outline: 0px;
+    border-radius: 50%;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+}
+
+/* quita las flechas del tipo number en los input type*/
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;

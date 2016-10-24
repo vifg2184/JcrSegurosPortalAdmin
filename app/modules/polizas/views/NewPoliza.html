@@ -21,11 +21,11 @@
 
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>Crear Poliza</h1>
+                <h1>Crear Póliza</h1>
                 <ol class="breadcrumb">
                     <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li><a ui-sref="routes">Poliza</a></li>
-                    <li class="active"><a>Crear Poliza</a></li>
+                    <li><a ui-sref="routes">Póliza</a></li>
+                    <li class="active"><a>Crear Póliza</a></li>
                 </ol>
 
             </section>
@@ -135,25 +135,25 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Infomacion de la Poliza</h3>
+                                    <h3 class="box-title">Información de la Póliza</h3>
                                 </div><!-- /.box-header -->
                                 <!-- form start -->
                                 <div class="form-horizontal">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <div class="col-sm-6">
-                                                <label>Numero de Poliza</label>
-                                                <input type="text" class="form-control" placeholder="Numero de Poliza"
+                                                <label>Número de Póliza</label>
+                                                <input type="text" class="form-control" placeholder="Número de Póliza"
                                                        ng-model="poliza.numero_poliza">
                                             </div>
                                             <div class="col-sm-6">
-                                                <label>Numero de Recibo</label>
-                                                <input type="text" class="form-control" placeholder="Numero de Recibo"
+                                                <label>Número de Recibo</label>
+                                                <input type="text" class="form-control" placeholder="Número de Recibo"
                                                        ng-model="poliza.numero_recibo">
                                             </div>
                                             <div class="col-sm-6">
                                                 <br>
-                                                <label>Fecha Emision</label>
+                                                <label>Fecha de Emisión</label>
 
                                                 <p class="input-group">
                                                         <span class="input-group-btn">
@@ -531,7 +531,7 @@
                                                         <th>Marcar</th>
                                                         <th>Modelo</th>
                                                         <th>A&ntilde;o</th>
-                                                        <th>Version</th>
+                                                        <th>Versión</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                     </thead>
@@ -570,7 +570,7 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Infomacion del Asegurado</h3>
+                                    <h3 class="box-title">Información del Asegurado</h3>
                                 </div><!-- /.box-header -->
                                 <!-- form start -->
                                 <div class="form-horizontal">
@@ -605,7 +605,7 @@
                                                         </td>
                                                         <td>
                                                             <div angucomplete-alt id="autocompleteClient"
-                                                                 placeholder="Numero Documento"
+                                                                 placeholder="Número Documento"
                                                                  pause="200"
                                                                  selected-object="selectClient"
                                                                  input-class="form-control"
@@ -666,7 +666,7 @@
                                                         id="generoSelect">
                                                     <option value="" selected="selected">
                                                         Seleccione
-                                                    </option>
+                     o                               </option>
                                                     <option value="M" selected="selected">
                                                         {{'Masculino'}}
                                                     </option>
@@ -677,8 +677,8 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <br ng-show="poliza.asegurado.tipo_cliente_id == 4 || poliza.asegurado.tipo_cliente_id == 1 || poliza.asegurado.tipo_cliente_id == ''"/>
-                                                <label>Telefono</label>
-                                                <input type="text" class="form-control" placeholder="Telefono"
+                                                <label>Teléfono</label>
+                                                <input type="text" class="form-control" placeholder="Teléfono"
                                                        ng-model="poliza.asegurado.telefono"/>
                                             </div>
                                             <div class="col-sm-6">
@@ -697,7 +697,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <br/>
-                                                <label>Hay financiamiento?</label>
+                                                <label>Financiamiento</label>
                                                 <br/>
                                                 <input type="checkbox" ng-model="poliza.es_financiado"
                                                        class="text th-news"
@@ -721,7 +721,7 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Infomacion del Tomador</h3>
+                                    <h3 class="box-title">Información del Tomador</h3>
                                 </div><!-- /.box-header -->
                                 <!-- form start -->
                                 <div class="form-horizontal">
@@ -755,7 +755,7 @@
                                                         </td>
                                                         <td>
                                                             <div angucomplete-alt id="autocompleteTomador"
-                                                                 placeholder="Numero Documento"
+                                                                 placeholder="Número Documento"
                                                                  pause="200"
                                                                  text-searching ="Buscando Tomadores..."
                                                                  text-no-results = "No se encontraron tomadores"
@@ -808,7 +808,7 @@
                         <div class="content" style="min-height: 0px;">
                             <div class="box box-primary">
                                 <div class="box-header bg-light-blue-active with-border ">
-                                    <h3 class="box-title">Infomacion de Financiamiento</h3>
+                                    <h3 class="box-title">Información de Financiamiento</h3>
                                 </div><!-- /.box-header -->
                                 <!-- form start -->
                                 <div class="form-horizontal">
@@ -856,9 +856,9 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-4">
-                                                <label>Numero de Financiamiento</label>
+                                                <label>Número de Financiamiento</label>
                                                 <input type="text" class="form-control"
-                                                       placeholder="Numero Financiamiento" ng-model="poliza.financiamento.numero_financiamiento">
+                                                       placeholder="Número Financiamiento" ng-model="poliza.financiamento.numero_financiamiento">
                                             </div>
 
                                             <div class="col-sm-4">
@@ -927,7 +927,7 @@
             <!--Modal con todos las aseguradoras del sistema--->
             <script type="text/ng-template" id="listAseguradorasAddModal.html">
                 <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">Aseguradoras Informacion</h3>
+                    <h3 class="modal-title colorTitulo">Aseguradoras Información</h3>
                 </div>
 
                 <div class="text-center"></div>
@@ -949,7 +949,7 @@
                                          sortvalue="{{ header.value }}">{{ header.title }}
                                 </sort-by>
                             </th>
-                            <th>Actions</th>
+                            <th class="text-center">Acción</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -987,7 +987,7 @@
             <!--Modal para agregar vehiculos--->
             <script type="text/ng-template" id="addVehiculosModal.html">
                 <div class="modal-header text-center fondo">
-                    <h3 class="modal-title colorTitulo">Agregar Vehiculo</h3>
+                    <h3 class="modal-title colorTitulo">Agregar Vehículo</h3>
                 </div>
 
                 <div class="text-center"></div>
@@ -999,7 +999,7 @@
                                 <div class="col-md-12">
                                     <div class="box box-primary">
                                         <div class="box-header bg-light-blue-active with-border">
-                                            <h3 class="box-title">Informacion del Vehiculo</h3>
+                                            <h3 class="box-title">Información del Vehículo</h3>
                                         </div><!-- /.box-header -->
 
                                         <div class="box-body">
@@ -1055,9 +1055,9 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Version</label>
+                                                    <label>Versión </label>
                                                     <input type="text" class="form-control"
-                                                           placeholder="Ingrese version"
+                                                           placeholder="Ingrese Versión"
                                                            style="width: 350px;"
                                                            ng-model="vehiculo.vehiculo_version">
                                                 </div>

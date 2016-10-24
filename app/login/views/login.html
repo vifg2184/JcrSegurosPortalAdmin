@@ -16,16 +16,16 @@
     <img src="images/logo2.jpeg" alt="Reaxium">
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-      <p class="login-box-msg"><strong>Sign in to start your session</strong></p>
+      <p class="login-box-msg"><strong>Iniciar Sesión</strong></p>
         <form ng-submit="authenticateUser()">
           <input type="hidden" ng-model="data.settings.checked">
 
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Email" ng-model="data.settings.username"/>
+            <input type="text" class="form-control" placeholder="Correo Electrónico" ng-model="data.settings.username"/>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" ng-model="data.settings.password"/>
+            <input type="password" class="form-control" placeholder="Contraseña" ng-model="data.settings.password"/>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
@@ -35,13 +35,13 @@
 
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
             </div><!-- /.col -->
           </div>
        </form>
-      <a ui-sref="forgetPass"><strong>I forgot my password</strong></a><br>
+      <!-- <a ui-sref="forgetPass"><strong>I forgot my password</strong></a><br>-->
 
-    </div><!-- /.login-box-body -->
+     </div><!-- /.login-box-body -->
   </div><!-- /.login-box -->
 </div>
 
