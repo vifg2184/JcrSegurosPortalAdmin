@@ -67,6 +67,7 @@ angular.module("App")
         PROXY_URL_REPORT_SA: environment + "Reportes/createReportSA",
         PROXY_URL_INFO_VENTA_CRUZADA:environment + "Reportes/getInfoVentasCruzadas",
         PROXY_URL_REPORT_VENTAS_CRUZADAS:environment +"Reportes/createReportVentasCruzadas",
+        PROXY_URL_REPORTE_EMAIL_NOTIFICATION: environment + "Reportes/enviarReportesRenovacion",
 
         /*Proxy Recordatorio*/
         PROXY_URL_RECORDATORIOS: environment + "Recordatorio/sendRecordatorio",

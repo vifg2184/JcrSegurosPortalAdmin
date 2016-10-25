@@ -279,7 +279,44 @@ angular.module("App")
                         growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
                     });
 
+            }
 
+            /**
+             * invocar servicio para crear notificaciones
+             */
+            $scope.sendNotificationEmail = function(){
+
+                spinnerService.show("spinnerUserList");
+
+                var request = {
+                    JcrParameters:{
+                        Reports:{
+                            start_date: formatDateAttendance($scope.report.start_date),
+                            end_date: formatDateAttendance($scope.report.end_date),
+                            aseguradora_id:$scope.report.aseguradora_id
+                        }
+                    }
+                };
+
+
+                ReportesServices.enviarReportesRenovacion(request)
+                    .then(function(resp){
+
+                        spinnerService.hide("spinnerUserList");
+
+                        if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
+                            $window.open(resp.JcrResponse.url_pdf, '_blank', '');
+                        }
+                        else{
+                            console.log("Error invocando el servicio: " + resp.JcrResponse.message);
+                            growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
+                        }
+
+                    }).catch(function(err){
+                    console.error("Error a invocar servicio: "+err);
+                    spinnerService.hide("spinnerUserList");
+                    growl.error(GLOBAL_MESSAGE.MESSAGE_SERVICE_ERROR);
+                });
 
             }
 

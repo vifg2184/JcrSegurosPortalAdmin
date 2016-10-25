@@ -75,6 +75,24 @@ angular.module('App')
             return promise;
         }
 
+        factory.enviarReportesRenovacion = function (request) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                data: JSON.stringify(request),
+                url: CONST_PROXY_URL.PROXY_URL_REPORTE_EMAIL_NOTIFICATION,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
+
+
 
         factory.getInfoSiniestrosServices = function (request) {
 
@@ -98,6 +116,8 @@ angular.module('App')
 
             return promise;
         }
+
+
 
 
         factory.getCreateReporteSiniestralidadServices = function (request) {
@@ -203,6 +223,8 @@ angular.module('App')
     }])
 
 
+
+
     .service('ReportesServices', ['ReportesFactory', function (ReportesFactory) {
 
         this.getInfoRenovaciones = function (request) {
@@ -213,6 +235,7 @@ angular.module('App')
         this.getCreateReporteRenovaciones = function(request){
             return ReportesFactory.getCreateReporteRenovacionesServices(request);
         }
+
 
         this.getInfoSiniestros = function(request){
             return ReportesFactory.getInfoSiniestrosServices(request);
@@ -236,6 +259,10 @@ angular.module('App')
 
         this.getCreateReporteVentasC = function(request){
             return ReportesFactory.getCreateReporteVentasCServices(request);
+        }
+
+        this.enviarReportesRenovacion = function(request){
+            return ReportesFactory.enviarReportesRenovacion(request);
         }
     }]);
 
