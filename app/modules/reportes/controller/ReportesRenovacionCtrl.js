@@ -305,7 +305,7 @@ angular.module("App")
                         spinnerService.hide("spinnerUserList");
 
                         if(resp.JcrResponse.code == GLOBAL_CONSTANT.SUCCESS_RESPONSE_SERVICE){
-                            $window.open(resp.JcrResponse.url_pdf, '_blank', '');
+                            growl.success("Correos de notificacion enviados correctamente.");
                         }
                         else{
                             console.log("Error invocando el servicio: " + resp.JcrResponse.message);

@@ -548,7 +548,7 @@ angular.module("App")
             };
 
             $scope.buscarType = {id:"",name:""};
-            $scope.listSearch=[{id:'1',name:'Buscar por CI'},{id:'2',name:'Buscar por Placa'}];
+            $scope.listSearch=[{id:'1',name:'Buscar por CI'},{id:'2',name:'Buscar por Placa '}];
             $scope.totalPages = 0;
             $scope.polizaListSelect = [];
 

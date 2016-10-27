@@ -129,5 +129,6 @@ angular.module("App")
         MESSAGE_SAVE_ASEGURADORA_SUCCESS:"Aseguradora creada con exito",
         MESSAGE_SAVE_SINIESTRO_SAVE_SUCCESS:"Siniestro creado con exito",
         MESSAGE_SERVICE_ERROR_SINIESTROS:"No se encuentra la cedula o fecha indicada. Intente de nuevo.",
-        MESSAGE_SERVICE_ERROR_SA: "Ingrese los datos correctamente."
+        MESSAGE_SERVICE_ERROR_SA: "Ingrese los datos correctamente.",
+        MESSAGE_SAVE_POLIZA: "Su poliza ha sido creada correctamente."
     });
