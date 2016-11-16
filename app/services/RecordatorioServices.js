@@ -23,6 +23,26 @@ angular.module('App')
             return promise;
         }
 
+
+        factory.callFormatsReportServices = function (jsonObject) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+            $http({
+                method: 'POST',
+                data: JSON.stringify(jsonObject),
+                url: CONST_PROXY_URL.PROXY_URL_FORMATOS_SERVICE,
+            }).success(function (response) {
+                defered.resolve(response);
+            }).error(function (err) {
+                defered.reject(err);
+            });
+
+            return promise;
+        }
+
+
+
         return factory;
     }])
 
@@ -31,6 +51,11 @@ angular.module('App')
         this.sendRecordatorio = function (jsonObject) {
             return RecordatorioFactory.sendMemo(jsonObject);
         };
+
+
+        this.callFormatsReport = function(request){
+            return RecordatorioFactory.callFormatsReportServices(request);
+        }
 
     }]);
 /**

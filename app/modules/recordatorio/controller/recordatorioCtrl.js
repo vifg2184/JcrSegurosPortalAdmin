@@ -58,7 +58,7 @@ angular.module('App')
             var correos = ['gabo3cr@gmail.com', 'vladimir.fernandez21@gmail.com'];
 
 
-            $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_POLIZAS_MENU);
+            $scope.setUserSession(MENU_JCR_SEGUROS_ACTIVE.CODE_FORMATOS_MENU);
 
             var request = {
                 JcrParameters: {

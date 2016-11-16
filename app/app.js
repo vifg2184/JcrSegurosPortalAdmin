@@ -2,7 +2,7 @@
  * Created by Gualdo de la Cruz.
  */
 var interval = null;
-var environment = 'http://localhost:/jcrSeguros/';
+var environment = 'http://localhost:8080/SeguroJCR/jcrSegurosCloud/';
 
 angular.module('App', ['ui.router',
         'angularSpinners',

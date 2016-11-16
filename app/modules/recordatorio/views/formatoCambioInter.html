@@ -1,0 +1,128 @@
+<spinner name="spinnerNew" ng-cloak="">
+    <div class="overlay"></div>
+    <div class="spinner">
+        <div class="test"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+    </div>
+    <div class="please-wait">Please Wait...</div>
+</spinner>
+
+<div class="skin-blue sidebar-mini">
+
+    <div class="wrapper" ng-controller="formatoCambioInterCtrl">
+
+        <div ui-view="header"></div>
+
+        <div ui-view="menu"></div>
+
+        <div class="content-wrapper">
+
+            <div growl></div>
+
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                   Formatos
+                    <small>Panel de Control</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a ui-sref="home"><i class="fa fa-dashboard"></i>Home</a></li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content" style="min-height:500px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content">
+                            <div class="box box-primary">
+                                <div class="box-header bg-gray-light">
+                                    <h3 class="box-title">Cambio de Intermediario</h3>
+                                </div><!-- /.box-header -->
+
+                            </div><!-- /.box -->
+
+                            <div class="box-body" style="background-color: white">
+                               <table>
+                                   <tr>
+                                       <td><strong>Caracas</strong>,&nbsp;</td>
+                                       <td><input type="text" style="width: 85px;height: 30px;" ng-model="formato.fecha"/></td>
+                                   </tr>
+                               </table>
+                                <br>
+                                <table>
+                                    <tr>
+                                        <td><strong>Sres.&nbsp;</strong></td>
+                                        <td><input type="text" style="width: 237px;height: 30px;" ng-model="formato.compania_nombre"/></td>
+                                    </tr>
+                                </table>
+                                <br>
+                                Presente.
+                                <br>
+                                <br>
+
+                                <p style="text-align: justify; line-height: 40px;">
+                                    Por medio de la presente, yo, <input type="text" style="width: 237px;height: 30px;" ng-model="formato.nombre_cliente"/>, portador(a) de la CI <input type="text" style="width: 75px;height: 30px;" ng-model="formato.ci"/>,
+                                    y asegurado(a) ante esa compañía bajo la(s) pólizas, <input type="text" style="width: 237px;height: 30px;" ng-model="formato.polizas"/> me dirijo muy respetuosamente a ustedes en
+                                    la oportunidad de hacer de su conocimiento que he decidido nombrar como mi intermediario de seguros al ciudadano <input type="text"  style="width: 237px;height: 30px;" ng-model="formato.agente"/>
+                                    código <input type="text" style="width: 80px;height: 30px;" ng-model="formato.cod_agente"/>, en aras de que sea, en adelante, quien me represente con todo lo relacionado a mi póliza de seguros.
+                                </p>
+                                <br>
+                                <p>Sin mas a que hacer referencia y agradeciendo, de antemano, se sirvan de realizar las modificaciones pertinentes a la brevedad posible, quedo de ustedes</p>
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        __________________________________
+                                        <br>
+                                        <br>
+                                        <table style="text-align: center;margin-left: 70px;">
+                                            <tr>
+                                                <td>CI:&nbsp;</td>
+                                                <td>{{formato.ci}}</td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                        <table>
+                                            <tr>
+                                                <td>N&uacute;mero de Tel&eacute;fono&nbsp;</td>
+                                                <td><input type="text" style="width: 85px;height: 30px;" ng-model="formato.telefono_cliente"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+
+
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="content" style="min-height: 0px;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-block btn-primary btn-md"
+                                                ng-click="exportarFormato()">Exportar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- /.row -->
+
+            </section><!-- /.content -->
+        </div>
+
+        <!--footer-->
+        <div ui-view="footer"></div>
+
+    </div>
+</div>

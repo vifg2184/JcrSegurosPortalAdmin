@@ -71,6 +71,7 @@ angular.module("App")
 
         /*Proxy Recordatorio*/
         PROXY_URL_RECORDATORIOS: environment + "Recordatorio/sendRecordatorio",
+        PROXY_URL_FORMATOS_SERVICE: environment + "Formato/formatoExport",
 
     })
     // configuracion file system imagenes
@@ -116,7 +117,8 @@ angular.module("App")
         CODE_SINIESTRO_MENU:3,
         CODE_ASEGURADORA:4,
         CODE_OPC_ADMIN_MENU:5,
-        CODE_REPORTES_MENU:6
+        CODE_REPORTES_MENU:6,
+        CODE_FORMATOS_MENU:7
 
     })
 

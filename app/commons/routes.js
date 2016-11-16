@@ -258,6 +258,41 @@ angular.module("App")
                 }
             })
 
+            .state('formatoCambioIntermediario',{
+                url: '/formatoCambioIntermediario',
+                controller:'formatoCambioInterCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/recordatorio/views/formatoCambioInter.html'},
+                    'header@formatoCambioIntermediario': {templateUrl: 'app/home/views/header.html'},
+                    'menu@formatoCambioIntermediario': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@formatoCambioIntermediario':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
+            .state('formatoCambioVehiPoliza',{
+                url: '/formatoCambioVehiPoliza',
+                controller:'formatoCambioInterCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/recordatorio/views/formatoCambioVehiculoPoliza.html'},
+                    'header@formatoCambioVehiPoliza': {templateUrl: 'app/home/views/header.html'},
+                    'menu@formatoCambioVehiPoliza': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@formatoCambioVehiPoliza':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
+            .state('formatoAnulacion',{
+                url: '/formatoAnulacion',
+                controller:'formatoAnulacionCtrl',
+                views: {
+                    '': {templateUrl: 'app/modules/recordatorio/views/formatoAnulacion.html'},
+                    'header@formatoAnulacion': {templateUrl: 'app/home/views/header.html'},
+                    'menu@formatoAnulacion': {templateUrl: 'app/home/views/menu.html'},
+                    'footer@formatoAnulacion':{templateUrl: 'app/home/views/footer.html'}
+                }
+            })
+
+
+
         $urlRouterProvider.otherwise("/login");
 
     }]);
