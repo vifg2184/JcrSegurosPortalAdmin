@@ -183,8 +183,15 @@ angular.module("App")
                                             $scope.siniestro.siniestro_automovil_id = dataSiniestro.siniestroAuto.siniestro_automovil_id;
                                             $scope.siniestro.fecha_declaracion = getDateFormat(dataSiniestro.siniestroAuto.fecha_declaracion);
                                             $scope.siniestro.fecha_inspeccion = getDateFormat(dataSiniestro.siniestroAuto.fecha_inspeccion);
-                                            $scope.siniestro.fecha_entrada_taller = getDateFormat(dataSiniestro.siniestroAuto.fecha_entrada_taller);
-                                            $scope.siniestro.fecha_cierre = getDateFormat(dataSiniestro.siniestroAuto.fecha_cierre);
+
+                                            if(dataSiniestro.siniestroAuto.fecha_entrada_taller != null){
+                                                $scope.siniestro.fecha_entrada_taller = getDateFormat(dataSiniestro.siniestroAuto.fecha_entrada_taller);
+                                            }
+
+                                            if(dataSiniestro.siniestroAuto.fecha_cierre != null){
+                                                $scope.siniestro.fecha_cierre = getDateFormat(dataSiniestro.siniestroAuto.fecha_cierre);
+                                            }
+
                                             $scope.siniestro.taller_propuesto = dataSiniestro.siniestroAuto.taller_propuesto;
 
                                             //procesando repuestos
